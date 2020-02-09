@@ -52,8 +52,6 @@ div {
 }
 
 .body-container {
-    padding-left: 200px;
-    padding-right: 200px;
     padding-top: 30px;
 }
 
@@ -137,18 +135,17 @@ textarea {
 
 .submenu {
     display: none;
-    background: #444359;
-    font-size: 14px;
+    font-size: 20px;
+    padding-inline-start: 0px;
 }
 
-.submenu li {
-    border-bottom: 1px solid #4b4a5e;
-}
+
 
 .submenu a {
     display: block;
     text-decoration: none;
-    color: #d9d9d9;
+    color: black;
+    padding-left: 10px;
 }
 
 .submenu a:hover {
@@ -174,8 +171,22 @@ textarea {
     background-color: orange;
 }
 
+.filter-title {
+    padding: 10px;
+    background-color: rgb(236, 26, 65);
+}
+
+.filter-title h5 {
+    color: white;
+}
+
 .brand-categories {
     background-color: white;
+}
+
+.vehicle-filter {
+    background-color: white;
+    padding-bottom: 10px;
 }
 
 
@@ -241,15 +252,16 @@ ul {
     border-top: 1px #eaeaea solid;
     padding-top: 15px;
     margin-top: 10px;
-    font-size: 20px;
+    font-size: 18px;
     letter-spacing: 0.5px;
     text-align: center;
     font-family: 'Saira Condensed', sans-serif;
 }
 
+
 .col-attr {
     float: left;
-    width: 33.3%;
+    width: 50%;
 }
 
 .col-attr i {
