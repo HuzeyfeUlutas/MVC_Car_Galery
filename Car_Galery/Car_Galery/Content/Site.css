@@ -1,13 +1,62 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background: #f5f5f5 !important;
+}
+div {
+    display: block;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+.navbar-nav > li {
+    padding-left: 20px;
+    padding-right: 20px;
 }
+
+.nav-link {
+    font-size: 20px;
+}
+
+.navbar-brand {
+    font-size: 40px;
+}
+
+.popular_brand {
+    margin-top: 75px;
+    background-color: white;
+}
+
+.brand-img {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.brand-img-center {
+    padding-top: 5px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.brand_title {
+    padding-left: 15px;
+    padding-top: 15px;
+    border-bottom: 1px #f2f2f2 solid;
+}
+
+.brand-content {
+    border: 1px #f2f2f2 solid;
+}
+
+.contain-color {
+    background-color: white;
+}
+
+.body-container {
+    padding-left: 200px;
+    padding-right: 200px;
+    padding-top: 30px;
+}
+
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
@@ -16,9 +65,197 @@
     white-space: normal;
 }
 
+.carousel-inner img {
+    width: 100%;
+}
+
+.carousel-caption button {
+    height: 50px;
+    width: 200px;
+}
+
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
     max-width: 280px;
 }
+
+
+/*inventory deneme*/
+.accordion {
+    padding-inline-start: 0px;
+}
+
+.accordion .link {
+    cursor: pointer;
+    display: block;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-bottom: 1px solid #CCC;
+    position: relative;
+}
+
+
+.accordion li:last-child .link {
+    border-bottom: 0;
+}
+
+.accordion li i {
+    position: absolute;
+    top: 16px;
+    left: 12px;
+    font-size: 18px;
+    color: #595959;
+}
+
+.accordion li i.fa-chevron-down {
+    right: 12px;
+    left: auto;
+    font-size: 16px;
+}
+
+.accordion li.open .link {
+    color: #b63b4d;
+}
+
+.accordion li.open i {
+    color: #b63b4d;
+}
+
+.accordion li.open i.fa-chevron-down {
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+/**
+ * Submenu
+ -----------------------------*/
+
+
+.submenu {
+    display: none;
+    background: #444359;
+    font-size: 14px;
+}
+
+.submenu li {
+    border-bottom: 1px solid #4b4a5e;
+}
+
+.submenu a {
+    display: block;
+    text-decoration: none;
+    color: #d9d9d9;
+}
+
+.submenu a:hover {
+    background: #b63b4d;
+    color: #FFF;
+}
+
+.inventory-list {
+    padding-bottom: 25px;
+}
+
+.inventory-list h1 {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSZ7g6TWKpoL5CNkzjFYMHFzdXao-HhrpuIpnZTfCBVQF2VKKto");
+    background-repeat: no-repeat;
+    background-size: 100% 300px;
+    color: black;
+}
+
+.brand-title {
+    padding: 10px;
+    background-color: orange;
+}
+
+.brand-categories {
+    background-color: white;
+}
+
+
+ul {
+    list-style-type: none;
+}
+
+.link a {
+    color: #b63b4d;
+    text-decoration: none;
+    padding-left: 10px;
+}
+
+.CarBox {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.CarBox img {
+    width: 100%;
+    border-radius: 5px;
+    border: 3px black solid;
+}
+
+.carboxrow {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: white;
+}
+
+.car-content {
+    border-right: 1px #eaeaea solid;
+    margin-bottom: 50px;
+}
+
+.popular-brand-area {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.car-title {
+    margin-bottom: 10px;
+    padding-top: 25px;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    line-height: 1.3em;
+    text-align: center;
+}
+
+.price {
+    font-weight: bold;
+    font-size: 22px;
+    color: black;
+}
+
+.car-price {
+    text-align: center;
+}
+
+.car-info {
+    border-top: 1px #eaeaea solid;
+    padding-top: 15px;
+    margin-top: 10px;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    font-family: 'Saira Condensed', sans-serif;
+}
+
+.col-attr {
+    float: left;
+    width: 33.3%;
+}
+
+.col-attr i {
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+
