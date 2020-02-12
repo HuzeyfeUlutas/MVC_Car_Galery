@@ -9,7 +9,7 @@ namespace Car_Galery.Controllers
     public class InventoryController : Controller
     {
         // GET: Inventory
-        public ActionResult Inventory()
+        public ActionResult Index()
         {
             return View();
         }
