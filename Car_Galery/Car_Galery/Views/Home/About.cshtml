@@ -1,7 +1,18 @@
-﻿@{
+﻿@model Car_Galery.Models.ExampleViewModel
+@{
     ViewBag.Title = "About";
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
 <p>Use this area to provide additional information.</p>
+
+
+<form action="/Home/About" method="post">
+    <div class="form-group">
+        <label for="tbName"> Name</label>
+        <input type="text" class="form-control" id="tbName" name="SelectedVAlue" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
