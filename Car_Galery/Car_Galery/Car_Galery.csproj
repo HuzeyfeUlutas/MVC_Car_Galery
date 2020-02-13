@@ -183,8 +183,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Managers\Abstract\IManager.cs" />
-    <Compile Include="Managers\EFManager.cs" />
+    <Compile Include="UnitOfWork\Abstract\IUnitOfWork.cs" />
+    <Compile Include="UnitOfWork\EFUnitOfWork.cs" />
     <Compile Include="Migrations\202002081121058_V1.cs" />
     <Compile Include="Migrations\202002081121058_V1.Designer.cs">
       <DependentUpon>202002081121058_V1.cs</DependentUpon>

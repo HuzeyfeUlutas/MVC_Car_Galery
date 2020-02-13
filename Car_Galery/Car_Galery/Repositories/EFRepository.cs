@@ -15,7 +15,7 @@ namespace Car_Galery.Repositories
         private DbContext _dbContext;
         private DbSet<T> _dbSet;
 
-        public EFRepository(VehiclesContext dbContext)
+        public EFRepository(DbContext dbContext)
         {
             if(dbContext == null)
                 throw new ArgumentNullException("dbContext can not be null.");
@@ -53,30 +53,30 @@ namespace Car_Galery.Repositories
 
         public void Update(T entity)
         {
-            _dbSet.Attach(entity);
+            //if (_dbContext.Entry(entity).State == EntityState.Detached)
+            //{
+            //    _dbSet.Attach(entity);
+            //}
+
             _dbContext.Entry(entity).State = EntityState.Modified;
         }
 
         public void Delete(T entity)
         {
-            DbEntityEntry dbEntityEntry = _dbContext.Entry(entity);
-
-            if (dbEntityEntry.State != EntityState.Deleted)
-            {
-                dbEntityEntry.State = EntityState.Deleted;
-            }
-            else
-            {
-                _dbSet.Attach(entity);
-                _dbSet.Remove(entity);
-            }
+            //if (_dbContext.Entry(entity).State == EntityState.Detached)
+            //{
+            //    _dbSet.Attach(entity);
+            //}
+            _dbSet.Remove(entity);
         }
 
         public void Delete(int id)
         {
             var entity = GetById(id);
-            if(entity == null)
+            if (entity == null)
+            {
                 return;
+            }
             else
             {
                 Delete(entity);

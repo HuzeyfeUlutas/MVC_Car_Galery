@@ -13,20 +13,17 @@ namespace Car_Galery.Controllers
 {
     public class InventoryController : Controller
     {
-        VehiclesContext db = new VehiclesContext();
-        IManager a;
+        private  DbContext db = new VehiclesContext();
+
+        private EFUnitOfWork unitOfWork;
 
         // GET: Inventory
         public ActionResult Index()
-        {
-
-            IManager a = new EFManager(db);
-
-
-            a.GetRepository<Vehicle>().GetAll(x => x.Km == 200000);
+        { 
+            unitOfWork = new EFUnitOfWork(db);
 
 
-            a.Dispose();
+            
             return View();
         }
     }

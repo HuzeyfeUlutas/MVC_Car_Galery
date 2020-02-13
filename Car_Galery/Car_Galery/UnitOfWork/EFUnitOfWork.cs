@@ -10,12 +10,12 @@ using Car_Galery.Repositories.Abstract;
 
 namespace Car_Galery.Managers
 {
-    public class EFManager : IManager
+    public class EFUnitOfWork : IUnitOfWork
     {
-        private VehiclesContext _dbContext;
+        private DbContext _dbContext;
         private bool disposed = false;
 
-        public EFManager(VehiclesContext dbContext)
+        public EFUnitOfWork(DbContext dbContext)
         {
             Database.SetInitializer<VehiclesContext>(null);
 

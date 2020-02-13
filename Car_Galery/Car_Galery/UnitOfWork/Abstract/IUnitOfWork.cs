@@ -7,7 +7,7 @@ using Car_Galery.Repositories.Abstract;
 
 namespace Car_Galery.Managers.Abstract
 {
-    public interface IManager : IDisposable
+    public interface IUnitOfWork : IDisposable
     {
         IRepository<T> GetRepository<T>() where T : class;
 

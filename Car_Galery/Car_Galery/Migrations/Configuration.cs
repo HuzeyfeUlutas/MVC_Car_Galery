@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using Car_Galery.Entities;
+
 namespace Car_Galery.Migrations
 {
     using System;
@@ -18,6 +21,11 @@ namespace Car_Galery.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
+
+            List<Vehicle> vehicleList = new List<Vehicle>
+            {
+
+            };
         }
     }
 }
