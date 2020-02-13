@@ -8,6 +8,8 @@ namespace Car_Galery.Controllers
 {
     public class InventoryController : Controller
     {
+
+
         // GET: Inventory
         public ActionResult Index()
         {
