@@ -30,6 +30,8 @@ namespace Car_Galery.Entities
 
         public bool Rentable { get; set; }
 
+        public bool Rented { get; set; }
+
         public int BrandId { get; set; }
 
         public int ModelId { get; set; }
