@@ -1,4 +1,6 @@
-﻿
+﻿@model Car_Galery.Models.ViewModels.InventoryViewModel
+
+
 @{
     ViewBag.Title = "Inventory";
 }
@@ -16,7 +18,11 @@
                     <h5><i class="fa fa-search"></i> SEARCH FİLTER</h5>
                 </div>
                 
-                <div></div>
+                <div>
+                    
+                    @Html.BeginForm()
+
+                </div>
             </div>
             
 
@@ -27,74 +33,30 @@
                 </div>
                 <div class="box-brand">
                     <ul id="accordion" class="accordion">
-                        <li>
-                            <div class="link">
-                                <a href="">BMW</a>
-                                <i class="fa fa-chevron-down"></i>
-                            </div>
-                            <ul class="submenu">
-                                <li>
-                                    <a href="">320</a>
-                                </li>
-                                <li>
-                                    <a href="">520</a>
-                                </li>
-                                <li>
-                                    <a href="">x6</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="link">
-                                <a href="">BMW</a>
-                                <i class="fa fa-chevron-down"></i>
-                            </div>
-                            <ul class="submenu">
-                                <li>
-                                    <a href="">320</a>
-                                </li>
-                                <li>
-                                    <a href="">520</a>
-                                </li>
-                                <li>
-                                    <a href="">x6</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="link">
-                                <a href="">BMW</a>
-                                <i class="fa fa-chevron-down"></i>
-                            </div>
-                            <ul class="submenu">
-                                <li>
-                                    <a href="">320</a>
-                                </li>
-                                <li>
-                                    <a href="">520</a>
-                                </li>
-                                <li>
-                                    <a href="">x6</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="link">
-                                <a href="">BMW</a>
-                                <i class="fa fa-chevron-down"></i>
-                            </div>
-                            <ul class="submenu">
-                                <li>
-                                    <a href="">320</a>
-                                </li>
-                                <li>
-                                    <a href="">520</a>
-                                </li>
-                                <li>
-                                    <a href="">x6</a>
-                                </li>
-                            </ul>
-                        </li>
+                        @foreach (var brand in Model.BrandModelModels)
+                        {
+                            <li>
+                                <div class="link">
+                                    @Ajax.ActionLink(brand.BrandName,"FilterVehicleByBrandCategories",new {brandID = brand.BrandId , modelID = 0 } ,new AjaxOptions()
+                                    {
+                                        UpdateTargetId = "VehicleList",
+                                        InsertionMode = InsertionMode.Replace,
+                                        HttpMethod = "POST"
+                                    })
+
+                                    <i class="fa fa-chevron-down"></i>
+                                </div>
+                                <ul class="submenu">
+                                    @foreach (var model in brand.brandModels)
+                                    {
+                                        <li>
+                                            @Html.ActionLink(model.Name,null)
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+
                     </ul>
                 </div>
             </div>
@@ -105,167 +67,10 @@
             <div class="brand-title">
                 <h5><i class="fa fa-align-justify"></i> Inventory Listing</h5>
             </div>
-            <div class="carboxrow">
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 col-12 car-content">
-                        <div class="CarBox">
-                            <div>
-                                <img src="~/Images/VehicleImages/carimage1.png" alt="carname" />
-                            </div>
-                            <div class="car-title">
-                                <p>Mercedes AMG</p>
-                            </div>
-
-                            <div class="car-price">
-                                <span class="price">$10000</span>
-                            </div>
-
-                            <div class="car-info">
-                                <div class="col-attr">
-                                    <i class="fa fa-tachometer"></i>
-                                    <p>48000km</p>
-                                </div>
-                                <div class="col-attr">
-                                    <i class="fa fa-calendar"></i>
-                                    2018
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12 car-content">
-                        <div class="CarBox">
-                            <div>
-                                <img src="~/Images/VehicleImages/carimage2.png" alt="carname" />
-                            </div>
-                            <div class="car-title">
-                                <p>Mercedes AMG</p>
-                            </div>
-
-                            <div class="car-price">
-                                <span class="price">$10000</span>
-                            </div>
-
-                            <div class="car-info">
-                                <div class="col-attr">
-                                    <i class="fa fa-tachometer"></i>
-                                    48000
-                                </div>
-
-                                <div class="col-attr">
-                                    <i class="fa fa-calendar"></i>
-                                    2018
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12 car-content">
-                        <div class="CarBox">
-                            <div>
-                                <img src="~/Images/VehicleImages/carimage3.png" alt="carname" />
-                            </div>
-                            <div class="car-title">
-                                <p>Mercedes AMG</p>
-                            </div>
-
-                            <div class="car-price">
-                                <span class="price">$10000</span>
-                            </div>
-
-                            <div class="car-info">
-                                <div class="col-attr">
-                                    <i class="fa fa-tachometer"></i>
-                                    48000
-                                </div>
-
-                                <div class="col-attr">
-                                    <i class="fa fa-calendar"></i>
-                                    2018
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12 car-content">
-                        <div class="CarBox">
-                            <div>
-                                <img src="~/Images/VehicleImages/carimage1.png" alt="carname" />
-                            </div>
-                            <div class="car-title">
-                                <p>Mercedes AMG</p>
-                            </div>
-
-                            <div class="car-price">
-                                <span class="price">$10000</span>
-                            </div>
-
-                            <div class="car-info">
-                                <div class="col-attr">
-                                    <i class="fa fa-tachometer"></i>
-                                    48000
-                                </div>
-
-                                <div class="col-attr">
-                                    <i class="fa fa-calendar"></i>
-                                    2018
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12 car-content">
-                        <div class="CarBox">
-                            <div>
-                                <img src="~/Images/VehicleImages/carimage2.png" alt="carname" />
-                            </div>
-                            <div class="car-title">
-                                <p>Mercedes AMG</p>
-                            </div>
-
-                            <div class="car-price">
-                                <span class="price">$10000</span>
-                            </div>
-
-                            <div class="car-info">
-                                <div class="col-attr">
-                                    <i class="fa fa-tachometer"></i>
-                                    48000
-                                </div>
-
-                                <div class="col-attr">
-                                    <i class="fa fa-calendar"></i>
-                                    2018
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12 car-content">
-                        <div class="CarBox">
-                            <div>
-                                <img src="~/Images/VehicleImages/carimage3.png" alt="carname" />
-                            </div>
-                            <div class="car-title">
-                                <p>Mercedes AMG</p>
-                            </div>
-
-                            <div class="car-price">
-                                <span class="price">$10000</span>
-                            </div>
-
-                            <div class="car-info">
-                                <div class="col-attr">
-                                    <i class="fa fa-tachometer"></i>
-                                    48000
-                                </div>
-
-                                <div class="col-attr">
-                                    <i class="fa fa-calendar"></i>
-                                    2018
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
+            <div class="carboxrow" id="VehicleList">
+            @{
+                Html.RenderPartial("_VehicleListPartial",Model.VehicleModels);
+            }
             </div>
             
         </div>

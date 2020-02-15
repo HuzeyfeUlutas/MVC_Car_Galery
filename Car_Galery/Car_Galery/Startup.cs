@@ -10,5 +10,6 @@ namespace Car_Galery
         {
             ConfigureAuth(app);
         }
+
     }
 }

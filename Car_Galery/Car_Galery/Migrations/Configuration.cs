@@ -38,25 +38,25 @@ namespace Car_Galery.Migrations
 
             List<Brand> brandList = new List<Brand>
             {
-                new Brand(){Id = 1,Name = "BMW",BrandImgUrl = "",TypeBrands = new List<TypeBrand>(),Vehicles = new List<Vehicle>(),Models = new List<Model>()},
-                new Brand(){Id = 2,Name = "Volkswagen",BrandImgUrl = "",TypeBrands = new List<TypeBrand>(),Vehicles = new List<Vehicle>(),Models = new List<Model>()},
-                new Brand(){Id = 3,Name = "Mercedes",BrandImgUrl = "",TypeBrands = new List<TypeBrand>(),Vehicles = new List<Vehicle>(),Models = new List<Model>()},
-                new Brand(){Id = 4,Name = "Audi",BrandImgUrl = "",TypeBrands = new List<TypeBrand>(),Vehicles = new List<Vehicle>(),Models = new List<Model>()}
+                new Brand(){Id = 1,Name = "BMW",BrandImgUrl = ""},
+                new Brand(){Id = 2,Name = "Volkswagen",BrandImgUrl = ""},
+                new Brand(){Id = 3,Name = "Mercedes",BrandImgUrl = ""},
+                new Brand(){Id = 4,Name = "Audi",BrandImgUrl = ""}
             };
 
             List<Model> modelList = new List<Model>
             {
-                new Model(){Id = 1,Name = "X6", BrandId = 1,Vehicles = new List<Vehicle>()},
-                new Model(){Id = 2,Name = "320", BrandId = 1,Vehicles = new List<Vehicle>()},
-                new Model(){Id = 3,Name = "Amarok", BrandId = 2,Vehicles = new List<Vehicle>()},
-                new Model(){Id = 4,Name = "AMG", BrandId = 3,Vehicles = new List<Vehicle>()},
-                new Model(){Id = 5,Name = "A6", BrandId = 4,Vehicles = new List<Vehicle>()}
+                new Model(){Id = 1,Name = "X6", BrandId = 1},
+                new Model(){Id = 2,Name = "320", BrandId = 1},
+                new Model(){Id = 3,Name = "Amarok", BrandId = 2},
+                new Model(){Id = 4,Name = "AMG", BrandId = 3},
+                new Model(){Id = 5,Name = "A6", BrandId = 4}
             };
 
             List<Entities.Type> typeList = new List<Entities.Type>
             {
-                new Entities.Type(){Id = 1,Name = "SUV",TypeBrands = new List<TypeBrand>(),Vehicles = new List<Vehicle>()},
-                new Entities.Type(){Id = 2,Name = "Otomobil",TypeBrands = new List<TypeBrand>(),Vehicles = new List<Vehicle>()}
+                new Entities.Type(){Id = 1,Name = "SUV"},
+                new Entities.Type(){Id = 2,Name = "Otomobil"}
             };
 
             List<TypeBrand> typeBrandList = new List<TypeBrand>
@@ -68,43 +68,30 @@ namespace Car_Galery.Migrations
                 new TypeBrand(){Id = 5,BrandId = 4,TypeId = 2}
             };
 
+           
+            foreach (Vehicle vehicle in vehicleList)
+            {
+                context.Vehicles.AddOrUpdate(v=>v.Id,vehicle);
+            }
+
             foreach (var brand in brandList)
             {
-                List<TypeBrand> typeBrands = typeBrandList.Where(tb => tb.BrandId == brand.Id).ToList();
-                foreach (TypeBrand typeBrand in typeBrands)
-                {
-                    brand.TypeBrands.Add(typeBrand);
-                }
+                context.Brands.AddOrUpdate(b=>b.Id,brand);
             }
 
             foreach (var type in typeList)
             {
-                List<TypeBrand> typeBrands = typeBrandList.Where(tb => tb.TypeId == type.Id).ToList();
-                foreach (TypeBrand typeBrand in typeBrands)
-                {
-                    type.TypeBrands.Add(typeBrand);
-                }
+                context.Types.AddOrUpdate(t=>t.Id,type);
             }
 
-            foreach (Vehicle vehicle in vehicleList)
+            foreach (var model in modelList)
             {
-                context.Vehicles.AddOrUpdate(v=>v.Name,new Vehicle
-                {
-                    Name = vehicle.Name,
-                    ImageUrl = vehicle.ImageUrl,
-                    Year = vehicle.Year,
-                    Km = vehicle.Km,
-                    Color = vehicle.Color,
-                    Price = vehicle.Price,
-                    Fuel = vehicle.Fuel,
-                    Transmission = vehicle.Transmission,
-                    Rentable = vehicle.Rentable,
-                    Rented = vehicle.Rented,
-                    BrandId = vehicle.BrandId,
-                    ModelId = vehicle.BrandId,
-                    TypeId = vehicle.TypeId
-                    
-                });
+                context.Models.AddOrUpdate(m=>m.Id,model);
+            }
+
+            foreach (var typeBrand in typeBrandList)
+            {
+                context.TypeBrands.AddOrUpdate(ty=>ty.Id,typeBrand);
             }
         }
     }

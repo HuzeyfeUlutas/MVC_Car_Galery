@@ -1,0 +1,36 @@
+﻿@model List<Car_Galery.Models.VehicleModel>
+
+<div class="row">
+
+    @foreach (var vehicle in Model)
+    {
+        <div class="col-lg-4 col-md-6 col-12 car-content">
+            <div class="CarBox">
+                <div>
+                    <img src="@Url.Content(vehicle.ImageUrl)" alt="carname" />
+                </div>
+                <div class="car-title">
+                    <p>@vehicle.Name</p>
+                </div>
+
+                <div class="car-price">
+                    <span class="price">$ @vehicle.Price</span>
+                </div>
+
+                <div class="car-info">
+                    <div class="col-attr">
+                        <i class="fa fa-tachometer"></i>
+                        <p>@vehicle.Km km</p>
+                    </div>
+                    <div class="col-attr">
+                        <i class="fa fa-calendar"></i>
+                        @vehicle.Year
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+</div>

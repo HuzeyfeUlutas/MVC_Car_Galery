@@ -13,7 +13,6 @@ namespace Car_Galery.Managers
     public class EFUnitOfWork : IUnitOfWork
     {
         private DbContext _dbContext;
-        private bool disposed = false;
 
         public EFUnitOfWork(DbContext dbContext)
         {

@@ -47,10 +47,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -167,6 +173,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\MappingConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Context\VehiclesContext.cs" />
@@ -183,6 +190,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\MapWrapper.cs" />
+    <Compile Include="Migrations\202002151059337_V3.cs" />
+    <Compile Include="Migrations\202002151059337_V3.Designer.cs">
+      <DependentUpon>202002151059337_V3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BrandModel.cs" />
+    <Compile Include="Models\ModelModel.cs" />
+    <Compile Include="Models\BrandModelsModel.cs" />
+    <Compile Include="Models\TypeModel.cs" />
+    <Compile Include="Models\VehicleModel.cs" />
+    <Compile Include="Models\ViewModels\InventoryViewModel.cs" />
     <Compile Include="UnitOfWork\Abstract\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\EFUnitOfWork.cs" />
     <Compile Include="Migrations\202002081121058_V1.cs" />
@@ -255,6 +273,8 @@
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -377,6 +397,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Inventory\Index.cshtml" />
     <Content Include="Views\RentCar\Index.cshtml" />
+    <Content Include="Views\Shared\_VehicleListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -394,6 +415,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002081123432_v2.resx">
       <DependentUpon>202002081123432_v2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002151059337_V3.resx">
+      <DependentUpon>202002151059337_V3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
