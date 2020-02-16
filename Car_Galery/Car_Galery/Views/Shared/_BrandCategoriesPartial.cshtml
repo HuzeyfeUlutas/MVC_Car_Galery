@@ -1,0 +1,33 @@
+﻿@model List<Car_Galery.Models.BrandModelsModel>
+
+<ul id="accordion" class="accordion">
+    @foreach (var brand in Model)
+    {
+        <li>
+            <div class="link">
+                @Ajax.ActionLink(brand.BrandName, "FilterVehicleByBrandCategories", "Inventory",new { brandID = brand.BrandId, modelID = 0 }, new AjaxOptions()
+                {
+                    UpdateTargetId = "VehicleList",
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "POST"
+                })
+
+                <i class="fa fa-chevron-down"></i>
+            </div>
+            <ul class="submenu">
+                @foreach (var model in brand.brandModels)
+                {
+                    <li>
+                        @Ajax.ActionLink(model.Name, "FilterVehicleByBrandCategories", "Inventory",new { brandID = brand.BrandId, modelID = model.Id}, new AjaxOptions()
+                        {
+                            UpdateTargetId = "VehicleList",
+                            InsertionMode = InsertionMode.Replace,
+                            HttpMethod = "POST"
+                        })
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+
+</ul>

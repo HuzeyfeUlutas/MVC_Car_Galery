@@ -21,6 +21,9 @@ namespace Car_Galery.App_Start
                 config.CreateMap<TypeModel, Type>();
                 config.CreateMap<Brand, BrandModel>();
                 config.CreateMap<BrandModel, Brand>();
+                config.CreateMap<Brand, BrandModelsModel>()
+                    .ForMember(dest => dest.BrandId, opts => opts.MapFrom(src => src.Id))
+                    .ForMember(dest => dest.BrandName, opts => opts.MapFrom(src => src.Name));
 
             });
         }

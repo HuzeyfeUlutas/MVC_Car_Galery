@@ -1,5 +1,8 @@
 ﻿@model Car_Galery.Models.ViewModels.InventoryViewModel
 
+@{
+    var types = new SelectList(Model.TypeModels);
+}
 
 @{
     ViewBag.Title = "Inventory";
@@ -18,9 +21,24 @@
                     <h5><i class="fa fa-search"></i> SEARCH FİLTER</h5>
                 </div>
                 
-                <div>
+                <div class="filter-form">
                     
-                    @Html.BeginForm()
+                    @using (Ajax.BeginForm("SearchFilterVehicle", "Inventory", new AjaxOptions()
+                    {
+                        UpdateTargetId = "VehicleList",
+                        InsertionMode = InsertionMode.Replace,
+                        HttpMethod = "POST" 
+                    }))
+                    {
+                        <div class="filter-items">
+                            <div>
+                                @Html.DropDownList("TypeName", types, "--Select Type--", new { @class = "form-control form-dropdown"})
+                            </div>
+                        </div>
+                    }
+                        
+                    
+                    
 
                 </div>
             </div>
@@ -32,32 +50,9 @@
 
                 </div>
                 <div class="box-brand">
-                    <ul id="accordion" class="accordion">
-                        @foreach (var brand in Model.BrandModelModels)
-                        {
-                            <li>
-                                <div class="link">
-                                    @Ajax.ActionLink(brand.BrandName,"FilterVehicleByBrandCategories",new {brandID = brand.BrandId , modelID = 0 } ,new AjaxOptions()
-                                    {
-                                        UpdateTargetId = "VehicleList",
-                                        InsertionMode = InsertionMode.Replace,
-                                        HttpMethod = "POST"
-                                    })
-
-                                    <i class="fa fa-chevron-down"></i>
-                                </div>
-                                <ul class="submenu">
-                                    @foreach (var model in brand.brandModels)
-                                    {
-                                        <li>
-                                            @Html.ActionLink(model.Name,null)
-                                        </li>
-                                    }
-                                </ul>
-                            </li>
-                        }
-
-                    </ul>
+                    @{
+                        Html.RenderPartial("_BrandCategoriesPartial", Model.BrandModelModels);
+                    }
                 </div>
             </div>
             

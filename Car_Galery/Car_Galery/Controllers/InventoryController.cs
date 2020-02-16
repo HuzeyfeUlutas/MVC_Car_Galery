@@ -12,7 +12,7 @@ using Car_Galery.Managers;
 using Car_Galery.Managers.Abstract;
 using Car_Galery.Models;
 using Car_Galery.Models.ViewModels;
-
+using Type = Car_Galery.Entities.Type;
 
 
 namespace Car_Galery.Controllers
@@ -37,14 +37,11 @@ namespace Car_Galery.Controllers
 
             #endregion
 
+            ıvm.TypeModels = unitOfWork.GetRepository<Type>().GetAll().ProjectTo<TypeModel>().ToList();
+
 
             #region Brand Categories Model Binding
-                ıvm.BrandModelModels = unitOfWork.GetRepository<Brand>().GetAll().Select(ty => new BrandModelsModel()
-                    {
-                        BrandId = ty.Id,
-                        BrandName = ty.Name
-                    })
-                    .ToList();
+                ıvm.BrandModelModels = unitOfWork.GetRepository<Brand>().GetAll().ProjectTo<BrandModelsModel>().ToList();
 
                 foreach (var BrandModelModel in ıvm.BrandModelModels)
                 {
@@ -71,6 +68,17 @@ namespace Car_Galery.Controllers
             }
             vehicleList = unitOfWork.GetRepository<Vehicle>().GetAll(v => v.BrandId == brandID).ProjectTo<VehicleModel>().ToList();
             
+            unitOfWork.Dispose();
+            return PartialView("_VehicleListPartial", vehicleList);
+        }
+
+        public PartialViewResult SearchFilterVehicle()
+        {
+            unitOfWork = new EFUnitOfWork(db);
+            List<VehicleModel> vehicleList = new List<VehicleModel>();
+
+
+
 
             return PartialView("_VehicleListPartial", vehicleList);
         }

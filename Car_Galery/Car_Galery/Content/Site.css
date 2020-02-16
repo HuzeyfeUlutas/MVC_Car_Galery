@@ -73,11 +73,7 @@ div {
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
+
 
 
 /*inventory deneme*/
@@ -182,11 +178,28 @@ textarea {
 
 .brand-categories {
     background-color: white;
+    margin-top: 20px;
 }
 
 .vehicle-filter {
     background-color: white;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #f5f5f5 #eee #d5d5d5 #eee;
+}
+
+.filter-items {
     padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #f5f5f5 #eee #d5d5d5 #eee;
+}
+
+.form-dropdown {
+    border-radius: 0;
 }
 
 
