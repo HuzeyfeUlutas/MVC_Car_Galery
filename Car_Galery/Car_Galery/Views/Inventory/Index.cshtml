@@ -1,8 +1,6 @@
 ﻿@model Car_Galery.Models.ViewModels.InventoryViewModel
 
-@{
-    var types = new SelectList(Model.TypeModels);
-}
+
 
 @{
     ViewBag.Title = "Inventory";
@@ -14,7 +12,7 @@
         <h1 align="center"><b>Inventory Listing</b></h1>
     </div>
     <div class="row">
-        <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-12">
             
             <div class="vehicle-filter">
                 <div class="filter-title">
@@ -22,24 +20,9 @@
                 </div>
                 
                 <div class="filter-form">
-                    
-                    @using (Ajax.BeginForm("SearchFilterVehicle", "Inventory", new AjaxOptions()
-                    {
-                        UpdateTargetId = "VehicleList",
-                        InsertionMode = InsertionMode.Replace,
-                        HttpMethod = "POST" 
-                    }))
-                    {
-                        <div class="filter-items">
-                            <div>
-                                @Html.DropDownList("TypeName", types, "--Select Type--", new { @class = "form-control form-dropdown"})
-                            </div>
-                        </div>
+                    @{
+                        Html.RenderPartial("_FilterPartial", Model);
                     }
-                        
-                    
-                    
-
                 </div>
             </div>
             
@@ -58,7 +41,7 @@
             
 
         </div>
-        <div class="col-lg-9 col-md-9 col-sm-12 col-12">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-12">
             <div class="brand-title">
                 <h5><i class="fa fa-align-justify"></i> Inventory Listing</h5>
             </div>

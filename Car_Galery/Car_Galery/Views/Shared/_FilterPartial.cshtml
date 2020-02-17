@@ -1,0 +1,93 @@
+﻿@model Car_Galery.Models.ViewModels.InventoryViewModel
+
+@{
+    var types = new SelectList(Model.TypeModels,"Id","Name");
+}
+
+@using (Ajax.BeginForm("SearchFilterVehicle", "Inventory", new AjaxOptions()
+{
+    UpdateTargetId = "VehicleList",
+    InsertionMode = InsertionMode.Replace,
+    HttpMethod = "POST"
+}))
+{
+    <div class="filter-items">
+        <div>
+            @Html.DropDownList("TypeName", types, "--Select Type--", new { @class = "form-control form-dropdown" })
+        </div>
+    </div>
+    <div class="filter-items">
+        <div>
+            @Html.DropDownList("BrandName", types, "--Select Brand--", new { @class = "form-control form-dropdown" })
+        </div>
+    </div>
+    <div class="filter-items">
+        <div>
+            @Html.DropDownList("ModelName", types, "--Select Model--", new { @class = "form-control form-dropdown" })
+        </div>
+    </div>
+    <div class="filter-items">
+        <div>
+            @Html.DropDownList("FuelType", new List<SelectListItem>()
+            {
+                new SelectListItem{Text = "Gasoline",Value = "Gasoline"},
+                new SelectListItem{Text = "Diesel",Value = "Diesel"}
+            }, "--Select Fuel Type--", new { @class = "form-control form-dropdown" })
+        </div>
+    </div>
+    <div class="filter-items">
+        <div>
+            @Html.DropDownList("Transmission", new List<SelectListItem>()
+            {
+                new SelectListItem{Text="Automatic",Value ="Automatic"},
+                new SelectListItem{Text="Manuel",Value ="Manuel"}
+
+            }, "--Select Transmission--", new { @class = "form-control form-dropdown" })
+        </div>
+    </div>
+    <div class="filter-items">
+        <div>
+            @Html.DropDownList("Year", types, "--Select Year--", new { @class = "form-control form-dropdown" })
+        </div>
+    </div>
+
+    <div class="filter-item-textboxs">
+        <div>
+            @Html.Label("pricelb", "Price:", new { @class = "text-box-label" })
+        </div>
+        <div class="row">
+            <div class="form-textbox col-md-6 col-12">
+                @Html.TextBox("MinPrice", "", new { @class = "form-control text-box", placeholder = "Min" })
+            </div>
+            <div class="form-textbox col-md-6 col-12">
+                @Html.TextBox("MaxPrice", "", new { @class = "form-control text-box", placeholder = "Max" })
+            </div>
+        </div>
+    </div>
+
+    <div class="filter-item-textboxs">
+        <div>
+            @Html.Label("kmlb", "Km:", new { @class = "text-box-label" })
+        </div>
+        <div class="row">
+            <div class="form-textbox col-md-6 col-12">
+                @Html.TextBox("MinKm", "", new { @class = "form-control text-box", placeholder = "Min" })
+            </div>
+            <div class="form-textbox col-md-6 col-12">
+                @Html.TextBox("MaxKm", "", new { @class = "form-control text-box", placeholder = "Max" })
+            </div>
+        </div>
+    </div>
+
+    <div class="filter-items">
+        <div class="row">
+            <div class="col-12 form-textbox">
+                <input type="submit" value="Search Filter" id="btnSearch" name="BtnType" class="btn btn-info" />
+            </div>
+            <div class="col-12 form-textbox">
+                <input type="reset" value="Clear" id="btnClear" name="BtnType" class="btn btn-danger" />
+            </div>
+        </div>
+    </div>
+
+}

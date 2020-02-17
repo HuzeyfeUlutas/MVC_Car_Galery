@@ -9,8 +9,11 @@ namespace Car_Galery.Models.ViewModels
     {
         public List<VehicleModel> VehicleModels { get; set; }
 
+        public List<BrandModelsModel> BrandModelModels { get; set; }
+
+        public FilterModel FilterModel { get; set; }
+
         public List<TypeModel> TypeModels { get; set; }
 
-        public List<BrandModelsModel> BrandModelModels { get; set; }
     }
 }

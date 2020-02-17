@@ -36,7 +36,6 @@ namespace Car_Galery.Controllers
             
 
             #endregion
-
             ıvm.TypeModels = unitOfWork.GetRepository<Type>().GetAll().ProjectTo<TypeModel>().ToList();
 
 
@@ -76,7 +75,6 @@ namespace Car_Galery.Controllers
         {
             unitOfWork = new EFUnitOfWork(db);
             List<VehicleModel> vehicleList = new List<VehicleModel>();
-
 
 
 

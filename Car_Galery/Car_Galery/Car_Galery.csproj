@@ -196,6 +196,7 @@
       <DependentUpon>202002151059337_V3.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BrandModel.cs" />
+    <Compile Include="Models\FilterModel.cs" />
     <Compile Include="Models\ModelModel.cs" />
     <Compile Include="Models\BrandModelsModel.cs" />
     <Compile Include="Models\TypeModel.cs" />
@@ -399,6 +400,7 @@
     <Content Include="Views\RentCar\Index.cshtml" />
     <Content Include="Views\Shared\_VehicleListPartial.cshtml" />
     <Content Include="Views\Shared\_BrandCategoriesPartial.cshtml" />
+    <Content Include="Views\Shared\_FilterPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

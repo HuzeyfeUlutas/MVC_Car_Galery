@@ -191,8 +191,8 @@ div {
 .filter-items {
     padding-bottom: 10px;
     padding-top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
     border-width: 1px;
     border-style: solid;
     border-color: #f5f5f5 #eee #d5d5d5 #eee;
@@ -280,6 +280,42 @@ ul {
 .col-attr i {
     display: block;
     margin-bottom: 5px;
+}
+
+.filter-slider {
+    margin-top: 7px;
+    font-size: 14px;
+}
+
+.min-max {
+    display: block;
+    overflow: hidden;
+}
+
+.form-textbox {
+    padding-bottom: 10px;
+    padding-right: 13px;
+    padding-left: 13px;
+}
+
+.filter-item-textboxs {
+    padding-left: 14px;
+    padding-right: 14px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #f5f5f5 #eee #d5d5d5 #eee;
+}
+
+.text-box-label {
+    margin-bottom: 0.2rem;
+}
+
+.text-box {
+    height: 37px;
+}
+
+.btn {
+    width: 100%;
 }
 
 
