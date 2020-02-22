@@ -7,11 +7,9 @@ namespace Car_Galery.Models
 {
     public class FilterModel
     {
-        public string TypeName { get; set; }
+        public bool Filtered { get; set; }
 
-        public string BrandName { get; set; }
-
-        public string ModelName { get; set; }
+        public int? TypeId { get; set; }
 
         public string FuelType { get; set; }
 
@@ -19,15 +17,23 @@ namespace Car_Galery.Models
 
         public string Year { get; set; }
 
-        public string MinPrice { get; set; }
+        public int? MinPrice { get; set; }
 
-        public string MaxPrice { get; set; }
+        public int? MaxPrice { get; set; }
 
-        public string MinKm { get; set; }
+        public int? MinKm { get; set; }
 
-        public string MaxKm { get; set; }
+        public int? MaxKm { get; set; }
 
+        public int? BrandId { get; set; }
 
+        public int? ModelId { get; set; }
+
+        public string SortBy { get; set; }
+
+        public string SearchText { get; set; }
+
+        public int? PageNumber { get; set; }
 
     }
 }

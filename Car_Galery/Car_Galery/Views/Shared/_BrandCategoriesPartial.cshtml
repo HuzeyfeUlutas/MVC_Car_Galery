@@ -5,7 +5,7 @@
     {
         <li>
             <div class="link">
-                @Ajax.ActionLink(brand.BrandName, "FilterVehicleByBrandCategories", "Inventory",new { brandID = brand.BrandId, modelID = 0 }, new AjaxOptions()
+                @Ajax.ActionLink(brand.BrandName, "FilterVehicle", "Inventory",new { BrandId = brand.BrandId, Filtered = false}, new AjaxOptions()
                 {
                     UpdateTargetId = "VehicleList",
                     InsertionMode = InsertionMode.Replace,
@@ -18,7 +18,7 @@
                 @foreach (var model in brand.brandModels)
                 {
                     <li>
-                        @Ajax.ActionLink(model.Name, "FilterVehicleByBrandCategories", "Inventory",new { brandID = brand.BrandId, modelID = model.Id}, new AjaxOptions()
+                        @Ajax.ActionLink(model.Name, "FilterVehicle", "Inventory",new { BrandId = brand.BrandId, ModelId = model.Id , Filtered = false}, new AjaxOptions()
                         {
                             UpdateTargetId = "VehicleList",
                             InsertionMode = InsertionMode.Replace,

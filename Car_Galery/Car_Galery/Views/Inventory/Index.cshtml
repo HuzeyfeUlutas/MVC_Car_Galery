@@ -45,11 +45,13 @@
             <div class="brand-title">
                 <h5><i class="fa fa-align-justify"></i> Inventory Listing</h5>
             </div>
-            <div class="carboxrow" id="VehicleList">
-            @{
-                Html.RenderPartial("_VehicleListPartial",Model.VehicleModels);
-            }
+            
+            <div id="VehicleList">
+                @{
+                    Html.RenderPartial("_VehicleListPartial", Model);
+                }
             </div>
+            
             
         </div>
 

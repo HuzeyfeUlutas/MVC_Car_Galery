@@ -4,7 +4,7 @@
     var types = new SelectList(Model.TypeModels,"Id","Name");
 }
 
-@using (Ajax.BeginForm("SearchFilterVehicle", "Inventory", new AjaxOptions()
+@using (Ajax.BeginForm("FilterVehicle", "Inventory", new AjaxOptions()
 {
     UpdateTargetId = "VehicleList",
     InsertionMode = InsertionMode.Replace,

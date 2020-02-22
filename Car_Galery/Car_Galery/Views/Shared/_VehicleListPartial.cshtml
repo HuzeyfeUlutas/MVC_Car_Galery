@@ -1,36 +1,69 @@
-﻿@model List<Car_Galery.Models.VehicleModel>
+﻿
+@using PagedList.Mvc
+@model Car_Galery.Models.ViewModels.InventoryViewModel
 
-<div class="row">
 
-    @foreach (var vehicle in Model)
-    {
-        <div class="col-lg-4 col-md-6 col-12 car-content">
-            <div class="CarBox">
-                <div>
-                    <img src="@Url.Content(vehicle.ImageUrl)" alt="carname" />
-                </div>
-                <div class="car-title">
-                    <p>@vehicle.Name</p>
-                </div>
+<div class="carboxrow">
+    <div>
+        @Html.PagedListPager(Model.PagedVehicleModels,PageNumber => Url.Action("FilterVehicle","Inventory",
+            new
+            {
+                PageNumber = PageNumber,
+                TypeName = Model.FilterModel.TypeId,
+                FuelType = Model.FilterModel.FuelType,
+                Transmission = Model.FilterModel.Transmission,
+                Year = Model.FilterModel.Year,
+                MinPrice = Model.FilterModel.MinPrice,
+                MaxPrice = Model.FilterModel.MaxPrice,
+                MinKm = Model.FilterModel.MinKm,
+                MaxKm = Model.FilterModel.MaxKm,
+                BrandId = Model.FilterModel.BrandId,
+                ModelId = Model.FilterModel.ModelId,
+                Filtered = Model.FilterModel.Filtered,
+                SortBy = Model.FilterModel.SortBy,
+                SearchText = Model.FilterModel.SearchText
 
-                <div class="car-price">
-                    <span class="price">$ @vehicle.Price</span>
-                </div>
+            }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
+        {
+            UpdateTargetId = "VehicleList",
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "GET"
+            
+        }))
+    </div>
+    <div class="row">
 
-                <div class="car-info">
-                    <div class="col-attr">
-                        <i class="fa fa-tachometer"></i>
-                        <p>@vehicle.Km km</p>
+
+        @foreach (var vehicle in Model.PagedVehicleModels)
+        {
+            <div class="col-lg-4 col-md-6 col-12 car-content">
+                <div class="CarBox">
+                    <div>
+                        <img src="@Url.Content(vehicle.ImageUrl)" alt="carname"/>
                     </div>
-                    <div class="col-attr">
-                        <i class="fa fa-calendar"></i>
-                        @vehicle.Year
+                    <div class="car-title">
+                        <p>@vehicle.Name</p>
+                    </div>
+
+                    <div class="car-price">
+                        <span class="price">$ @vehicle.Price</span>
+                    </div>
+
+                    <div class="car-info">
+                        <div class="col-attr">
+                            <i class="fa fa-tachometer"></i>
+                            <p>@vehicle.Km km</p>
+                        </div>
+                        <div class="col-attr">
+                            <i class="fa fa-calendar"></i>
+                            @vehicle.Year
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    }
+        }
 
 
-
+    </div>
 </div>
+
