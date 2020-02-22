@@ -17,5 +17,9 @@ namespace Car_Galery.Models.ViewModels
 
         public List<TypeModel> TypeModels { get; set; }
 
+        public List<BrandModel> BrandModels { get; set; }
+
+        public List<ModelModel> ModelModels { get; set; }
+
     }
 }

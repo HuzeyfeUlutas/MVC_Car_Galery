@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Car_Galery.Context;
@@ -33,16 +35,20 @@ namespace Car_Galery.Controllers
             InventoryViewModel ıvm = new InventoryViewModel();
 
             #region Vehicle List Model Binding
-
-            
             ıvm.PagedVehicleModels = unitOfWork.GetRepository<Vehicle>().GetAll().ProjectTo<VehicleModel>().ToList().ToPagedList(PageNumber ?? 1, 6);
-
             #endregion
 
+            #region Type Model  Brand Binding
             ıvm.TypeModels = unitOfWork.GetRepository<Type>().GetAll().ProjectTo<TypeModel>().ToList();
+            ıvm.BrandModels = new List<BrandModel>();
+            ıvm.ModelModels = new List<ModelModel>();
+            #endregion
+
+            #region Filter Model Binding
             ıvm.FilterModel = new FilterModel();
             ıvm.FilterModel.Filtered = false;
-
+            #endregion
+            
             #region Brand Categories Model Binding
                 ıvm.BrandModelModels = unitOfWork.GetRepository<Brand>().GetAll().ProjectTo<BrandModelsModel>().ToList();
 
@@ -65,19 +71,24 @@ namespace Car_Galery.Controllers
 
             var query = unitOfWork.GetRepository<Vehicle>().GetAll().AsQueryable();
 
+
+            #region Filter
             if(fm.Filtered == true)
             {
-                if (fm.TypeId != null)
+                int? ku = fm.TypeId;
+                if (fm.TypeId != 0 && fm.TypeId != null)
                 {
                     query = query.Where(v => v.TypeId == fm.TypeId);
                 }
 
-                if (fm.BrandId != null)
+                ku = fm.BrandId;
+                if (fm.BrandId != 0 && fm.BrandId != null)
                 {
                     query = query.Where(v => v.BrandId == fm.BrandId);
                 }
 
-                if (fm.ModelId != null)
+                ku = fm.ModelId;
+                if (fm.ModelId != 0 && fm.ModelId != null)
                 {
                     query = query.Where(v => v.ModelId == fm.ModelId);
                 }
@@ -118,20 +129,28 @@ namespace Car_Galery.Controllers
                 }
 
             }
-            else if (fm.BrandId != null)
+            #endregion
+
+            #region Brand Categories
+            else if (fm.BrandId != 0 && fm.BrandId != null)
             {
                 query = query.Where(v => v.BrandId == fm.BrandId);
 
-                if (fm.ModelId != null)
+                if (fm.ModelId != 0 && fm.ModelId != null)
                 {
                     query = query.Where(v => v.ModelId == fm.ModelId);
                 }
             }
+            #endregion
+
+            #region Search Text
             if(!String.IsNullOrWhiteSpace(fm.SearchText))
             {
                 query = query.Where(v => v.Name.Contains(fm.SearchText));
             }
+            #endregion
 
+            #region Sort
             if (!String.IsNullOrWhiteSpace(fm.SortBy))
             {
                 switch (fm.SortBy)
@@ -148,16 +167,41 @@ namespace Car_Galery.Controllers
 
                 }
             }
+            #endregion
             
-
-
-
+            
             ıvm.PagedVehicleModels = query.ProjectTo<VehicleModel>().ToList().ToPagedList(fm.PageNumber ?? 1, 6);
+
+            int k = ıvm.PagedVehicleModels.Count;
 
             ıvm.FilterModel = fm;
             
             unitOfWork.Dispose();
             return PartialView("_VehicleListPartial", ıvm);
+        }
+
+        public ActionResult FillBrands(int? TypeId)
+        {
+            unitOfWork = new EFUnitOfWork(db);
+
+            List<BrandModel> brands = new List<BrandModel>();
+
+            brands = unitOfWork.GetRepository<TypeBrand>().GetAll().Where(tb => tb.TypeId == TypeId)
+                .Select(tb => tb.Brand).ProjectTo<BrandModel>().ToList();
+            unitOfWork.Dispose();
+            return Json(brands, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult FillModels(int? BrandId)
+        {
+            unitOfWork = new EFUnitOfWork(db);
+
+            List<ModelModel> models = new List<ModelModel>();
+
+            models = unitOfWork.GetRepository<Model>().GetAll().Where(m => m.BrandId == BrandId).ProjectTo<ModelModel>()
+                .ToList();
+            unitOfWork.Dispose();
+            return Json(models, JsonRequestBehavior.AllowGet);
         }
 
     }

@@ -1,10 +1,17 @@
 ﻿@model Car_Galery.Models.ViewModels.InventoryViewModel
 
 @{
-    var types = new SelectList(Model.TypeModels,"Id","Name");
+    var types = new SelectList(Model.TypeModels, "Id", "Name");
+
+    var brands = new SelectList(Model.BrandModels, "Id", "Name");
+
+    var models = new SelectList(Model.ModelModels, "Id", "Name");
+
 }
 
-@using (Ajax.BeginForm("FilterVehicle", "Inventory", new AjaxOptions()
+
+
+@using (Ajax.BeginForm("FilterVehicle", "Inventory", new { Filtered = true }, new AjaxOptions()
 {
     UpdateTargetId = "VehicleList",
     InsertionMode = InsertionMode.Replace,
@@ -13,17 +20,17 @@
 {
     <div class="filter-items">
         <div>
-            @Html.DropDownList("TypeName", types, "--Select Type--", new { @class = "form-control form-dropdown" })
+            @Html.DropDownList("TypeId", types, "--Select Type--", new { @class = "form-control form-dropdown", onchange = "FillBrands()" })
         </div>
     </div>
     <div class="filter-items">
         <div>
-            @Html.DropDownList("BrandName", types, "--Select Brand--", new { @class = "form-control form-dropdown" })
+            @Html.DropDownList("BrandId", brands, "--Select Brand--", new { @class = "form-control form-dropdown", onchange = "FillModels()" , disabled = "disabled" })
         </div>
     </div>
     <div class="filter-items">
         <div>
-            @Html.DropDownList("ModelName", types, "--Select Model--", new { @class = "form-control form-dropdown" })
+            @Html.DropDownList("ModelId", models, "--Select Model--", new { @class = "form-control form-dropdown", disabled = "disabled" })
         </div>
     </div>
     <div class="filter-items">
@@ -85,9 +92,12 @@
                 <input type="submit" value="Search Filter" id="btnSearch" name="BtnType" class="btn btn-info" />
             </div>
             <div class="col-12 form-textbox">
-                <input type="reset" value="Clear" id="btnClear" name="BtnType" class="btn btn-danger" />
+                <input type="reset" value="Clear" id="btnClear" name="BtnType" class="btn btn-danger" onclick="location.href = '@Url.Action("Index", "Inventory")'" />
             </div>
         </div>
     </div>
 
 }
+
+
+
