@@ -41,18 +41,12 @@
             
 
         </div>
-        <div class="col-lg-9 col-md-12 col-sm-12 col-12">
-            <div class="brand-title">
-                <h5><i class="fa fa-align-justify"></i> Inventory Listing</h5>
-            </div>
-            
-            <div id="VehicleList">
-                @{
+        <div class="col-lg-9 col-md-12 col-sm-12 col-12" id="VehicleList">
+
+            @{
                     Html.RenderPartial("_VehicleListPartial", Model);
-                }
-            </div>
-            
-            
+            }
+
         </div>
 
     </div>

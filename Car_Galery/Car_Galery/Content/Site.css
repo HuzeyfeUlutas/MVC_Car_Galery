@@ -7,6 +7,10 @@ div {
     display: block;
 }
 
+a {
+    cursor: pointer;
+}
+
 .navbar-nav > li {
     padding-left: 20px;
     padding-right: 20px;
@@ -165,6 +169,8 @@ div {
 .brand-title {
     padding: 10px;
     background-color: orange;
+    margin-right: 0px;
+    margin-left: 0px;
 }
 
 .filter-title {
@@ -225,8 +231,6 @@ ul {
 }
 
 .carboxrow {
-    padding-top: 30px;
-    padding-bottom: 30px;
     padding-left: 10px;
     padding-right: 10px;
     background-color: white;
@@ -316,6 +320,25 @@ ul {
 
 .btn {
     width: 100%;
+}
+
+.toolbar {
+    margin-top: 0px;
+    padding: 0px 25px;
+    width: 100%;
+    border-bottom: 1px #eaeaea solid;
+    background: white;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.car-listbar {
+    padding-top: 10px;
+}
+
+.sort-filter {
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 

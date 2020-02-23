@@ -34,8 +34,16 @@ namespace Car_Galery.Controllers
 
             InventoryViewModel ıvm = new InventoryViewModel();
 
+            ıvm.FilterModel = new FilterModel();
+
             #region Vehicle List Model Binding
-            ıvm.PagedVehicleModels = unitOfWork.GetRepository<Vehicle>().GetAll().ProjectTo<VehicleModel>().ToList().ToPagedList(PageNumber ?? 1, 6);
+            List<VehicleModel> vhList = new List<VehicleModel>();
+
+            vhList = unitOfWork.GetRepository<Vehicle>().GetAll().ProjectTo<VehicleModel>().ToList();
+
+            ıvm.FilterModel.ResultCount = vhList.Count();
+
+            ıvm.PagedVehicleModels = vhList.ToPagedList(PageNumber ?? 1, 6);
             #endregion
 
             #region Type Model  Brand Binding
@@ -45,8 +53,9 @@ namespace Car_Galery.Controllers
             #endregion
 
             #region Filter Model Binding
-            ıvm.FilterModel = new FilterModel();
+            
             ıvm.FilterModel.Filtered = false;
+            
             #endregion
             
             #region Brand Categories Model Binding
@@ -168,9 +177,14 @@ namespace Car_Galery.Controllers
                 }
             }
             #endregion
+
+            List<VehicleModel> vhList = new List<VehicleModel>();
+
+            vhList = query.ProjectTo<VehicleModel>().ToList();
+
+            fm.ResultCount = vhList.Count();
             
-            
-            ıvm.PagedVehicleModels = query.ProjectTo<VehicleModel>().ToList().ToPagedList(fm.PageNumber ?? 1, 6);
+            ıvm.PagedVehicleModels = vhList.ToPagedList(fm.PageNumber ?? 1, 6);
 
             int k = ıvm.PagedVehicleModels.Count;
 
@@ -204,5 +218,6 @@ namespace Car_Galery.Controllers
             return Json(models, JsonRequestBehavior.AllowGet);
         }
 
+        
     }
 }

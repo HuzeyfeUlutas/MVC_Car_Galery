@@ -35,5 +35,7 @@ namespace Car_Galery.Models
 
         public int? PageNumber { get; set; }
 
+        public int? ResultCount { get; set; }
+
     }
 }

@@ -3,9 +3,22 @@
 @model Car_Galery.Models.ViewModels.InventoryViewModel
 
 
-<div class="carboxrow">
-    <div>
-        @Html.PagedListPager(Model.PagedVehicleModels,PageNumber => Url.Action("FilterVehicle","Inventory",
+
+<div class="brand-title row">
+    <div class="col-md-6">
+        <h5><i class="fa fa-align-justify"></i> Inventory Listing</h5>
+    </div>
+    <div class="col-md-6">
+        <h6 align="right">@Model.FilterModel.ResultCount result found.</h6>
+    </div>
+
+
+</div>
+
+<div class="row toolbar">
+
+    <div class="col-md-9 col-12">
+        @Html.PagedListPager(Model.PagedVehicleModels, PageNumber => Url.Action("FilterVehicle", "Inventory",
             new
             {
                 PageNumber = PageNumber,
@@ -24,46 +37,97 @@
                 SearchText = Model.FilterModel.SearchText
 
             }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
-        {
-            UpdateTargetId = "VehicleList",
-            InsertionMode = InsertionMode.Replace,
-            HttpMethod = "GET"
-            
-        }))
+            {
+                UpdateTargetId = "VehicleList",
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "GET"
+
+            }))
     </div>
-    <div class="row">
+
+    <div class="col-md-3 col-12 sort-filter">
+
+        @Html.DropDownList("Order", new List<SelectListItem>()
+        {
+            new SelectListItem{Text = "--Sort By--",Value = "Sort"},
+            new SelectListItem{Text = "Name",Value = "Name"},
+            new SelectListItem{Text = "Price",Value = "Price"},
+            new SelectListItem{Text = "Km",Value = "Km"}
+        }, new { @class = "form-control form-dropdown", onchange = "SortBy()" })
+    </div>
+
+</div>
+
+<div class="carboxrow">
+
+    <div class="row car-listbar">
 
 
         @foreach (var vehicle in Model.PagedVehicleModels)
         {
-            <div class="col-lg-4 col-md-6 col-12 car-content">
-                <div class="CarBox">
-                    <div>
-                        <img src="@Url.Content(vehicle.ImageUrl)" alt="carname"/>
-                    </div>
-                    <div class="car-title">
-                        <p>@vehicle.Name</p>
-                    </div>
 
-                    <div class="car-price">
-                        <span class="price">$ @vehicle.Price</span>
-                    </div>
+        <div class="col-lg-4 col-md-6 col-12 car-content">
 
-                    <div class="car-info">
-                        <div class="col-attr">
-                            <i class="fa fa-tachometer"></i>
-                            <p>@vehicle.Km km</p>
-                        </div>
-                        <div class="col-attr">
-                            <i class="fa fa-calendar"></i>
-                            @vehicle.Year
-                        </div>
+            <a data-toggle="modal" data-target="#VehicleModal">
+            <div class="CarBox">
+                <div>
+                    <img src="@Url.Content(vehicle.ImageUrl)" alt="carname" />
+                </div>
+                <div class="car-title">
+                    <p>@vehicle.Name</p>
+                </div>
+
+                <div class="car-price">
+                    <span class="price">$ @vehicle.Price</span>
+                </div>
+
+                <div class="car-info">
+                    <div class="col-attr">
+                        <i class="fa fa-tachometer"></i>
+                        <p>@vehicle.Km km</p>
+                    </div>
+                    <div class="col-attr">
+                        <i class="fa fa-calendar"></i>
+                        @vehicle.Year
                     </div>
                 </div>
             </div>
+            </a>
+        </div>
+
         }
 
 
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="VehicleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    @{
+        Html.RenderPartial("_VehicleModalPartial");
+    }
+    
+</div>
+
+
+<script type="text/javascript">
+    function SortBy() {
+        var userObj = @Html.Raw(Json.Encode(Model.FilterModel));
+
+        userObj["SortBy"] = $('#Order').val();;
+        console.log(userObj);
+
+        $.ajax({
+            url:'/Inventory/FilterVehicle',
+            type:'POST',
+            datatype:"JSON",
+            data: {fm: userObj},
+            success: function(data) {
+                $('#VehicleList').html(data);
+                $('#Order').val(userObj["SortBy"]);
+            }
+
+        });
+    }
+</script>
 
