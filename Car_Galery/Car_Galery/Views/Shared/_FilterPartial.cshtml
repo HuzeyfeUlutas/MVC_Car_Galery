@@ -1,4 +1,5 @@
-﻿@model Car_Galery.Models.ViewModels.InventoryViewModel
+﻿@using System.Data
+@model Car_Galery.Models.ViewModels.InventoryViewModel
 
 @{
     var types = new SelectList(Model.TypeModels, "Id", "Name");
@@ -6,6 +7,7 @@
     var brands = new SelectList(Model.BrandModels, "Id", "Name");
 
     var models = new SelectList(Model.ModelModels, "Id", "Name");
+
 
 }
 
@@ -54,7 +56,7 @@
     </div>
     <div class="filter-items">
         <div>
-            @Html.DropDownList("Year", types, "--Select Year--", new { @class = "form-control form-dropdown" })
+            @Html.DropDownList("Year", Enumerable.Range(1950, DateTime.Now.Year-1950).Select(x => new SelectListItem {Text = x.ToString()}), "--Select Year--", new { @class = "form-control form-dropdown" })
         </div>
     </div>
 
