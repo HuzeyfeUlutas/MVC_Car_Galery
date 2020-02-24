@@ -1,7 +1,9 @@
 ﻿
+@using Car_Galery.Models.ViewModels
 @using PagedList.Mvc
 @model Car_Galery.Models.ViewModels.InventoryViewModel
 
+@Html.Hidden("VehicleId")
 
 
 <div class="brand-title row">
@@ -68,30 +70,31 @@
 
         <div class="col-lg-4 col-md-6 col-12 car-content">
 
-            <a data-toggle="modal" data-target="#VehicleModal">
-            <div class="CarBox">
-                <div>
-                    <img src="@Url.Content(vehicle.ImageUrl)" alt="carname" />
-                </div>
-                <div class="car-title">
-                    <p>@vehicle.Name</p>
-                </div>
-
-                <div class="car-price">
-                    <span class="price">$ @vehicle.Price</span>
-                </div>
-
-                <div class="car-info">
-                    <div class="col-attr">
-                        <i class="fa fa-tachometer"></i>
-                        <p>@vehicle.Km km</p>
+            <a data-toggle="modal" data-target="#VehicleModal" onclick="GetModal(this)" value=@vehicle.Id id="VehicleModalLink"> 
+                <div class="CarBox">
+                    <input id="VehicleId" name="VehicleId" type="hidden" value=@vehicle.Id/>
+                    <div>
+                        <img src="@Url.Content(vehicle.ImageUrl)" alt="carname"/>
                     </div>
-                    <div class="col-attr">
-                        <i class="fa fa-calendar"></i>
-                        @vehicle.Year
+                    <div class="car-title">
+                        <p>@vehicle.Name</p>
+                    </div>
+
+                    <div class="car-price">
+                        <span class="price">$ @vehicle.Price</span>
+                    </div>
+
+                    <div class="car-info">
+                        <div class="col-attr">
+                            <i class="fa fa-tachometer"></i>
+                            <p>@vehicle.Km km</p>
+                        </div>
+                        <div class="col-attr">
+                            <i class="fa fa-calendar"></i>
+                            @vehicle.Year
+                        </div>
                     </div>
                 </div>
-            </div>
             </a>
         </div>
 
@@ -104,7 +107,7 @@
 <!-- Modal -->
 <div class="modal fade" id="VehicleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     @{
-        Html.RenderPartial("_VehicleModalPartial");
+        Html.RenderPartial("_VehicleModalPartial",new VehicleModalViewModel());
     }
     
 </div>
@@ -115,7 +118,7 @@
         var userObj = @Html.Raw(Json.Encode(Model.FilterModel));
 
         userObj["SortBy"] = $('#Order').val();;
-        console.log(userObj);
+
 
         $.ajax({
             url:'/Inventory/FilterVehicle',
@@ -129,5 +132,21 @@
 
         });
     }
+
+    function GetModal(lnk) {
+        var VehicleId = lnk.getAttribute("value");
+
+        $.ajax({
+            url:'/Inventory/GetVehicleModal',
+            type:'POST',
+            datatype:"JSON",
+            data: {id: VehicleId},
+            success: function(data) {
+                $('#VehicleModal').html(data);
+            }
+
+        });
+    }
 </script>
+
 

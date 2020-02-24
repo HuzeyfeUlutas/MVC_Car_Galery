@@ -341,5 +341,19 @@ ul {
     padding-bottom: 20px;
 }
 
+.modal-details {
+    border-bottom: 1px black solid;
+}
+
+.modal-details-var {
+    padding-top: 20px;
+}
+
+    .modal-details-var p {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+        line-height: 1.2;
+    }
+
 
 

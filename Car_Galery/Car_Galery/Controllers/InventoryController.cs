@@ -194,6 +194,19 @@ namespace Car_Galery.Controllers
             return PartialView("_VehicleListPartial", ıvm);
         }
 
+        public PartialViewResult GetVehicleModal(int? id)
+        {
+            unitOfWork = new EFUnitOfWork(db);
+            var modal = unitOfWork.GetRepository<Vehicle>().GetById((int)id);
+
+            VehicleModalViewModel vm = Mapper.Map<Vehicle, VehicleModalViewModel>(modal);
+
+            string x = vm.BrandName;
+
+            unitOfWork.Dispose();
+            return PartialView("_VehicleModalPartial", vm);
+        }
+
         public ActionResult FillBrands(int? TypeId)
         {
             unitOfWork = new EFUnitOfWork(db);
