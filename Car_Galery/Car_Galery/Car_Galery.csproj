@@ -196,7 +196,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\MapWrapper.cs" />
     <Compile Include="Helpers\VehicleListHelper.cs" />
     <Compile Include="Migrations\202002151059337_V3.cs" />
     <Compile Include="Migrations\202002151059337_V3.Designer.cs">
