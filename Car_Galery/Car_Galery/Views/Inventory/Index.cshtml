@@ -13,19 +13,19 @@
     </div>
     <div class="row">
         <div class="col-lg-3 col-md-12 col-sm-12 col-12">
-            
+
             <div class="vehicle-filter">
                 <div class="filter-title">
                     <h5><i class="fa fa-search"></i> SEARCH FİLTER</h5>
                 </div>
-                
+
                 <div class="filter-form">
                     @{
                         Html.RenderPartial("_FilterPartial", Model);
                     }
                 </div>
             </div>
-            
+
 
             <div class="brand-categories">
                 <div class="brand-title">
@@ -38,17 +38,27 @@
                     }
                 </div>
             </div>
-            
+
 
         </div>
         <div class="col-lg-9 col-md-12 col-sm-12 col-12" id="VehicleList">
 
             @{
-                    Html.RenderPartial("_VehicleListPartial", Model);
+                Html.RenderPartial("_VehicleListPartial", Model);
             }
 
         </div>
 
     </div>
 </div>
+
+@if (User.IsInRole("Admin"))
+{
+    <div class="right-operation">
+        @{
+            Html.RenderPartial("_OperationPartial");
+        }
+    </div>
+}
+
 

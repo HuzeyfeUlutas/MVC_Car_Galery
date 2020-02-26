@@ -21,7 +21,7 @@ namespace Car_Galery.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("VehiclesContext", throwIfV1Schema: false)
         {
         }
 

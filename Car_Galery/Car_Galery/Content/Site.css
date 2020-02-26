@@ -19,6 +19,9 @@ a {
 .nav-link {
     font-size: 20px;
 }
+.fa-color {
+    color: rgba(255, 255, 255, 0.5);
+}
 
 .navbar-brand {
     font-size: 40px;
@@ -355,5 +358,50 @@ ul {
         line-height: 1.2;
     }
 
+.register-login-title {
+    padding: 10px;
+    background-color: orange;
+    margin-right: 0px;
+    margin-left: 0px;
+}
 
+.regiter-container {
+    padding: 30px;
+}
+
+.register-login-toolbar {
+    margin-top: 0px;
+    padding: 0px 25px;
+    width: 100%;
+    border-bottom: 1px #eaeaea solid;
+    background: white;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.register-login-inner {
+    width: 60%;
+    text-align: left;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.right-operation {
+    right: 0;
+    position: fixed;
+    top: 30%;
+    width: 15%;
+}
+
+.operation-button {
+    background: orange;
+
+    border-radius: 0;
+    border: 1px black solid;
+    text-align: left;
+}
+.operation-button:hover {
+    background: black;
+    color: white !important;
+}
 

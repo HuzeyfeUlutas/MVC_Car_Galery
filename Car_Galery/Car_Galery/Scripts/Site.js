@@ -89,6 +89,22 @@ function FillModels() {
     });
 }
 
+function GetModal(lnk) {
+    var VehicleId = lnk.getAttribute("value");
+
+    $.ajax({
+        url:'/Inventory/GetVehicleModal',
+        type:'POST',
+        datatype:"JSON",
+        data: {id: VehicleId},
+        success: function(data) {
+            $('#VehicleModal').html(data);
+        }
+
+    });
+}
+
+
 
 
 

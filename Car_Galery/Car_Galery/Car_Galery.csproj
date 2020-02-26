@@ -410,6 +410,7 @@
     <Content Include="Views\Shared\_BrandCategoriesPartial.cshtml" />
     <Content Include="Views\Shared\_FilterPartial.cshtml" />
     <Content Include="Views\Shared\_VehicleModalPartial.cshtml" />
+    <Content Include="Views\Shared\_OperationPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

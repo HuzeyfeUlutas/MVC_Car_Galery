@@ -1,24 +1,32 @@
-﻿@using Microsoft.AspNet.Identity
+﻿@using System.Security.Cryptography
+@using Microsoft.AspNet.Identity
+
+@if (User.IsInRole("Admin"))
+{
+    <li class="nav-item">@Html.ActionLink("Users", "About", "Home", null, new { @class = "nav-link" })</li>
+}
+
 @if (Request.IsAuthenticated)
 {
+
+    <li class="nav-item nav-link">
+            <a href="@Url.Action("Index","Manage")"><i class="fa fa-user-circle fa-lg fa-color"></i>
+ </a>
+        </li>
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
 
 
-        <li class="nav-item">
-            @*<button class="btn btn-outline-success " type="submit">Login/Register</button>*@
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        
+        <li class="nav-item nav-link"><a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-danger">Log off</a></li>
 
     }
 }
 else
 {
 
-    @*<button class="btn btn-outline-success " type="submit">Login/Register</button>*@
-    <li class="nav-item">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-    <li class="nav-item">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    <li class="nav-item">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { @class="btn btn-outline-danger", id = "registerLink" })</li>
+    <li class="nav-item">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { @class="btn btn-outline-success", id = "loginLink" })</li>
 
 }
