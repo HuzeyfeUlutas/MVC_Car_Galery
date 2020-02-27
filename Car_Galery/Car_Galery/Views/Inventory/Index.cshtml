@@ -54,11 +54,16 @@
 
 @if (User.IsInRole("Admin"))
 {
-    <div class="right-operation">
-        @{
-            Html.RenderPartial("_OperationPartial");
-        }
-    </div>
+    
 }
+
+<div>
+    @{
+        Html.RenderPartial("_OperationPartial");
+    }
+</div>
+
+
+
 
 

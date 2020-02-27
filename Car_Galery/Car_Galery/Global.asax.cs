@@ -19,6 +19,7 @@ namespace Car_Galery
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             MappingConfig.RegisterMaps();
+            ViewEngines.Engines.Add(new PartialViewRouteConfig());
         }
     }
 }

@@ -397,11 +397,16 @@ ul {
     background: orange;
 
     border-radius: 0;
-    border: 1px black solid;
+    /*border: 1px black solid;*/
     text-align: left;
 }
 .operation-button:hover {
-    background: black;
-    color: white !important;
+    /*background: black;
+    color: white !important;*/
+    transition: 0.3s;
+    box-shadow: 0px 0px 3px 3px #000000;
+    margin-bottom: 3px;
 }
+
+
 

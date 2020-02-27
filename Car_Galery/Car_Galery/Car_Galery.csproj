@@ -180,10 +180,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\MappingConfig.cs" />
+    <Compile Include="App_Start\PartialViewRouteConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Context\VehiclesContext.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminOperationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -406,16 +408,18 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Inventory\Index.cshtml" />
     <Content Include="Views\RentCar\Index.cshtml" />
-    <Content Include="Views\Shared\_VehicleListPartial.cshtml" />
-    <Content Include="Views\Shared\_BrandCategoriesPartial.cshtml" />
-    <Content Include="Views\Shared\_FilterPartial.cshtml" />
-    <Content Include="Views\Shared\_VehicleModalPartial.cshtml" />
-    <Content Include="Views\Shared\_OperationPartial.cshtml" />
+    <Content Include="Views\Shared\InventoryPartial\_VehicleListPartial.cshtml" />
+    <Content Include="Views\Shared\InventoryPartial\_BrandCategoriesPartial.cshtml" />
+    <Content Include="Views\Shared\InventoryPartial\_FilterPartial.cshtml" />
+    <Content Include="Views\Shared\InventoryPartial\_VehicleModalPartial.cshtml" />
+    <Content Include="Views\Shared\AdminOperationPartial\_OperationPartial.cshtml" />
+    <Content Include="Views\Shared\AdminOperationPartial\Type\_TypePartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\BrandImages\" />
     <Folder Include="Services\" />
+    <Folder Include="Views\AdminOperation\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

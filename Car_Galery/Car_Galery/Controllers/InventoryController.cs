@@ -26,7 +26,7 @@ namespace Car_Galery.Controllers
     {
         private  DbContext db = new VehiclesContext();
 
-        private EFUnitOfWork unitOfWork;
+        private IUnitOfWork unitOfWork;
 
         // GET: Inventory
         public ActionResult Index(int? PageNumber)
