@@ -1,4 +1,4 @@
-﻿@model List<Car_Galery.Models.TypeModel>
+﻿@model List<Car_Galery.Models.BrandModel>
 
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -13,16 +13,16 @@
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item">
-                            <a id="TypeList" onclick="List(this)" class="nav-link active">Type List</a>
+                            <a id="BrandList" onclick="List(this)" class="nav-link active">Type Brand</a>
                         </li>
                         <li class="nav-item">
-                            <a id="AddType" onclick="Add(this)" class="nav-link">Add Type</a>
+                            <a id="AddBrand" onclick="Add(this)" class="nav-link">Add Brand</a>
                         </li>
                     </ul>
                 </div>
                 <div class="card-body" id="card-type-body">
                     @{
-                        Html.RenderPartial("_TypeListPartialView" , Model);
+                        Html.RenderPartial("_BrandListPartialView", Model);
                     }
                 </div>
             </div>

@@ -13,6 +13,8 @@ namespace Car_Galery.App_Start
             "~/Views/Shared/AdminOperationPartial/{0}.cshtml",
             "~/Views/Shared/InventoryPartial/{0}.cshtml",
             "~/Views/Shared/AdminOperationPartial/Type/{0}.cshtml",
+            "~/Views/Shared/AdminOperationPartial/Brand/{0}.cshtml",
+            "~/Views/Shared/AdminOperationPartial/Model/{0}.cshtml"
         };
 
         public PartialViewRouteConfig()

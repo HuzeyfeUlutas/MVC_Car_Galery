@@ -1,0 +1,35 @@
+﻿@model Car_Galery.Models.TypeModel
+
+<div class="register-login-title">
+    <h3 align="left">Add Type</h3>
+</div>
+
+<div class="register-login-toolbar" align="center">
+    <div class="regiter-container">
+        <div class="register-login-inner">
+            @using (Ajax.BeginForm("AddType", "AdminOperation", new AjaxOptions()
+            {
+                UpdateTargetId = "card-type-body",
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "Post",
+                Confirm = "Are you sure",
+                OnSuccess = "OnSuccess('Type Add')",
+                OnFailure = "OnFail('Type Add')"
+
+            }))
+            {
+
+                @Html.AntiForgeryToken()
+                @Html.Label("tbName", "Name:")
+                @Html.TextBox("Name", Model.Name, new { @class = "form-control", id = "tbName" ,placeholder ="Enter Name"})
+
+                <div class="btn-edit">
+                    <input type="submit" value="Add" class="btn btn-success" />
+                </div>
+
+            }
+
+        </div>
+    </div>
+</div>
+

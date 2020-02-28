@@ -104,6 +104,86 @@ function GetModal(lnk) {
     });
 }
 
+function Edit(lnk) {
+    var Id = lnk.getAttribute("value");
+    var urlParam = lnk.getAttribute("value1");
+
+    $.ajax({
+        url: '/AdminOperation/Edit'+urlParam,
+        type: 'GET',
+        datatype: "JSON",
+        data: { id: Id },
+        success: function(data) {
+            $('#card-type-body').html(data);
+        }
+    });
+}
+
+function Delete(lnk) {
+    var Id = lnk.getAttribute("value");
+    var urlParam = lnk.getAttribute("value1");
+
+    $.ajax({
+        url: '/AdminOperation/Delete' + urlParam,
+        type: 'POST',
+        data: { id: Id },
+        success: function (data) {
+            $('#card-type-body').html(data);
+            OnSuccess(urlParam+" Delete");
+        },
+        fail: function(data) {
+            OnFail(urlParam+" Delete");
+        } 
+    });
+
+}
+
+function OnSuccess(data) {
+    $.notify(data + " is success","success");
+}
+
+function OnFail(data) {
+    $.notify(data + " is fail", "error");
+}
+
+function List(lnk) {
+    var urlParam = lnk.getAttribute("id");
+    
+    $.ajax({
+        url: '/AdminOperation/Get' + urlParam,
+        type: 'GET',
+        data: null,
+        success: function(data) {
+            $('#card-type-body').html(data);
+            OnSuccess("Get "+urlParam);
+            $("#AddType").removeClass('active');
+            $("#TypeList").addClass('active');
+        },
+        fail: function(data) {
+            OnFail("Get " + urlParam);
+        } 
+    });
+}
+
+function Add(lnk) {
+    var urlParam = lnk.getAttribute("id");
+    
+    $.ajax({
+        url: '/AdminOperation/Get' + urlParam,
+        type: 'GET',
+        data: null,
+        success: function(data) {
+            $('#card-type-body').html(data);
+            OnSuccess("Get "+urlParam);
+            $("#TypeList").removeClass('active');
+            $("#AddType").addClass('active');
+        },
+        fail: function(data) {
+            OnFail("Get " + urlParam);
+        } 
+    });
+}
+
 
 
 

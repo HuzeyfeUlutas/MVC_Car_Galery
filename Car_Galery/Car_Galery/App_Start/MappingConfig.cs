@@ -5,7 +5,7 @@ using System.Web;
 using Car_Galery.Entities;
 using Car_Galery.Models;
 using Car_Galery.Models.ViewModels;
-using Type = System.Type;
+using Type = Car_Galery.Entities.Type;
 
 namespace Car_Galery.App_Start
 {

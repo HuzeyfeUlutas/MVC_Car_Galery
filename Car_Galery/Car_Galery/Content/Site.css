@@ -374,6 +374,8 @@ ul {
     padding: 0px 25px;
     width: 100%;
     border-bottom: 1px #eaeaea solid;
+    border-left: 1px #eaeaea solid;
+    border-right: 1px #eaeaea solid;
     background: white;
     margin-right: 0px;
     margin-left: 0px;
@@ -406,6 +408,34 @@ ul {
     transition: 0.3s;
     box-shadow: 0px 0px 3px 3px #000000;
     margin-bottom: 3px;
+}
+
+.cls {
+    text-align: left;
+}
+
+.cls-edit {
+    text-align: right;
+    color: green;
+}
+
+.cls-delete {
+    color: red;
+}
+
+.row-header {
+    padding-top: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px #eaeaea solid;
+}
+
+.row-element {
+    padding-top: 5px;
+    border-bottom: 1px #eaeaea solid;
+}
+
+.btn-edit {
+    padding-top: 5px;
 }
 
 

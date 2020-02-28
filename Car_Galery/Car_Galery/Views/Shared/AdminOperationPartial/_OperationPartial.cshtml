@@ -9,7 +9,7 @@
             <div>
                 @Ajax.ActionLink("Type", "GetTypeModal", "AdminOperation", null, new AjaxOptions()
                 {
-                    UpdateTargetId = "TypeNodal",
+                    UpdateTargetId = "TypeModal",
                     InsertionMode = InsertionMode.Replace,
                     HttpMethod = "GET"
 
@@ -18,7 +18,13 @@
         </li>
         <li>
             <div>
-                <a data-toggle="modal" data-target="#TypeModal" class="btn operation-button">Brand</a>
+                @Ajax.ActionLink("Brand", "GetBrandModal", "AdminOperation", null, new AjaxOptions()
+                {
+                    UpdateTargetId = "BrandModal",
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "GET"
+
+                }, new { @class = "btn operation-button", data_toggle = "modal", data_target = "#BrandModal" })
             </div>
         </li>
         <li>
@@ -33,21 +39,21 @@
 
 <div class="modal fade" id="TypeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     @{
-        Html.RenderPartial("_TypePartialView",new List<VehicleModel>());
+        Html.RenderPartial("_TypePartialView",new List<TypeModel>());
     }
 
 </div>
 
 <div class="modal fade " id="BrandModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     @{
-        Html.RenderPartial("_TypePartialView",new List<VehicleModel>());
+        Html.RenderPartial("_BrandPartialView",new List<BrandModel>());
     }
 
 </div>
 
 <div class="modal fade " id="ModelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     @{
-        Html.RenderPartial("_TypePartialView",new List<VehicleModel>());
+        Html.RenderPartial("_TypePartialView",new List<TypeModel>());
     }
 
 </div>

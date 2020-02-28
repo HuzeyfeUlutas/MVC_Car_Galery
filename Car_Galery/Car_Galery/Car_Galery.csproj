@@ -291,6 +291,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\notify.min.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -414,12 +415,20 @@
     <Content Include="Views\Shared\InventoryPartial\_VehicleModalPartial.cshtml" />
     <Content Include="Views\Shared\AdminOperationPartial\_OperationPartial.cshtml" />
     <Content Include="Views\Shared\AdminOperationPartial\Type\_TypePartialView.cshtml" />
+    <Content Include="Views\Shared\AdminOperationPartial\Type\_TypeListPartialView.cshtml" />
+    <Content Include="Views\Shared\AdminOperationPartial\Type\_TypeEditPartialView.cshtml" />
+    <Content Include="Views\Shared\AdminOperationPartial\Type\_TypeAddPartialView.cshtml" />
+    <Content Include="Views\Shared\AdminOperationPartial\Brand\_BrandAddPartialView.cshtml" />
+    <Content Include="Views\Shared\AdminOperationPartial\Brand\_BrandEditPartialView.cshtml" />
+    <Content Include="Views\Shared\AdminOperationPartial\Brand\_BrandListPartialView.cshtml" />
+    <Content Include="Views\Shared\AdminOperationPartial\Brand\_BrandPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\BrandImages\" />
     <Folder Include="Services\" />
     <Folder Include="Views\AdminOperation\" />
+    <Folder Include="Views\Shared\AdminOperationPartial\Model\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

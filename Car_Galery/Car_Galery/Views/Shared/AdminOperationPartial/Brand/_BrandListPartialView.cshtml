@@ -1,0 +1,44 @@
+﻿@model List<Car_Galery.Models.BrandModel>
+
+<div>
+    <div class="register-login-title">
+        <h3 align="left">Types</h3>
+    </div>
+    <div class="register-login-toolbar" align="center">
+
+        <div class="cls">
+            <div class="table cls">
+                <div class="row row-header">
+                    <div class="col-8">
+                        <b>Name</b>
+                    </div>
+                    <div class="col-2">
+
+                    </div>
+                    <div class="col-2">
+
+                    </div>
+                </div>
+
+                @foreach (var modelu in Model)
+                {
+                    <div class="row row-element">
+                        <div class="col-8">
+                            <p>@modelu.Name</p>
+                        </div>
+                        <div class="col-2 cls-edit">
+                            <a onclick="Edit(this)" value=@modelu.Id value1="Brand"><i class="fa fa-edit fa-lg"></i></a>
+                        </div>
+                        <div class="col-2 cls-delete">
+                            <a onclick="Delete(this)" value=@modelu.Id value1="Brand"><i class="fa fa-trash fa-lg"></i></a>
+                        </div>
+                    </div>
+                }
+
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
