@@ -45,7 +45,7 @@ namespace Car_Galery.Controllers
 
             List<BrandModel> model = new List<BrandModel>();
 
-            model = unitOfWork.GetRepository<BrandModel>().GetAll().ProjectTo<BrandModel>().ToList();
+            model = unitOfWork.GetRepository<Brand>().GetAll().ProjectTo<BrandModel>().ToList();
 
             return PartialView("_BrandPartialView", model);
         }
