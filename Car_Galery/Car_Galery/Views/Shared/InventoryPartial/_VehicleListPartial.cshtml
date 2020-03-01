@@ -74,7 +74,7 @@
                 <div class="CarBox">
                     <input id="VehicleId" name="VehicleId" type="hidden" value=@vehicle.Id/>
                     <div>
-                        <img src="@Url.Content(vehicle.ImageUrl)" alt="carname"/>
+                        <img src="@(((vehicle.ImageUrl == null)|| (vehicle.ImageUrl == ""))  ? Url.Content("~/Images/placeholder.png") : Url.Content(vehicle.ImageUrl))" alt="carname"/>
                     </div>
                     <div class="car-title">
                         <p>@vehicle.Name</p>

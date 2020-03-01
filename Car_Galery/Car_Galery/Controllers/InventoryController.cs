@@ -40,7 +40,7 @@ namespace Car_Galery.Controllers
             #region Vehicle List Model Binding
             List<VehicleModel> vhList = new List<VehicleModel>();
 
-            vhList = unitOfWork.GetRepository<Vehicle>().GetAll().ProjectTo<VehicleModel>().ToList();
+            vhList = unitOfWork.GetRepository<Vehicle>().GetAll(v=>v.Rentable == false).ProjectTo<VehicleModel>().ToList();
 
             ıvm.FilterModel.ResultCount = vhList.Count();
 

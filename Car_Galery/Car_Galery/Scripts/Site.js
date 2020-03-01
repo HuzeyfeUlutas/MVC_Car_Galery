@@ -114,7 +114,7 @@ function Edit(lnk) {
         datatype: "JSON",
         data: { id: Id },
         success: function(data) {
-            $('#card-type-body').html(data);
+            $('#card-type-body-'+urlParam).html(data);
         }
     });
 }
@@ -123,20 +123,25 @@ function Delete(lnk) {
     var Id = lnk.getAttribute("value");
     var urlParam = lnk.getAttribute("value1");
 
-    $.ajax({
-        url: '/AdminOperation/Delete' + urlParam,
-        type: 'POST',
-        data: { id: Id },
-        success: function (data) {
-            $('#card-type-body').html(data);
-            OnSuccess(urlParam+" Delete");
-        },
-        fail: function(data) {
-            OnFail(urlParam+" Delete");
-        } 
-    });
+    if (confirm("Are you sure?(this may cause other data connected to the "+urlParam+" to be lost)")) {
+        $.ajax({
+            url: '/AdminOperation/Delete' + urlParam,
+            type: 'POST',
+            data: { id: Id },
+            success: function (data) {
+                $('#card-type-body-'+urlParam).html(data);
+                OnSuccess(urlParam+" Delete");
+            },
+            fail: function(data) {
+                OnFail(urlParam+" Delete");
+            } 
+        });
+    }
+    
 
 }
+
+
 
 function OnSuccess(data) {
     $.notify(data + " is success","success");
@@ -146,18 +151,30 @@ function OnFail(data) {
     $.notify(data + " is fail", "error");
 }
 
+function AddSuccess(data) {
+    $("#Add"+data).removeClass('active');
+    $("#"+data+"List").addClass('active')
+    OnSuccess(data+" Add");
+}
+
+function AddFail(data) {
+    $("#Add"+data).removeClass('active');
+    $("#"+data+"List").addClass('active')
+    OnFail(data+" Add");
+}
+
 function List(lnk) {
     var urlParam = lnk.getAttribute("id");
-    
+    var res = urlParam.replace("List", "");
     $.ajax({
         url: '/AdminOperation/Get' + urlParam,
         type: 'GET',
         data: null,
         success: function(data) {
-            $('#card-type-body').html(data);
+            $('#card-type-body-'+res).html(data);
             OnSuccess("Get "+urlParam);
-            $("#AddType").removeClass('active');
-            $("#TypeList").addClass('active');
+            $("#Add"+res).removeClass('active');
+            $("#"+res+"List").addClass('active');
         },
         fail: function(data) {
             OnFail("Get " + urlParam);
@@ -167,22 +184,40 @@ function List(lnk) {
 
 function Add(lnk) {
     var urlParam = lnk.getAttribute("id");
-    
+    var res = urlParam.replace("Add", "");
+
+
     $.ajax({
         url: '/AdminOperation/Get' + urlParam,
         type: 'GET',
         data: null,
         success: function(data) {
-            $('#card-type-body').html(data);
+            $('#card-type-body-'+res).html(data);
             OnSuccess("Get "+urlParam);
-            $("#TypeList").removeClass('active');
-            $("#AddType").addClass('active');
+            $("#"+res+"List").removeClass('active');
+            $("#Add"+res).addClass('active');
         },
         fail: function(data) {
             OnFail("Get " + urlParam);
         } 
     });
 }
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+    
+        reader.onload = function(e) {
+            $('#imgPrv').attr('src', e.target.result);
+        }
+    
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#imgInp").change(function() {
+    readURL(this);
+});
 
 
 

@@ -209,6 +209,7 @@
     <Compile Include="Models\BrandModelsModel.cs" />
     <Compile Include="Models\TypeModel.cs" />
     <Compile Include="Models\VehicleModel.cs" />
+    <Compile Include="Models\ViewModels\BrandEditViewModel.cs" />
     <Compile Include="Models\ViewModels\InventoryViewModel.cs" />
     <Compile Include="Models\ViewModels\VehicleModalViewModel.cs" />
     <Compile Include="UnitOfWork\Abstract\IUnitOfWork.cs" />
@@ -243,9 +244,11 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="Images\BrandImages\BMW.png" />
     <Content Include="Images\HomePage\Slider\slider-1.jpg" />
     <Content Include="Images\HomePage\Slider\slider-2.jpg" />
     <Content Include="Images\HomePage\Slider\slider-3.jpg" />
+    <Content Include="Images\placeholder.png" />
     <Content Include="Images\VehicleImages\carimage1.png" />
     <Content Include="Images\VehicleImages\carimage2.png" />
     <Content Include="Images\VehicleImages\carimage3.png" />
@@ -315,7 +318,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\BrandImages\" />
     <Folder Include="Services\" />
     <Folder Include="Views\AdminOperation\" />
     <Folder Include="Views\Shared\AdminOperationPartial\Model\" />

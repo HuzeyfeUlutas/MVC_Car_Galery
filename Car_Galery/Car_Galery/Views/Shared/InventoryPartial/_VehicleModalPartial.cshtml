@@ -16,7 +16,7 @@
             <div class="row CarBox">
                 <div class="col-md-6 col-12">
                     <div>
-                        <img src="@(Model.ImageUrl == null ? "" : Url.Content(Model.ImageUrl))" alt="carname" />
+                        <img src="@(((Model.ImageUrl == null) || (Model.ImageUrl == "")) ? Url.Content("~/Images/placeholder.png") : Url.Content(Model.ImageUrl))" alt="carname" />
                     </div>
                 </div>
 

@@ -1,1 +1,57 @@
-﻿
+﻿@model Car_Galery.Models.ViewModels.BrandEditViewModel
+<div class="register-login-title">
+    <h3 align="left">Edit Brand</h3>
+</div>
+
+
+<div class="register-login-toolbar" align="center">
+    <div>
+        <div>
+            @using (Ajax.BeginForm("EditBrandConfirm", "AdminOperation", null, new AjaxOptions()
+            {
+                UpdateTargetId = "card-type-body-Brand",
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "Post",
+                Confirm = "Are you sure",
+                OnSuccess = "OnSuccess('Type Update')",
+                OnFailure = "OnFail('Type Update')"
+
+            }, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="row form-brand">
+                    <div class="col-lg-6 col-12">
+                        <div class="btn-edit">
+                            <img id="imgPrv" src="@(((Model.BrandModel.BrandImgUrl == null) || (Model.BrandModel.BrandImgUrl == "")) ? Url.Content("~/Images/placeholder.png"): Url.Content(Model.BrandModel.BrandImgUrl))" alt="brand" />
+                        </div>
+                        <input type="file" accept="image/png, image/jpeg" name="file1" class="btn-success" id="imgInp" onchange="readURL(this)"/>
+                    </div>
+                    <div class="col-lg-6 col-12 brand-edit">
+
+                        <div class="form-group">
+
+                            @Html.HiddenFor(model => model.BrandModel.Id)
+                            @Html.Label("ddlTypes", "Types:")
+                            @Html.ListBox("typeIds", Model.Types, new { @class = "form-control", id = "ddlTypes" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.BrandModel.Name, new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.BrandModel.Name, new { @class = "form-control" })
+                        </div>
+
+                        <div class="btn-edit">
+                            <input type="submit" value="Update" class="btn btn-success" />
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+            }
+
+        </div>
+    </div>
+</div>

@@ -388,6 +388,10 @@ ul {
     padding-bottom: 20px;
 }
 
+.brand-edit {
+    text-align: left;
+}
+
 .right-operation {
     right: 0;
     position: fixed;
@@ -436,6 +440,17 @@ ul {
 
 .btn-edit {
     padding-top: 5px;
+}
+
+
+.btn-edit img {
+        width: 100%;
+        border-radius: 5px;
+        border: 3px black solid;
+}
+
+.form-brand {
+    padding-bottom: 10px;
 }
 
 

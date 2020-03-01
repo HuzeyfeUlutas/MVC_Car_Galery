@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls.WebParts;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Car_Galery.Context;
@@ -62,13 +64,51 @@ namespace Car_Galery.Controllers
             model = unitOfWork.GetRepository<Type>().GetAll().ProjectTo<TypeModel>().ToList();
             
             unitOfWork.Dispose();
+
             return PartialView("_TypeListPartialView",model);
 
+        }
+
+        public PartialViewResult GetBrandList()
+        {
+            unitOfWork = new EFUnitOfWork(db);
+
+            List<BrandModel> model = new List<BrandModel>();
+
+            model = unitOfWork.GetRepository<Brand>().GetAll().ProjectTo<BrandModel>().ToList();
+
+            unitOfWork.Dispose();
+
+            return PartialView("_BrandListPartialView", model);
         }
 
         public PartialViewResult GetAddType()
         {
             return PartialView("_TypeAddPartialView" ,new TypeModel());
+        }
+
+        public PartialViewResult GetAddBrand()
+        {
+            unitOfWork = new EFUnitOfWork(db);
+            
+            BrandEditViewModel bevm = new BrandEditViewModel();
+
+            bevm.BrandModel = new BrandModel();
+
+            var types = unitOfWork.GetRepository<Type>().GetAll().Select(t => new SelectListItem()
+            {
+                Value = t.Id.ToString(),
+                Text = t.Name
+            }).ToList();
+
+            bevm.typeIds = new List<int>();
+
+            bevm.Types = new MultiSelectList(types,"Value","Text",bevm.typeIds);
+            
+            
+
+            unitOfWork.Dispose();
+            return PartialView("_BrandAddPartialView",bevm);
         }
 
         #endregion
@@ -87,7 +127,36 @@ namespace Car_Galery.Controllers
             TypeModel tm = Mapper.Map<Type, TypeModel>(model);
 
             unitOfWork.Dispose();
+
             return PartialView("_TypeEditPartialView", tm);
+        }
+
+        [HttpGet]
+        public PartialViewResult EditBrand(int id)
+        {
+            unitOfWork = new EFUnitOfWork(db);
+
+            BrandEditViewModel bevm = new BrandEditViewModel();
+
+            var model = unitOfWork.GetRepository<Brand>().GetById(id);
+
+            BrandModel bm = Mapper.Map<Brand, BrandModel>(model);
+
+            var types = unitOfWork.GetRepository<Type>().GetAll().Select(t => new SelectListItem()
+            {
+                Value = t.Id.ToString(),
+                Text = t.Name
+            }).ToList();
+
+            bevm.typeIds = model.TypeBrands.Select(tb => tb.TypeId).ToList();
+
+            bevm.BrandModel = bm;
+
+            bevm.Types = new MultiSelectList(types,"Value","Text",bevm.typeIds);
+
+            unitOfWork.Dispose();
+
+            return PartialView("_BrandEditPartialView",bevm);
         }
         
 
@@ -117,6 +186,56 @@ namespace Car_Galery.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditBrandConfirm(BrandEditViewModel bevm,HttpPostedFileBase file1)
+        {
+            unitOfWork = new EFUnitOfWork(db);
+
+            
+
+            var entity = unitOfWork.GetRepository<Brand>().GetById(bevm.BrandModel.Id);
+
+            entity.Name = bevm.BrandModel.Name;
+
+            if (file1 != null)
+            {
+                string fullPath = Request.MapPath(entity.BrandImgUrl);
+                if (System.IO.File.Exists(fullPath))
+                {
+                    System.IO.File.Delete(fullPath);
+                }
+                entity.BrandImgUrl = "~/Images/BrandImages/" + bevm.BrandModel.Name + ".png";;
+                string path = Path.Combine(Server.MapPath(entity.BrandImgUrl));
+                file1.SaveAs(path);
+            }
+
+            var typeBrands = unitOfWork.GetRepository<TypeBrand>().GetAll()
+                .Where(tb => tb.BrandId == bevm.BrandModel.Id).ToList();
+
+            foreach (var typeBrand in typeBrands)
+            {
+                unitOfWork.GetRepository<TypeBrand>().Delete(typeBrand);
+            }
+
+
+            entity.TypeBrands = bevm.typeIds.Select(t => new TypeBrand()
+            {
+                TypeId = t,
+                BrandId = entity.Id
+            }).ToList();
+
+
+            unitOfWork.GetRepository<Brand>().Update(entity);
+
+            unitOfWork.SaveChanges();
+                
+            unitOfWork.Dispose();
+
+
+            return RedirectToAction("GetBrandList");
+        }
+
+        [HttpPost]
         public ActionResult DeleteType(int id)
         {
             unitOfWork = new EFUnitOfWork(db);
@@ -143,9 +262,25 @@ namespace Car_Galery.Controllers
         {
             unitOfWork = new EFUnitOfWork(db);
 
+            var BrandImgUrl = unitOfWork.GetRepository<Brand>().GetById(id).BrandImgUrl;
+
             unitOfWork.GetRepository<Brand>().Delete(id);
 
             List<TypeBrand> tbList = unitOfWork.GetRepository<TypeBrand>().GetAll(tb => tb.BrandId == id).ToList();
+
+            List<Model> mList = unitOfWork.GetRepository<Model>().GetAll(m => m.BrandId == id).ToList();
+
+            List<Vehicle> vehicles = unitOfWork.GetRepository<Vehicle>().GetAll(v => v.BrandId == id).ToList();
+
+            foreach (var m in mList)
+            {
+                unitOfWork.GetRepository<Model>().Delete(m);
+            }
+
+            foreach (var vehicle in vehicles)
+            {
+                unitOfWork.GetRepository<Vehicle>().Delete(vehicle);
+            }
 
             foreach (var tb in tbList)
             {
@@ -154,9 +289,15 @@ namespace Car_Galery.Controllers
 
             unitOfWork.SaveChanges();
 
+            string fullPath = Request.MapPath(BrandImgUrl);
+            if (System.IO.File.Exists(fullPath))
+            {
+                System.IO.File.Delete(fullPath);
+            }
+
             unitOfWork.Dispose();
 
-            return RedirectToAction("GetTypeList");
+            return RedirectToAction("GetBrandList");
             
         }
 
@@ -174,6 +315,37 @@ namespace Car_Galery.Controllers
             unitOfWork.Dispose();
 
             return RedirectToAction("GetTypeList");
+        }
+
+
+        [HttpPost]
+        public ActionResult AddBrand(BrandEditViewModel bevm,HttpPostedFileBase file1)
+        {
+            unitOfWork = new EFUnitOfWork(db);
+            
+            var entity = Mapper.Map<BrandModel, Brand>(bevm.BrandModel);
+
+            if (file1 != null)
+            {
+                entity.BrandImgUrl = "~/Images/BrandImages/" + bevm.BrandModel.Name + ".png";;
+                string path = Path.Combine(Server.MapPath(entity.BrandImgUrl));
+                file1.SaveAs(path);
+            }
+
+            entity.TypeBrands = bevm.typeIds.Select(t => new TypeBrand()
+            {
+                TypeId = t,
+                BrandId = entity.Id
+            }).ToList();
+
+
+            unitOfWork.GetRepository<Brand>().Add(entity);
+
+            unitOfWork.SaveChanges();
+
+            unitOfWork.Dispose();
+
+            return RedirectToAction("GetBrandList");
         }
 
         #endregion
