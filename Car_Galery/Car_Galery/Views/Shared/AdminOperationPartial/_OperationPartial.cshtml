@@ -29,7 +29,13 @@
         </li>
         <li>
             <div>
-                <a class="btn operation-button">Model</a>
+                @Ajax.ActionLink("Model", "GetModelModal", "AdminOperation", null, new AjaxOptions()
+                {
+                    UpdateTargetId = "ModelModal",
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "GET"
+
+                }, new { @class = "btn operation-button", data_toggle = "modal", data_target = "#ModelModal" })
             </div>
         </li>
     </ul>
@@ -53,7 +59,7 @@
 
 <div class="modal fade " id="ModelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     @{
-        Html.RenderPartial("_TypePartialView",new List<TypeModel>());
+        Html.RenderPartial("_ModelPartialView",new List<ModelModel>());
     }
 
 </div>

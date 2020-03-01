@@ -211,6 +211,7 @@
     <Compile Include="Models\VehicleModel.cs" />
     <Compile Include="Models\ViewModels\BrandEditViewModel.cs" />
     <Compile Include="Models\ViewModels\InventoryViewModel.cs" />
+    <Compile Include="Models\ViewModels\ModelEditViewModel.cs" />
     <Compile Include="Models\ViewModels\VehicleModalViewModel.cs" />
     <Compile Include="UnitOfWork\Abstract\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\EFUnitOfWork.cs" />
@@ -318,12 +319,15 @@
     <Content Include="Views\Shared\RentACarPartial\_VehicleListRACPartial.cshtml" />
     <Content Include="Views\Shared\RentACarPartial\_FilterRACPartial.cshtml" />
     <Content Include="Views\Shared\RentACarPartial\_BrandCategoriesRACPartial.cshtml" />
+    <Content Include="Views\Shared\AdminOperationPartial\Model\_ModelPartialView.cshtml" />
+    <Content Include="Views\Shared\AdminOperationPartial\Model\_ModelListPartialView.cshtml" />
+    <Content Include="Views\Shared\AdminOperationPartial\Model\_ModelEditPartialView.cshtml" />
+    <Content Include="Views\Shared\AdminOperationPartial\Model\_ModelAddPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Services\" />
     <Folder Include="Views\AdminOperation\" />
-    <Folder Include="Views\Shared\AdminOperationPartial\Model\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

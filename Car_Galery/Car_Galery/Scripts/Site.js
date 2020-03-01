@@ -220,6 +220,22 @@ $("#imgInp").change(function() {
 });
 
 
+$('#TypeModal').on('hidden.bs.modal',
+    function() {
+        document.location.reload();
+    });
+
+
+$('#BrandModal').on('hidden.bs.modal',
+    function() {
+        document.location.reload();
+    });
+
+$('#ModelModal').on('hidden.bs.modal',
+    function() {
+        document.location.reload();
+    });
+
 
 
 

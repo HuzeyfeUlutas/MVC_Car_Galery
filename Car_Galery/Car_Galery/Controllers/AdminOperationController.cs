@@ -51,6 +51,17 @@ namespace Car_Galery.Controllers
 
             return PartialView("_BrandPartialView", model);
         }
+
+        public PartialViewResult GetModelModal()
+        {
+            unitOfWork = new EFUnitOfWork(db);
+
+            List<ModelModel> model = new List<ModelModel>();
+
+            model = unitOfWork.GetRepository<Model>().GetAll().ProjectTo<ModelModel>().ToList();
+
+            return PartialView("_ModelPartialView", model);
+        }
         #endregion
 
         #region GetList
@@ -82,6 +93,19 @@ namespace Car_Galery.Controllers
             return PartialView("_BrandListPartialView", model);
         }
 
+        public PartialViewResult GetModelList()
+        {
+            unitOfWork = new EFUnitOfWork(db);
+
+            List<ModelModel> model = new List<ModelModel>();
+
+            model = unitOfWork.GetRepository<Model>().GetAll().ProjectTo<ModelModel>().ToList();
+
+            unitOfWork.Dispose();
+
+            return PartialView("_ModelListPartialView", model);
+        }
+
         public PartialViewResult GetAddType()
         {
             return PartialView("_TypeAddPartialView" ,new TypeModel());
@@ -111,8 +135,29 @@ namespace Car_Galery.Controllers
             return PartialView("_BrandAddPartialView",bevm);
         }
 
-        #endregion
+        public PartialViewResult GetAddModel()
+        {
+            unitOfWork = new EFUnitOfWork(db);
+            
+            ModelEditViewModel mevm = new ModelEditViewModel();
 
+            mevm.ModelModel = new ModelModel();
+
+            var brands = unitOfWork.GetRepository<Brand>().GetAll().Select(t => new SelectListItem()
+            {
+                Value = t.Id.ToString(),
+                Text = t.Name
+            }).ToList();
+
+            mevm.Brands = new SelectList(brands,"Value","Text",mevm.brandId);
+            
+            
+
+            unitOfWork.Dispose();
+            return PartialView("_ModelAddPartialView",mevm);
+        }
+
+        #endregion
 
         #region GetEdit
 
@@ -130,7 +175,6 @@ namespace Car_Galery.Controllers
 
             return PartialView("_TypeEditPartialView", tm);
         }
-
         [HttpGet]
         public PartialViewResult EditBrand(int id)
         {
@@ -158,12 +202,36 @@ namespace Car_Galery.Controllers
 
             return PartialView("_BrandEditPartialView",bevm);
         }
-        
+        [HttpGet]
+        public PartialViewResult EditModel(int id)
+        {
+            unitOfWork = new EFUnitOfWork(db);
+
+            ModelEditViewModel mevm = new ModelEditViewModel();
+            
+            var model = unitOfWork.GetRepository<Model>().GetById(id);
+
+            ModelModel mm = Mapper.Map<Model, ModelModel>(model);
+
+            var brands = unitOfWork.GetRepository<Brand>().GetAll().Select(t => new SelectListItem()
+            {
+                Value = t.Id.ToString(),
+                Text = t.Name
+            }).ToList();
+
+            mevm.brandId = model.BrandId;
+
+            mevm.ModelModel = mm;
+
+            mevm.Brands = new SelectList(brands,"Value","Text",mevm.brandId);
+
+            unitOfWork.Dispose();
+
+            return PartialView("_ModelEditPartialView",mevm);
+        }
+
 
         #endregion
-
-       
-
 
         #region Operation
 
@@ -236,6 +304,41 @@ namespace Car_Galery.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditModelConfirm(ModelEditViewModel mevm)
+        {
+            unitOfWork = new EFUnitOfWork(db);
+
+            var entity = unitOfWork.GetRepository<Model>().GetById(mevm.ModelModel.Id);
+
+            List<Vehicle> vehicles = unitOfWork.GetRepository<Vehicle>().GetAll(v => v.BrandId == entity.BrandId).ToList();
+
+            entity.Name = mevm.ModelModel.Name;
+
+            entity.BrandId = mevm.brandId;
+
+            unitOfWork.GetRepository<Model>().Update(entity);
+
+            foreach (var vehicle in vehicles)
+            {
+                vehicle.BrandId = mevm.brandId;
+                
+                unitOfWork.GetRepository<Vehicle>().Update(vehicle);
+            }
+
+
+
+            unitOfWork.SaveChanges();
+                
+            unitOfWork.Dispose();
+
+
+            return RedirectToAction("GetModelList");
+        }
+
+
+
+        [HttpPost]
         public ActionResult DeleteType(int id)
         {
             unitOfWork = new EFUnitOfWork(db);
@@ -302,6 +405,30 @@ namespace Car_Galery.Controllers
         }
 
         [HttpPost]
+        public ActionResult DeleteModel(int id)
+        {
+            unitOfWork = new EFUnitOfWork(db);
+
+            unitOfWork.GetRepository<Model>().Delete(id);
+
+            List<Vehicle> vehicles = unitOfWork.GetRepository<Vehicle>().GetAll(v => v.ModelId == id).ToList();
+
+            foreach (var vehicle in vehicles)
+            {
+                unitOfWork.GetRepository<Vehicle>().Delete(vehicle);
+            }
+
+            unitOfWork.SaveChanges();
+
+            unitOfWork.Dispose();
+
+            return RedirectToAction("GetModelList");
+            
+        }
+
+
+
+        [HttpPost]
         public ActionResult AddType(TypeModel tm)
         {
             unitOfWork = new EFUnitOfWork(db);
@@ -316,7 +443,6 @@ namespace Car_Galery.Controllers
 
             return RedirectToAction("GetTypeList");
         }
-
 
         [HttpPost]
         public ActionResult AddBrand(BrandEditViewModel bevm,HttpPostedFileBase file1)
@@ -346,6 +472,24 @@ namespace Car_Galery.Controllers
             unitOfWork.Dispose();
 
             return RedirectToAction("GetBrandList");
+        }
+
+        [HttpPost]
+        public ActionResult AddModel(ModelEditViewModel mevm)
+        {
+            unitOfWork = new EFUnitOfWork(db);
+            
+            var entity = Mapper.Map<ModelModel, Model>(mevm.ModelModel);
+
+            entity.BrandId = mevm.brandId;
+
+            unitOfWork.GetRepository<Model>().Add(entity);
+
+            unitOfWork.SaveChanges();
+
+            unitOfWork.Dispose();
+
+            return RedirectToAction("GetModelList");
         }
 
         #endregion
