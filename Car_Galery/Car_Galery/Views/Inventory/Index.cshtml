@@ -54,14 +54,14 @@
 
 @if (User.IsInRole("Admin"))
 {
-    
+    <div>
+        @{
+            Html.RenderPartial("_OperationPartial");
+        }
+    </div>
 }
 
-<div>
-    @{
-        Html.RenderPartial("_OperationPartial");
-    }
-</div>
+
 
 
 

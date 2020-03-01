@@ -79,7 +79,7 @@ namespace Car_Galery.Controllers
 
             InventoryViewModel ıvm = new InventoryViewModel();
 
-            var query = VehicleListHelper.Filter(fm, unitOfWork);
+            var query = VehicleListHelper.Filter(fm, unitOfWork,false);
 
             List<VehicleModel> vhList = new List<VehicleModel>();
 

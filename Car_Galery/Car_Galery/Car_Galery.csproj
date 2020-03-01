@@ -315,6 +315,9 @@
     <Content Include="Views\Shared\AdminOperationPartial\Brand\_BrandEditPartialView.cshtml" />
     <Content Include="Views\Shared\AdminOperationPartial\Brand\_BrandListPartialView.cshtml" />
     <Content Include="Views\Shared\AdminOperationPartial\Brand\_BrandPartialView.cshtml" />
+    <Content Include="Views\Shared\RentACarPartial\_VehicleListRACPartial.cshtml" />
+    <Content Include="Views\Shared\RentACarPartial\_FilterRACPartial.cshtml" />
+    <Content Include="Views\Shared\RentACarPartial\_BrandCategoriesRACPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

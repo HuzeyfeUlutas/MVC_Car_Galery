@@ -11,10 +11,10 @@ namespace Car_Galery.Helpers
 {
     public class VehicleListHelper
     {
-        public static IQueryable Filter(FilterModel fm, IUnitOfWork unitOfWork)
+        public static IQueryable Filter(FilterModel fm, IUnitOfWork unitOfWork, bool control)
         {
 
-            var query = unitOfWork.GetRepository<Vehicle>().GetAll(v=>v.Rentable == false).AsQueryable();
+            var query = unitOfWork.GetRepository<Vehicle>().GetAll(v=>v.Rentable == control).AsQueryable();
              #region Filter
             if(fm.Filtered == true)
             {

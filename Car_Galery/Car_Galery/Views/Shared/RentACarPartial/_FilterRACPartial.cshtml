@@ -1,0 +1,105 @@
+﻿@using System.Data
+@model Car_Galery.Models.ViewModels.InventoryViewModel
+
+@{
+    var types = new SelectList(Model.TypeModels, "Id", "Name");
+
+    var brands = new SelectList(Model.BrandModels, "Id", "Name");
+
+    var models = new SelectList(Model.ModelModels, "Id", "Name");
+
+
+}
+
+
+
+@using (Ajax.BeginForm("FilterVehicle", "RentCar", new { Filtered = true }, new AjaxOptions()
+{
+    UpdateTargetId = "RentACarList",
+    InsertionMode = InsertionMode.Replace,
+    HttpMethod = "POST"
+}))
+{
+    <div class="filter-items">
+        <div>
+            @Html.DropDownList("TypeId", types, "--Select Type--", new { @class = "form-control form-dropdown", onchange = "FillBrands()" })
+        </div>
+    </div>
+    <div class="filter-items">
+        <div>
+            @Html.DropDownList("BrandId", brands, "--Select Brand--", new { @class = "form-control form-dropdown", onchange = "FillModels()" , disabled = "disabled" })
+        </div>
+    </div>
+    <div class="filter-items">
+        <div>
+            @Html.DropDownList("ModelId", models, "--Select Model--", new { @class = "form-control form-dropdown", disabled = "disabled" })
+        </div>
+    </div>
+    <div class="filter-items">
+        <div>
+            @Html.DropDownList("FuelType", new List<SelectListItem>()
+            {
+                new SelectListItem{Text = "Gasoline",Value = "Gasoline"},
+                new SelectListItem{Text = "Diesel",Value = "Diesel"}
+            }, "--Select Fuel Type--", new { @class = "form-control form-dropdown" })
+        </div>
+    </div>
+    <div class="filter-items">
+        <div>
+            @Html.DropDownList("Transmission", new List<SelectListItem>()
+            {
+                new SelectListItem{Text="Automatic",Value ="Automatic"},
+                new SelectListItem{Text="Manuel",Value ="Manuel"}
+
+            }, "--Select Transmission--", new { @class = "form-control form-dropdown" })
+        </div>
+    </div>
+    <div class="filter-items">
+        <div>
+            @Html.DropDownList("Year", Enumerable.Range(1950, DateTime.Now.Year-1950).Select(x => new SelectListItem {Text = x.ToString()}), "--Select Year--", new { @class = "form-control form-dropdown" })
+        </div>
+    </div>
+
+    <div class="filter-item-textboxs">
+        <div>
+            @Html.Label("pricelb", "Price:", new { @class = "text-box-label" })
+        </div>
+        <div class="row">
+            <div class="form-textbox col-md-6 col-12">
+                @Html.TextBox("MinPrice", "", new { @class = "form-control text-box", placeholder = "Min" })
+            </div>
+            <div class="form-textbox col-md-6 col-12">
+                @Html.TextBox("MaxPrice", "", new { @class = "form-control text-box", placeholder = "Max" })
+            </div>
+        </div>
+    </div>
+
+    <div class="filter-item-textboxs">
+        <div>
+            @Html.Label("kmlb", "Km:", new { @class = "text-box-label" })
+        </div>
+        <div class="row">
+            <div class="form-textbox col-md-6 col-12">
+                @Html.TextBox("MinKm", "", new { @class = "form-control text-box", placeholder = "Min" })
+            </div>
+            <div class="form-textbox col-md-6 col-12">
+                @Html.TextBox("MaxKm", "", new { @class = "form-control text-box", placeholder = "Max" })
+            </div>
+        </div>
+    </div>
+
+    <div class="filter-items">
+        <div class="row">
+            <div class="col-12 form-textbox">
+                <input type="submit" value="Search Filter" id="btnSearch" name="BtnType" class="btn btn-info" />
+            </div>
+            <div class="col-12 form-textbox">
+                <input type="reset" value="Clear" id="btnClear" name="BtnType" class="btn btn-danger" onclick="location.href = '@Url.Action("Index", "RentCar")'" />
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
