@@ -213,6 +213,7 @@
     <Compile Include="Models\ViewModels\InventoryViewModel.cs" />
     <Compile Include="Models\ViewModels\ModelEditViewModel.cs" />
     <Compile Include="Models\ViewModels\VehicleModalViewModel.cs" />
+    <Compile Include="Models\ViewModels\VehicleOperationView.cs" />
     <Compile Include="UnitOfWork\Abstract\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\EFUnitOfWork.cs" />
     <Compile Include="Migrations\202002081121058_V1.cs" />
@@ -306,7 +307,7 @@
     <Content Include="Views\Shared\InventoryPartial\_VehicleListPartial.cshtml" />
     <Content Include="Views\Shared\InventoryPartial\_BrandCategoriesPartial.cshtml" />
     <Content Include="Views\Shared\InventoryPartial\_FilterPartial.cshtml" />
-    <Content Include="Views\Shared\InventoryPartial\_VehicleModalPartial.cshtml" />
+    <Content Include="Views\Shared\AdminOperationPartial\Vehicle\_VehicleModalPartial.cshtml" />
     <Content Include="Views\Shared\AdminOperationPartial\_OperationPartial.cshtml" />
     <Content Include="Views\Shared\AdminOperationPartial\Type\_TypePartialView.cshtml" />
     <Content Include="Views\Shared\AdminOperationPartial\Type\_TypeListPartialView.cshtml" />
@@ -323,6 +324,9 @@
     <Content Include="Views\Shared\AdminOperationPartial\Model\_ModelListPartialView.cshtml" />
     <Content Include="Views\Shared\AdminOperationPartial\Model\_ModelEditPartialView.cshtml" />
     <Content Include="Views\Shared\AdminOperationPartial\Model\_ModelAddPartialView.cshtml" />
+    <Content Include="Views\Shared\AdminOperationPartial\Vehicle\_VehicleDetailPartialView.cshtml" />
+    <Content Include="Views\Shared\AdminOperationPartial\Vehicle\_VehicleEditPartialView.cshtml" />
+    <Content Include="Views\Shared\AdminOperationPartial\Vehicle\_VehicleAddPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

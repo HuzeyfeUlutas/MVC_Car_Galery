@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Metadata.Edm;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -104,11 +105,123 @@ namespace Car_Galery.Controllers
 
             VehicleModalViewModel vm = Mapper.Map<Vehicle, VehicleModalViewModel>(modal);
 
-            string x = vm.BrandName;
-
             unitOfWork.Dispose();
             return PartialView("_VehicleModalPartial", vm);
         }
+
+        public PartialViewResult VehicleDetailModal(int? id)
+        {
+            unitOfWork = new EFUnitOfWork(db);
+            var modal = unitOfWork.GetRepository<Vehicle>().GetById((int)id);
+
+            VehicleModalViewModel vm = Mapper.Map<Vehicle, VehicleModalViewModel>(modal);
+
+            unitOfWork.Dispose();
+            return PartialView("_VehicleDetailPartialView", vm);
+        }
+
+        public PartialViewResult VehicleEditModal(int? id)
+        {
+            unitOfWork = new EFUnitOfWork(db);
+            var modal = unitOfWork.GetRepository<Vehicle>().GetById((int) id);
+
+            VehicleOperationView vov = new VehicleOperationView();
+
+            vov.VehicleModalViewModel = Mapper.Map<Vehicle, VehicleModalViewModel>(modal);
+
+            var types = unitOfWork.GetRepository<Type>().GetAll().Select(t => new SelectListItem()
+            {
+                Value = t.Id.ToString(),
+                Text = t.Name
+            }).ToList();
+
+            var brands = unitOfWork.GetRepository<Brand>().GetAll().Select(b => new SelectListItem()
+            {
+                Value = b.Id.ToString(),
+                Text = b.Name
+            }).ToList();
+
+            var models = unitOfWork.GetRepository<Model>().GetAll().Select(m => new SelectListItem()
+            {
+                Value = m.Id.ToString(),
+                Text = m.Name
+            }).ToList();
+
+            vov.Types = new SelectList(types,"Value","Text",vov.VehicleModalViewModel.TypeId);
+
+            vov.Brands = new SelectList(brands,"Value","Text",vov.VehicleModalViewModel.BrandId);
+
+            vov.Models = new SelectList(models,"Value","Text",vov.VehicleModalViewModel.ModelId);
+
+            unitOfWork.Dispose();
+
+            return PartialView("_VehicleEditPartialView", vov);
+
+        }
+
+        public PartialViewResult VehicleAddModal()
+        {
+            unitOfWork = new EFUnitOfWork(db);
+
+            VehicleOperationView vov = new VehicleOperationView();
+
+            vov.VehicleModalViewModel = new VehicleModalViewModel();
+
+            var types = unitOfWork.GetRepository<Type>().GetAll().Select(t => new SelectListItem()
+            {
+                Value = t.Id.ToString(),
+                Text = t.Name
+            }).ToList();
+
+            var brands = unitOfWork.GetRepository<Brand>().GetAll().Select(b => new SelectListItem()
+            {
+                Value = b.Id.ToString(),
+                Text = b.Name
+            }).ToList();
+
+            var models = unitOfWork.GetRepository<Model>().GetAll().Select(m => new SelectListItem()
+            {
+                Value = m.Id.ToString(),
+                Text = m.Name
+            }).ToList();
+
+            vov.Types = new SelectList(types,"Value","Text",vov.VehicleModalViewModel.TypeId);
+
+            vov.Brands = new SelectList(brands,"Value","Text",vov.VehicleModalViewModel.BrandId);
+
+            vov.Models = new SelectList(models,"Value","Text",vov.VehicleModalViewModel.ModelId);
+
+            unitOfWork.Dispose();
+
+            return PartialView("_VehicleAddPartialView", vov);
+
+        }
+
+        [HttpPost]
+        public ActionResult AddVehicleConfirm(VehicleOperationView vov, HttpPostedFileBase file1)
+        {
+            unitOfWork = new EFUnitOfWork(db);
+
+            var entity = Mapper.Map<VehicleModalViewModel, Vehicle>(vov.VehicleModalViewModel);
+
+            if (file1 != null)
+            {
+                entity.ImageUrl = "~/Images/VehicleImages/" + entity.Name + entity.Year + ".png";;
+                string path = Path.Combine(Server.MapPath(entity.ImageUrl));
+                file1.SaveAs(path);
+            }
+
+            entity.Rented = false;
+
+            unitOfWork.GetRepository<Vehicle>().Add(entity);
+
+            unitOfWork.SaveChanges();
+
+            unitOfWork.Dispose();
+
+            return RedirectToAction("Index");
+        }
+        
 
         public ActionResult FillBrands(int? TypeId)
         {

@@ -14,8 +14,8 @@ namespace Car_Galery.Helpers
         public static IQueryable Filter(FilterModel fm, IUnitOfWork unitOfWork, bool control)
         {
 
-            var query = unitOfWork.GetRepository<Vehicle>().GetAll(v=>v.Rentable == control).AsQueryable();
-             #region Filter
+            var query = unitOfWork.GetRepository<Vehicle>().GetAll(v=>v.Rentable == control && v.Rented == false).AsQueryable();
+            #region Filter
             if(fm.Filtered == true)
             {
                 if (fm.TypeId != 0 && fm.TypeId != null)

@@ -26,17 +26,17 @@
 });
 
 
-function FillBrands() {
+function FillBrands(lnk) {
     //Form post
-    var TypeId = $('#TypeId').val();
+    var TypeId = $('#TypeId'+lnk).val();
 
     if (TypeId == 0) {
-        $("#BrandId").attr("disabled", "disabled");
+        $("#BrandId"+lnk).attr("disabled", "disabled");
     } else {
-        $("#BrandId").removeAttr("disabled");
+        $("#BrandId"+lnk).removeAttr("disabled");
     }
 
-    $("#ModelId").attr("disabled", "disabled");
+    $("#ModelId"+lnk).attr("disabled", "disabled");
 
     $.ajax({
         url:'/Inventory/FillBrands',
@@ -44,30 +44,30 @@ function FillBrands() {
         datatype:"JSON",
         data: {TypeId: TypeId},
         success: function(response) {
-            $("#ModelId").html("");
-            $("#ModelId").append(
+            $("#ModelId"+lnk).html("");
+            $("#ModelId"+lnk).append(
                 $('<option></option>').val(0).html("--Select Model--"));
-            $("#BrandId").html("");
-            $("#BrandId").append(
+            $("#BrandId"+lnk).html("");
+            $("#BrandId"+lnk).append(
                 $('<option></option>').val(0).html("--Select Brand--"));
-            console.log(response);
             $.each(response,
                 function(index, value) {
-                    $("#BrandId").append(
+                    $("#BrandId"+lnk).append(
                         $('<option></option>').val(value.Id).html(value.Name));
                 });
         }
     });
 }
 
-function FillModels() {
+
+function FillModels(lnk) {
     //Form post
-    var BrandId = $('#BrandId').val();
+    var BrandId = $('#BrandId'+lnk).val();
 
     if (TypeId == 0) {
-        $("#ModelId").attr("disabled", "disabled");
+        $("#ModelId"+lnk).attr("disabled", "disabled");
     } else {
-        $("#ModelId").removeAttr("disabled");
+        $("#ModelId"+lnk).removeAttr("disabled");
     }
 
     $.ajax({
@@ -76,13 +76,12 @@ function FillModels() {
         datatype:"JSON",
         data: {BrandId: BrandId},
         success: function(response) {
-            $("#ModelId").html("");
-            $("#ModelId").append(
+            $("#ModelId"+lnk).html("");
+            $("#ModelId"+lnk).append(
                 $('<option></option>').val(0).html("--Select Model--"));
-            console.log(response);
             $.each(response,
                 function(index, value) {
-                    $("#ModelId").append(
+                    $("#ModelId"+lnk).append(
                         $('<option></option>').val(value.Id).html(value.Name));
                 });
         }
@@ -119,6 +118,39 @@ function Edit(lnk) {
     });
 }
 
+function EditVehicle(lnk) {
+    var Id = lnk.getAttribute("value");
+
+    $.ajax({
+        url: '/Inventory/VehicleEditModal',
+        type: 'GET',
+        datatype: "JSON",
+        data: { id: Id },
+        success: function(data) {
+            $('#card-type-body-Vehicle').html(data);
+            $("#DetailVehicle").removeClass('active');
+            $("#EditVehicle").addClass('active');
+        }
+    });
+}
+
+function DetailVehicle(lnk) {
+    var Id = lnk.getAttribute("value");
+
+    $.ajax({
+        url: '/Inventory/VehicleDetailModal',
+        type: 'GET',
+        datatype: "JSON",
+        data: { id: Id },
+        success: function(data) {
+            $('#card-type-body-Vehicle').html(data);
+            
+            $("#EditVehicle").removeClass('active');
+            $("#DetailVehicle").addClass('active');
+        }
+    });
+}
+
 function Delete(lnk) {
     var Id = lnk.getAttribute("value");
     var urlParam = lnk.getAttribute("value1");
@@ -140,7 +172,6 @@ function Delete(lnk) {
     
 
 }
-
 
 
 function OnSuccess(data) {
@@ -237,7 +268,17 @@ $('#ModelModal').on('hidden.bs.modal',
     });
 
 
-
+function GetAddVehicle() {
+    $.ajax({
+        url: '/Inventory/VehicleAddModal',
+        type: 'GET',
+        data: null,
+        success: function(data) {
+            $('#VehicleAddModal').html(data);
+            
+        }
+    });
+}
 
 
 

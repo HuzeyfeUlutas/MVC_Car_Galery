@@ -28,6 +28,7 @@ namespace Car_Galery.App_Start
                     .ForMember(dest => dest.TypeName, opts => opts.MapFrom(src => src.Type.Name))
                     .ForMember(dest => dest.BrandName, opts => opts.MapFrom(src => src.Brand.Name))
                     .ForMember(dest => dest.ModelName, opts => opts.MapFrom(src => src.Model.Name));
+                config.CreateMap<VehicleModalViewModel, Vehicle>();
                 config.CreateMap<Model, ModelModel>()
                     .ForMember(dest => dest.BrandName, opts => opts.MapFrom(src => src.Brand.Name));
                 config.CreateMap<ModelModel, Model>();

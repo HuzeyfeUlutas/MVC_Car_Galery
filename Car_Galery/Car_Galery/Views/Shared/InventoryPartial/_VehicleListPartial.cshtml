@@ -19,7 +19,7 @@
 
 <div class="row toolbar">
 
-    <div class="col-md-9 col-12">
+    <div class="col-md-8 col-12">
         @Html.PagedListPager(Model.PagedVehicleModels, PageNumber => Url.Action("FilterVehicle", "Inventory",
             new
             {
@@ -45,6 +45,12 @@
                 HttpMethod = "GET"
 
             }))
+    </div>
+    
+    <div class="col-md-1 col-12 add-vehicle">
+        <a data-toggle="modal" data-target="#VehicleAddModal" onclick="GetAddVehicle()">
+            <i class="fa fa-trash fa-lg"></i>
+        </a>
     </div>
 
     <div class="col-md-3 col-12 sort-filter">
@@ -105,7 +111,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="VehicleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="VehicleModal" tabindex="0" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     @{
         Html.RenderPartial("_VehicleModalPartial",new VehicleModalViewModel());
     }

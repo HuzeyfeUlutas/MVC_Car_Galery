@@ -22,12 +22,12 @@
 {
     <div class="filter-items">
         <div>
-            @Html.DropDownList("TypeId", types, "--Select Type--", new { @class = "form-control form-dropdown", onchange = "FillBrands()" })
+            @Html.DropDownList("TypeId", types, "--Select Type--", new { @class = "form-control form-dropdown", onchange = "FillBrands('')" })
         </div>
     </div>
     <div class="filter-items">
         <div>
-            @Html.DropDownList("BrandId", brands, "--Select Brand--", new { @class = "form-control form-dropdown", onchange = "FillModels()" , disabled = "disabled" })
+            @Html.DropDownList("BrandId", brands, "--Select Brand--", new { @class = "form-control form-dropdown", onchange = "FillModels('')" , disabled = "disabled" })
         </div>
     </div>
     <div class="filter-items">

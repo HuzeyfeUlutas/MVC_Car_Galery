@@ -26,11 +26,20 @@ namespace Car_Galery.Models.ViewModels
 
         public string Transmission { get; set; }
 
+        public bool Rentable { get; set; }
+
         public string BrandName { get; set; }
 
         public string ModelName { get; set; }
 
         public string TypeName { get; set; }
+
+        public int BrandId { get; set; }
+
+        public int ModelId { get; set; }
+
+        public int TypeId { get; set; }
+
 
     }
 }

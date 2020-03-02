@@ -1,0 +1,45 @@
+﻿@model Car_Galery.Models.ViewModels.VehicleModalViewModel
+
+@{
+    var rentable = "";
+    if (Model.Rentable)
+    {
+        rentable = "Yes";
+    }
+    else
+    {
+        rentable = "No";
+    }
+}
+
+<div class="row CarBox">
+    <div class="col-md-6 col-12">
+        <div>
+            <img src="@(((Model.ImageUrl == null) || (Model.ImageUrl == "")) ? Url.Content("~/Images/placeholder.png") : Url.Content(Model.ImageUrl))" alt="carname" />
+        </div>
+    </div>
+
+    <div class="col-md-6 col-12">
+        <div class="modal-details">
+            <h3>Details:</h3>
+        </div>
+        <div class="row modal-details-var">
+            <div class="col-md-6 col-12">
+                <p><b>Type: </b> @Model.TypeName</p>
+                <p><b>Brand: </b> @Model.BrandName</p>
+                <p><b>Model: </b> @Model.ModelName</p>
+                <p><b>Year: </b> @Model.Year</p>
+                <p><b>Transmission: </b> @Model.Transmission</p>
+
+            </div>
+
+            <div class="col-md-6 col-12">
+                <p><b>Price: </b>$ @Model.Price </p>
+                <p><b>Color: </b> @Model.Color</p>
+                <p><b>Km: </b> @Model.Km</p>
+                <p><b>Fuel: </b> @Model.Fuel</p>
+                <p><b>Rentable: </b> @rentable</p>
+            </div>
+        </div>
+    </div>
+</div>
