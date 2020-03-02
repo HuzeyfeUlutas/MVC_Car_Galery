@@ -46,23 +46,40 @@
 
             }))
     </div>
-    
-    <div class="col-md-1 col-12 add-vehicle">
-        <a data-toggle="modal" data-target="#VehicleAddModal" onclick="GetAddVehicle()">
-            <i class="fa fa-trash fa-lg"></i>
-        </a>
-    </div>
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="col-md-1 col-12 add-vehicle">
+            <a data-toggle="modal" data-target="#VehicleAddModal" onclick="GetAddVehicle()">
+                <i class="fa fa-plus fa-2x"></i>
+            </a>
+        </div>
 
-    <div class="col-md-3 col-12 sort-filter">
+        <div class="col-md-3 col-12 sort-filter">
 
-        @Html.DropDownList("Order", new List<SelectListItem>()
-        {
-            new SelectListItem{Text = "--Sort By--",Value = "Sort"},
-            new SelectListItem{Text = "Name",Value = "Name"},
-            new SelectListItem{Text = "Price",Value = "Price"},
-            new SelectListItem{Text = "Km",Value = "Km"}
-        }, new { @class = "form-control form-dropdown", onchange = "SortBy()" })
-    </div>
+            @Html.DropDownList("Order", new List<SelectListItem>()
+            {
+                new SelectListItem{Text = "--Sort By--",Value = "Sort"},
+                new SelectListItem{Text = "Name",Value = "Name"},
+                new SelectListItem{Text = "Price",Value = "Price"},
+                new SelectListItem{Text = "Km",Value = "Km"}
+            }, new { @class = "form-control form-dropdown", onchange = "SortBy()" })
+        </div>
+
+    }
+    else
+    {
+        <div class="col-md-4 col-12 sort-filter">
+
+            @Html.DropDownList("Order", new List<SelectListItem>()
+            {
+                new SelectListItem{Text = "--Sort By--",Value = "Sort"},
+                new SelectListItem{Text = "Name",Value = "Name"},
+                new SelectListItem{Text = "Price",Value = "Price"},
+                new SelectListItem{Text = "Km",Value = "Km"}
+            }, new { @class = "form-control form-dropdown", onchange = "SortBy()" })
+        </div>
+    }
+
 
 </div>
 
