@@ -339,6 +339,7 @@ namespace Car_Galery.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteType(int id)
         {
             unitOfWork = new EFUnitOfWork(db);
@@ -361,6 +362,7 @@ namespace Car_Galery.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteBrand(int id)
         {
             unitOfWork = new EFUnitOfWork(db);
@@ -405,6 +407,7 @@ namespace Car_Galery.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteModel(int id)
         {
             unitOfWork = new EFUnitOfWork(db);
@@ -429,6 +432,7 @@ namespace Car_Galery.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AddType(TypeModel tm)
         {
             unitOfWork = new EFUnitOfWork(db);
@@ -445,6 +449,7 @@ namespace Car_Galery.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AddBrand(BrandEditViewModel bevm,HttpPostedFileBase file1)
         {
             unitOfWork = new EFUnitOfWork(db);
@@ -474,6 +479,7 @@ namespace Car_Galery.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AddModel(ModelEditViewModel mevm)
         {
             unitOfWork = new EFUnitOfWork(db);

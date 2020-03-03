@@ -201,6 +201,7 @@ namespace Car_Galery.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
         public ActionResult AddVehicleConfirm(VehicleOperationView vov, HttpPostedFileBase file1)
         {
             unitOfWork = new EFUnitOfWork(db);
@@ -228,6 +229,7 @@ namespace Car_Galery.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
         public PartialViewResult DeleteVehicle(int id)
         {
             unitOfWork = new EFUnitOfWork(db);
@@ -249,6 +251,42 @@ namespace Car_Galery.Controllers
             ıvm.PagedVehicleModels = vhList.ToPagedList( 1, 6);
             unitOfWork.Dispose();
             return PartialView("_VehicleListPartial", ıvm);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditVehicleConfirm(VehicleOperationView vov, HttpPostedFileBase file1)
+        {
+            unitOfWork = new EFUnitOfWork(db);
+
+            var entity = unitOfWork.GetRepository<Vehicle>().GetById(vov.VehicleModalViewModel.Id);
+
+            string imageUrl = entity.ImageUrl;
+
+            Mapper.Map(vov.VehicleModalViewModel, entity);
+
+            entity.ImageUrl = imageUrl;
+            if (file1 != null)
+            {
+                string fullPath = Request.MapPath(entity.ImageUrl);
+                if (System.IO.File.Exists(fullPath))
+                {
+                    System.IO.File.Delete(fullPath);
+                }
+                entity.ImageUrl = "~/Images/VehicleImages/" + entity.Name + ".png";;
+                string path = Path.Combine(Server.MapPath(entity.ImageUrl));
+                file1.SaveAs(path);
+            }
+            
+            unitOfWork.GetRepository<Vehicle>().Update(entity);
+
+            unitOfWork.SaveChanges();
+                
+            unitOfWork.Dispose();
+
+            return RedirectToAction("GetVehicleModal", new {id = vov.VehicleModalViewModel.Id});
+
         }
 
         public ActionResult FillBrands(int? TypeId)

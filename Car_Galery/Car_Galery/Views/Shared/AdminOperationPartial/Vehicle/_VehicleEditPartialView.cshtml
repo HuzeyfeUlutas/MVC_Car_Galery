@@ -1,1 +1,110 @@
 ﻿@model Car_Galery.Models.ViewModels.VehicleOperationView
+
+    <div class="register-login-toolbar" align="center">
+        <div>
+            <div>
+                @using (Ajax.BeginForm("EditVehicleConfirm", "Inventory", null, new AjaxOptions()
+                {
+                    UpdateTargetId = "VehicleModal",
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "Post",
+                    Confirm = "Are you sure",
+                    OnSuccess = "OnSuccess('Vehicle Update')",
+                    OnFailure = "OnFail('Vehicle Update')"
+
+                }, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row form-brand">
+                        <div class="col-lg-6 col-12">
+                            <div class="btn-edit">
+                                <img id="imgPrv" src="@(((Model.VehicleModalViewModel.ImageUrl == null) || (Model.VehicleModalViewModel.ImageUrl == "")) ? Url.Content("~/Images/placeholder.png") : Url.Content(Model.VehicleModalViewModel.ImageUrl))" alt="vehicle" />
+                            </div>
+                            <input type="file" accept="image/png, image/jpeg" name="file1" class="btn-success" id="imgInp" onchange="readURL(this)" />
+                        </div>
+                        <div class="col-lg-6 col-12 brand-edit">
+
+                            <div class="form-group">
+                                @Html.HiddenFor(model => model.VehicleModalViewModel.Id)
+                                @Html.Label("TypeId1", "Types:")
+                                @Html.DropDownListFor(model => model.VehicleModalViewModel.TypeId, Model.Types, "--Select Type--", new { @class = "form-control form-dropdown", onchange = "FillBrands(1)", id = "TypeId1" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("BrandId1", "Brands:")
+                                @Html.DropDownListFor(model => model.VehicleModalViewModel.BrandId, Model.Brands, "--Select Brand--", new { @class = "form-control form-dropdown", onchange = "FillModels(1)", id = "BrandId1" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("ModelId1", "Models:")
+                                @Html.DropDownListFor(model => model.VehicleModalViewModel.ModelId, Model.Models, "--Select Model--", new { @class = "form-control form-dropdown", id = "ModelId1" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("ddlYear", "Year:")
+                                @Html.DropDownListFor(model => model.VehicleModalViewModel.Year, Enumerable.Range(1950, DateTime.Now.Year - 1950).Select(x => new SelectListItem { Text = x.ToString() }), "--Select Model--", new { @class = "form-control form-dropdown", id = "ddlYear" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("ddlFuel", "Fuel:")
+                                @Html.DropDownListFor(model => model.VehicleModalViewModel.Fuel, new List<SelectListItem>()
+                                {
+                                    new SelectListItem {Text = "Gasoline", Value = "Gasoline"},
+                                    new SelectListItem {Text = "Diesel", Value = "Diesel"}
+                                }, "--Select Model--", new { @class = "form-control form-dropdown", id = "ddlFuel" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("ddlTransmission", "Transmission:")
+                                @Html.DropDownListFor(model => model.VehicleModalViewModel.Transmission, new List<SelectListItem>()
+                                {
+                                    new SelectListItem {Text = "Automatic", Value = "Automatic"},
+                                    new SelectListItem {Text = "Manuel", Value = "Manuel"}
+
+                                }, "--Select Model--", new { @class = "form-control form-dropdown", id = "ddlTransmission" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("ddlRentable", "Rentable:")
+                                @Html.DropDownListFor(model => model.VehicleModalViewModel.Rentable, new List<SelectListItem>()
+                                {
+                                    new SelectListItem {Text = "True", Value = "True"},
+                                    new SelectListItem {Text = "False", Value = "False"}
+                                }, "--Select Model--", new { @class = "form-control form-dropdown", id = "ddlRentable" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.VehicleModalViewModel.Name, new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.VehicleModalViewModel.Name, new { @class = "form-control", placeholder = "Enter Vehicle Name" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.VehicleModalViewModel.Price, new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.VehicleModalViewModel.Price, new { @class = "form-control", placeholder = "Enter Vehicle Price" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.VehicleModalViewModel.Km, new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.VehicleModalViewModel.Km, new { @class = "form-control", placeholder = "Enter Vehicle Km" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.VehicleModalViewModel.Color, new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.VehicleModalViewModel.Color, new { @class = "form-control", placeholder = "Enter Vehicle Color" })
+                            </div>
+
+                            <div class="btn-edit">
+                                <input type="submit" value="Update" class="btn btn-success" />
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+                }
+
+            </div>
+        </div>
+    </div>

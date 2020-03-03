@@ -141,7 +141,7 @@ function DetailVehicle(lnk) {
         url: '/Inventory/VehicleDetailModal',
         type: 'GET',
         datatype: "JSON",
-        data: { id: Id },
+        data: { id: Id, "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val()},
         success: function(data) {
             $('#card-type-body-Vehicle').html(data);
             
@@ -159,7 +159,7 @@ function Delete(lnk) {
         $.ajax({
             url: '/AdminOperation/Delete' + urlParam,
             type: 'POST',
-            data: { id: Id },
+            data: { id: Id, "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() },
             success: function (data) {
                 $('#card-type-body-'+urlParam).html(data);
                 OnSuccess(urlParam+" Delete");
@@ -271,6 +271,11 @@ $("#imgInp").change(function() {
 
 
 $('#TypeModal').on('hidden.bs.modal',
+    function() {
+        document.location.reload();
+    });
+
+$('#VehicleModal').on('hidden.bs.modal',
     function() {
         document.location.reload();
     });

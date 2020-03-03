@@ -54,6 +54,15 @@
 
 @if (User.IsInRole("Admin"))
 {
+    <div class="modal fade" id="VehicleAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        @{
+            Html.RenderAction("VehicleAddModal", "Inventory");
+        }
+    </div>
+}
+
+@if (User.IsInRole("Admin"))
+{
     <div>
         @{
             Html.RenderPartial("_OperationPartial");
