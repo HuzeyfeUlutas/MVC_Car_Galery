@@ -200,7 +200,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\IdentityExtensions.cs" />
     <Compile Include="Helpers\VehicleListHelper.cs" />
+    <Compile Include="MigrationsIdentity\202002261250534_InitialCreate.cs" />
+    <Compile Include="MigrationsIdentity\202002261250534_InitialCreate.Designer.cs">
+      <DependentUpon>202002261250534_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MigrationsIdentity\202003032159486_v1.cs" />
+    <Compile Include="MigrationsIdentity\202003032159486_v1.Designer.cs">
+      <DependentUpon>202003032159486_v1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MigrationsIdentity\Configuration.cs" />
     <Compile Include="Migrations\202002151059337_V3.cs" />
     <Compile Include="Migrations\202002151059337_V3.Designer.cs">
       <DependentUpon>202002151059337_V3.cs</DependentUpon>
@@ -212,6 +222,10 @@
     <Compile Include="Migrations\202003031303509_v5.cs" />
     <Compile Include="Migrations\202003031303509_v5.Designer.cs">
       <DependentUpon>202003031303509_v5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003032139491_v51.cs" />
+    <Compile Include="Migrations\202003032139491_v51.Designer.cs">
+      <DependentUpon>202003032139491_v51.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BrandModel.cs" />
     <Compile Include="Models\FilterModel.cs" />
@@ -358,6 +372,12 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="MigrationsIdentity\202002261250534_InitialCreate.resx">
+      <DependentUpon>202002261250534_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MigrationsIdentity\202003032159486_v1.resx">
+      <DependentUpon>202003032159486_v1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002081121058_V1.resx">
       <DependentUpon>202002081121058_V1.cs</DependentUpon>
     </EmbeddedResource>
@@ -372,6 +392,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003031303509_v5.resx">
       <DependentUpon>202003031303509_v5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003032139491_v51.resx">
+      <DependentUpon>202003032139491_v51.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

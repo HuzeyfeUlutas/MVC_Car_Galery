@@ -85,6 +85,8 @@ namespace Car_Galery.Controllers
             return PartialView("_UserListPartial",uvm);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteUser(string id)
         {
             var entity = UsersContext.Users.Find(id);
@@ -96,6 +98,27 @@ namespace Car_Galery.Controllers
             return RedirectToAction("GetUserList");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteUserRequest(int id, int vehicleId)
+        {
+            unitOfWork = new EFUnitOfWork(db);
+
+            var entity = unitOfWork.GetRepository<Vehicle>().GetById(vehicleId);
+
+            unitOfWork.GetRepository<UserRequest>().Delete(id);
+
+            entity.Rented = false;
+
+            unitOfWork.GetRepository<Vehicle>().Update(entity);
+
+            unitOfWork.SaveChanges();
+            unitOfWork.Dispose();
+            return RedirectToAction("GetRentRequestList");
+        }
+
+
+        [HttpPost]
         public PartialViewResult GetVehicleModal(int id, DateTime dt)
         {
             unitOfWork = new EFUnitOfWork(db);

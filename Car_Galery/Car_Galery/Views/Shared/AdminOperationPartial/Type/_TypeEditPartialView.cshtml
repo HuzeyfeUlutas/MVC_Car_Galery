@@ -9,7 +9,7 @@
         <div class="register-login-inner">
             @using (Ajax.BeginForm("EditTypeConfirm", "AdminOperation", new { Id = Model.Id }, new AjaxOptions()
             {
-                UpdateTargetId = "card-type-body",
+                UpdateTargetId = "card-type-body-Types",
                 InsertionMode = InsertionMode.Replace,
                 HttpMethod = "Post",
                 Confirm = "Are you sure",

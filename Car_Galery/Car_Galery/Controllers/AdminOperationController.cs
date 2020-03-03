@@ -66,7 +66,7 @@ namespace Car_Galery.Controllers
 
         #region GetList
 
-        public PartialViewResult GetTypeList()
+        public PartialViewResult GetTypesList()
         {
             unitOfWork = new EFUnitOfWork(db);
 
@@ -106,7 +106,7 @@ namespace Car_Galery.Controllers
             return PartialView("_ModelListPartialView", model);
         }
 
-        public PartialViewResult GetAddType()
+        public PartialViewResult GetAddTypes()
         {
             return PartialView("_TypeAddPartialView" ,new TypeModel());
         }
@@ -162,7 +162,7 @@ namespace Car_Galery.Controllers
         #region GetEdit
 
         [HttpGet]
-        public PartialViewResult EditType(int id)
+        public PartialViewResult EditTypes(int id)
         {
             unitOfWork = new EFUnitOfWork(db);
 
@@ -250,7 +250,7 @@ namespace Car_Galery.Controllers
             unitOfWork.Dispose();
 
 
-            return RedirectToAction("GetTypeList");
+            return RedirectToAction("GetTypesList");
         }
 
         [HttpPost]
@@ -340,7 +340,7 @@ namespace Car_Galery.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteType(int id)
+        public ActionResult DeleteTypes(int id)
         {
             unitOfWork = new EFUnitOfWork(db);
 
@@ -357,7 +357,7 @@ namespace Car_Galery.Controllers
 
             unitOfWork.Dispose();
 
-            return RedirectToAction("GetTypeList");
+            return RedirectToAction("GetTypesList");
             
         }
 
@@ -445,7 +445,7 @@ namespace Car_Galery.Controllers
 
             unitOfWork.Dispose();
 
-            return RedirectToAction("GetTypeList");
+            return RedirectToAction("GetTypesList");
         }
 
         [HttpPost]

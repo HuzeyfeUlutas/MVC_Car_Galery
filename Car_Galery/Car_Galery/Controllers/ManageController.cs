@@ -15,6 +15,7 @@ namespace Car_Galery.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext UsersContext = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -64,13 +65,18 @@ namespace Car_Galery.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+
+            var entity = UsersContext.Users.Find(userId);
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                Balance = entity.Balance
+
             };
             return View(model);
         }
@@ -118,15 +124,7 @@ namespace Car_Galery.Controllers
             }
             // Generate the token and send it
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), model.Number);
-            if (UserManager.SmsService != null)
-            {
-                var message = new IdentityMessage
-                {
-                    Destination = model.Number,
-                    Body = "Your security code is: " + code
-                };
-                await UserManager.SmsService.SendAsync(message);
-            }
+            
             return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
         }
 
@@ -166,7 +164,7 @@ namespace Car_Galery.Controllers
         {
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
             // Send an SMS through the SMS provider to verify the phone number
-            return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
+            return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = code });
         }
 
         //

@@ -12,6 +12,8 @@ namespace Car_Galery.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+
+        public int Balance { get; set; }
     }
 
     public class ManageLoginsViewModel

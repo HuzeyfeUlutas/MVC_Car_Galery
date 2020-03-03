@@ -131,7 +131,11 @@ function Edit(lnk) {
         data: { id: Id },
         success: function(data) {
             $('#card-type-body-'+urlParam).html(data);
-        }
+            OnSuccess("Get "+urlParam+" Edit");
+        },
+        fail: function(data) {
+            OnFail("Get "+urlParam+" Edit");
+        } 
     });
 }
 
@@ -197,7 +201,7 @@ function DeleteVehicle(lnk) {
         $.ajax({
             url: '/Inventory/DeleteVehicle',
             type: 'POST',
-            data: { id: Id },
+            data: { id: Id ,"__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() },
             success: function (data) {
                 $('#VehicleList').html(data);
                 OnSuccess("Delete Vehicle");
@@ -216,7 +220,7 @@ function DeleteUser(lnk) {
         $.ajax({
             url: '/User/DeleteUser',
             type: 'POST',
-            data: { id: Id },
+            data: { id: Id ,"__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() },
             success: function (data) {
                 $('#UserList').html(data);
                 OnSuccess("Delete User");
@@ -227,6 +231,28 @@ function DeleteUser(lnk) {
         });
     }
 }
+
+function DeleteUserRequest(lnk) {
+    var Id = lnk.getAttribute("value");
+    var VehicleId = lnk.getAttribute("value1");
+
+    if (confirm("Are you sure?")) {
+        $.ajax({
+            url: '/User/DeleteUserRequest',
+            type: 'POST',
+            data: { id: Id ,vehicleId : VehicleId ,"__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() },
+            success: function (data) {
+                $('#UserList').html(data);
+                OnSuccess("Delete UserRequest");
+            },
+            fail: function(data) {
+                OnFail("Delete UserRequest");
+            } 
+        });
+    }
+}
+
+
 
 
 function OnSuccess(data) {

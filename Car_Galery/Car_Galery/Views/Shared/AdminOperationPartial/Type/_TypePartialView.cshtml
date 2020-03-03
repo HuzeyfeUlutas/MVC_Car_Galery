@@ -13,14 +13,14 @@
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item">
-                            <a id="TypeList" onclick="List(this)" class="nav-link active">Type List</a>
+                            <a id="TypesList" onclick="List(this)" class="nav-link active">Type List</a>
                         </li>
                         <li class="nav-item">
-                            <a id="AddType" onclick="Add(this)" class="nav-link">Add Type</a>
+                            <a id="AddTypes" onclick="Add(this)" class="nav-link">Add Type</a>
                         </li>
                     </ul>
                 </div>
-                <div class="card-body" id="card-type-body-Type">
+                <div class="card-body" id="card-type-body-Types">
                     @{
                         Html.RenderPartial("_TypeListPartialView" , Model);
                     }
