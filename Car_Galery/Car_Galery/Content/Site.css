@@ -189,6 +189,15 @@ a {
     background-color: white;
     margin-top: 20px;
 }
+.user-categories {
+    background-color: white;
+    margin-top: 50px;
+}
+
+.user-list {
+    background-color: white;
+    margin-top: 50px;
+}
 
 .vehicle-filter {
     background-color: white;
@@ -425,6 +434,14 @@ ul {
 
 .cls-delete {
     color: red;
+}
+
+.cls-info {
+    color: #428bca;
+}
+
+.cls-location {
+    color: green;
 }
 
 .row-header {

@@ -1,0 +1,101 @@
+﻿@model Car_Galery.Models.ViewModels.UserRequestViewModel
+
+@using Car_Galery.Models.ViewModels
+@using PagedList.Mvc
+@if (User.IsInRole("Admin"))
+{
+
+    <div class="user-list">
+        <div class="brand-title row">
+            <div class="col-md-6">
+                <h5><i class="fa fa-align-justify"></i> User Listing</h5>
+            </div>
+            <div class="col-md-6">
+                <h6 align="right">@Model.UsersRequestCount result found.</h6>
+            </div>
+
+
+        </div>
+
+        <div class="row toolbar">
+
+            <div class="col-12">
+                @Html.PagedListPager(Model.PagedListUsers, PageNumber => Url.Action("GetRentRequestList", "User",
+                    new
+                    {
+                        PageNumber = PageNumber
+                    }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
+                    {
+                        UpdateTargetId = "UserList",
+                        InsertionMode = InsertionMode.Replace,
+                        HttpMethod = "GET"
+                    }))
+            </div>
+
+
+
+
+        </div>
+        <div class="carboxrow">
+
+            <div class="cls">
+                <div class="table cls">
+                    <div class="row row-header">
+                        <div class="col-4">
+                            <b>Name</b>
+                        </div>
+                        <div class="col-3">
+                            <b>Phone Number</b>
+                        </div>
+                        <div class="col-2">
+                            <b>Request Info</b>
+                        </div>
+                        <div class="col-2">
+                            <b>Location</b>
+                        </div>
+                        <div class="col-1">
+
+                        </div>
+                    </div>
+
+                    @foreach (var user in Model.PagedListUsers)
+                    {
+                        <div class="row row-element">
+                            <div class="col-4">
+                                <p>@user.UserName</p>
+                            </div>
+                            <div class="col-3">
+                                <p>@user.UserPhoneNumber</p>
+                            </div>
+
+                            <div class="col-2 cls-info">
+                                <a data-toggle="modal" data-target="#RequestVehicleModal" onclick="InfoRequest(this)" value=@user.VehicleId value1="@user.RequestDateTime"><i class="fa fa-info-circle fa-lg"></i></a>
+                            </div>
+                            <div class="col-2 cls-location">
+                                <a data-toggle="modal" data-target="#RequestLocationModal" onclick="Location(this)" value=@user.Location><i class="fa fa-map-marker fa-lg"></i></a>
+                            </div>
+                            <div class="col-1 cls-delete">
+                                <a onclick="DeleteUserRequest(this)" value=@user.Id><i class="fa fa-trash fa-lg"></i></a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="RequestVehicleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        @{
+            Html.RenderPartial("_RequestVehicleModalPartial", new RequestVehicleModalViewModel());
+        }
+    </div>
+
+    <div class="modal fade" id="RequestLocationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        @{
+            Html.RenderPartial("_RequestLocationVehicleModalPartial", null);
+        }
+
+    </div>
+
+}

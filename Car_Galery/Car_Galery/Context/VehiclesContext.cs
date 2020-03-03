@@ -25,6 +25,8 @@ namespace Car_Galery.Context
 
         public DbSet<TypeBrand> TypeBrands { get; set; }
 
+        public DbSet<UserRequest> UserRequests { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -33,6 +35,7 @@ namespace Car_Galery.Context
             modelBuilder.Entity<Vehicle>().ToTable("Vehicles");
             modelBuilder.Entity<Model>().ToTable("Models");
             modelBuilder.Entity<Type>().ToTable("Types");
+            modelBuilder.Entity<UserRequest>().ToTable("UserRequests");
 
             modelBuilder.Entity<Model>().HasKey(m=>m.Id)
                 .HasMany(m=>m.Vehicles)

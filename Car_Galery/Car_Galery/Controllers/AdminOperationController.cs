@@ -19,7 +19,7 @@ using Type = Car_Galery.Entities.Type;
 
 namespace Car_Galery.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminOperationController : Controller
     {
 

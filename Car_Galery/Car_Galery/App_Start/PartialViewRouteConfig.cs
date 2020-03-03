@@ -13,6 +13,7 @@ namespace Car_Galery.App_Start
             "~/Views/Shared/AdminOperationPartial/{0}.cshtml",
             "~/Views/Shared/InventoryPartial/{0}.cshtml",
             "~/Views/Shared/RentACarPartial/{0}.cshtml",
+            "~/Views/Shared/UserPartial/{0}.cshtml",
             "~/Views/Shared/AdminOperationPartial/Vehicle/{0}.cshtml",
             "~/Views/Shared/AdminOperationPartial/Type/{0}.cshtml",
             "~/Views/Shared/AdminOperationPartial/Brand/{0}.cshtml",

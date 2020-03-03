@@ -1,0 +1,78 @@
+﻿@model Car_Galery.Models.ViewModels.UserViewModel
+
+@using PagedList.Mvc
+
+
+@if (User.IsInRole("Admin"))
+{
+    
+    <div class="user-list">
+        <div class="brand-title row">
+            <div class="col-md-6">
+                <h5><i class="fa fa-align-justify"></i> User Listing</h5>
+            </div>
+            <div class="col-md-6">
+                <h6 align="right">@Model.UsersCount result found.</h6>
+            </div>
+
+
+        </div>
+
+        <div class="row toolbar">
+
+            <div class="col-12">
+                @Html.PagedListPager(Model.PagedListUsers, PageNumber => Url.Action("GetUserList", "User",
+                    new
+                    {
+                        PageNumber = PageNumber
+                    }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
+                    {
+                        UpdateTargetId = "UserList",
+                        InsertionMode = InsertionMode.Replace,
+                        HttpMethod = "GET"
+                    }))
+            </div>
+
+
+
+
+        </div>
+        <div class="carboxrow">
+
+            <div class="cls">
+                <div class="table cls">
+                    <div class="row row-header">
+                        <div class="col-4">
+                            <b>Name</b>
+                        </div>
+                        <div class="col-6">
+                            <b>Phone Number</b>
+                        </div>
+                        <div class="col-2">
+
+                        </div>
+                    </div>
+
+                    @foreach (var user in Model.PagedListUsers)
+                    {
+                        <div class="row row-element">
+                            <div class="col-4">
+                                <p>@user.Name</p>
+                            </div>
+                            <div class="col-6">
+                                <p>@user.PhoneNumber</p>
+                            </div>
+                            <div class="col-2 cls-delete">
+                                <a onclick="DeleteUser(this)" value=@user.Id><i class="fa fa-trash fa-lg"></i></a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+
+

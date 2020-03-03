@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Car_Galery.Entities
+namespace Car_Galery.Models.ViewModels
 {
-    public class Vehicle
+    public class RequestVehicleModalViewModel
     {
         public int Id { get; set; }
 
-        [Required]
         public string Name { get; set; }
 
         public string ImageUrl { get; set; }
 
-        [StringLength(4)]
         public string Year { get; set; }
 
         public int Km { get; set; }
@@ -30,7 +27,11 @@ namespace Car_Galery.Entities
 
         public bool Rentable { get; set; }
 
-        public bool Rented { get; set; }
+        public string BrandName { get; set; }
+
+        public string ModelName { get; set; }
+
+        public string TypeName { get; set; }
 
         public int BrandId { get; set; }
 
@@ -38,15 +39,6 @@ namespace Car_Galery.Entities
 
         public int TypeId { get; set; }
 
-        public virtual UserRequest UserRequest { get; set; }
-
-        public virtual Brand Brand { get; set; }
-
-        public virtual Model Model { get; set; }
-
-        public virtual Type Type { get; set; }
-
-
-
+        public DateTime RequestTime { get; set; }
     }
 }

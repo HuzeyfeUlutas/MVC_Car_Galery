@@ -1,0 +1,61 @@
+﻿@model Car_Galery.Models.ViewModels.UserViewModel
+
+@{
+    ViewBag.Title = "Users";
+}
+
+
+
+<div>
+    <div class="row">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+
+            <div class="user-categories">
+                <div class="brand-title">
+                    <h5><i class="fa fa-align-justify"></i> USER OPERATIONS</h5>
+
+                </div>
+                <div class="box-brand">
+                    <ul id="accordion" class="accordion">
+
+                        <li>
+                            <div class="link">
+                                @Ajax.ActionLink("Users", "GetUserList", "User", null, new AjaxOptions()
+                                {
+                                    UpdateTargetId = "UserList",
+                                    InsertionMode = InsertionMode.Replace,
+                                    HttpMethod = "POST"
+                                })
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="link">
+                                @Ajax.ActionLink("User Rent Requests", "GetRentRequestList", "User", null, new AjaxOptions()
+                                {
+                                    UpdateTargetId = "UserList",
+                                    InsertionMode = InsertionMode.Replace,
+                                    HttpMethod = "POST"
+                                })
+                            </div>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-lg-9 col-md-12 col-sm-12 col-12" id="UserList">
+
+            @{
+                Html.RenderPartial("_UserListPartial",Model);
+            }
+
+        </div>
+
+    </div>
+</div>
+
+

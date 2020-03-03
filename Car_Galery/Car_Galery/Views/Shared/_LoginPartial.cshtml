@@ -3,7 +3,7 @@
 
 @if (User.IsInRole("Admin"))
 {
-    <li class="nav-item">@Html.ActionLink("Users", "About", "Home", null, new { @class = "nav-link" })</li>
+    <li class="nav-item">@Html.ActionLink("Users", "Index", "User", null, new { @class = "nav-link" })</li>
 }
 
 @if (Request.IsAuthenticated)
@@ -17,8 +17,6 @@
     {
         @Html.AntiForgeryToken()
 
-
-        
         <li class="nav-item nav-link"><a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-danger">Log off</a></li>
 
     }

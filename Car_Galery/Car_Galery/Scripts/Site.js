@@ -103,6 +103,23 @@ function GetModal(lnk) {
     });
 }
 
+function InfoRequest(lnk) {
+    var VehicleId = lnk.getAttribute("value");
+    var RequestDateTime = lnk.getAttribute("value1");
+
+    $.ajax({
+        url:'/User/GetVehicleModal',
+        type:'POST',
+        datatype:"JSON",
+        data: {id: VehicleId, dt: RequestDateTime},
+        success: function(data) {
+            $('#RequestVehicleModal').html(data);
+        }
+
+    });
+
+}
+
 function Edit(lnk) {
     var Id = lnk.getAttribute("value");
     var urlParam = lnk.getAttribute("value1");
@@ -187,6 +204,25 @@ function DeleteVehicle(lnk) {
             },
             fail: function(data) {
                 OnFail("Delete Vehicle");
+            } 
+        });
+    }
+}
+
+function DeleteUser(lnk) {
+    var Id = lnk.getAttribute("value");
+
+    if (confirm("Are you sure?")) {
+        $.ajax({
+            url: '/User/DeleteUser',
+            type: 'POST',
+            data: { id: Id },
+            success: function (data) {
+                $('#UserList').html(data);
+                OnSuccess("Delete User");
+            },
+            fail: function(data) {
+                OnFail("Delete User");
             } 
         });
     }

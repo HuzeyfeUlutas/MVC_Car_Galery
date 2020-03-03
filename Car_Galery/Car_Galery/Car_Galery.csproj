@@ -190,10 +190,12 @@
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RentCarController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Entities\Brand.cs" />
     <Compile Include="Entities\Model.cs" />
     <Compile Include="Entities\Type.cs" />
     <Compile Include="Entities\TypeBrand.cs" />
+    <Compile Include="Entities\UserRequest.cs" />
     <Compile Include="Entities\Vehicle.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -203,15 +205,28 @@
     <Compile Include="Migrations\202002151059337_V3.Designer.cs">
       <DependentUpon>202002151059337_V3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003031259047_v4.cs" />
+    <Compile Include="Migrations\202003031259047_v4.Designer.cs">
+      <DependentUpon>202003031259047_v4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003031303509_v5.cs" />
+    <Compile Include="Migrations\202003031303509_v5.Designer.cs">
+      <DependentUpon>202003031303509_v5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\BrandModel.cs" />
     <Compile Include="Models\FilterModel.cs" />
     <Compile Include="Models\ModelModel.cs" />
     <Compile Include="Models\BrandModelsModel.cs" />
     <Compile Include="Models\TypeModel.cs" />
+    <Compile Include="Models\UserRequestModel.cs" />
     <Compile Include="Models\VehicleModel.cs" />
     <Compile Include="Models\ViewModels\BrandEditViewModel.cs" />
     <Compile Include="Models\ViewModels\InventoryViewModel.cs" />
     <Compile Include="Models\ViewModels\ModelEditViewModel.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\ViewModels\RequestVehicleModalViewModel.cs" />
+    <Compile Include="Models\ViewModels\UserRequestViewModel.cs" />
+    <Compile Include="Models\ViewModels\UserViewModel.cs" />
     <Compile Include="Models\ViewModels\VehicleModalViewModel.cs" />
     <Compile Include="Models\ViewModels\VehicleOperationView.cs" />
     <Compile Include="UnitOfWork\Abstract\IUnitOfWork.cs" />
@@ -327,6 +342,11 @@
     <Content Include="Views\Shared\AdminOperationPartial\Vehicle\_VehicleDetailPartialView.cshtml" />
     <Content Include="Views\Shared\AdminOperationPartial\Vehicle\_VehicleEditPartialView.cshtml" />
     <Content Include="Views\Shared\AdminOperationPartial\Vehicle\_VehicleAddPartialView.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Shared\UserPartial\_UserListPartial.cshtml" />
+    <Content Include="Views\Shared\UserPartial\_UserRequestListView.cshtml" />
+    <Content Include="Views\Shared\UserPartial\_RequestVehicleModalPartial.cshtml" />
+    <Content Include="Views\Shared\UserPartial\_RequestLocationVehicleModalPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -346,6 +366,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002151059337_V3.resx">
       <DependentUpon>202002151059337_V3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003031259047_v4.resx">
+      <DependentUpon>202003031259047_v4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003031303509_v5.resx">
+      <DependentUpon>202003031303509_v5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
