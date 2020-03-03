@@ -23,11 +23,11 @@
 
                         @if (User.IsInRole("Admin"))
                         {
-
+                            <li class="nav-item">
+                                <a id="EditVehicle" onclick="EditVehicle(this)" class="nav-link" value=@Model.Id>Edit</a>
+                            </li>
                         }
-                        <li class="nav-item">
-                            <a id="EditVehicle" onclick="EditVehicle(this)" class="nav-link" value=@Model.Id>Edit</a>
-                        </li>
+                        
                     </ul>
                 </div>
                 <div class="card-body" id="card-type-body-Vehicle">

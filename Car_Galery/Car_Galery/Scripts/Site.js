@@ -173,6 +173,25 @@ function Delete(lnk) {
 
 }
 
+function DeleteVehicle(lnk) {
+    var Id = lnk.getAttribute("value");
+
+    if (confirm("Are you sure?")) {
+        $.ajax({
+            url: '/Inventory/DeleteVehicle',
+            type: 'POST',
+            data: { id: Id },
+            success: function (data) {
+                $('#VehicleList').html(data);
+                OnSuccess("Delete Vehicle");
+            },
+            fail: function(data) {
+                OnFail("Delete Vehicle");
+            } 
+        });
+    }
+}
+
 
 function OnSuccess(data) {
     $.notify(data + " is success","success");

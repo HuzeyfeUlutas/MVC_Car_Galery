@@ -459,5 +459,13 @@ ul {
     color: green;
 }
 
+.delete-btn {
+    padding-top: 5px;
+}
+
+.delete-icon {
+    color: white;
+}
+
 
 

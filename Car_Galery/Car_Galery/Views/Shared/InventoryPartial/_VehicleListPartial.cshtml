@@ -95,9 +95,9 @@
 
             <a data-toggle="modal" data-target="#VehicleModal" onclick="GetModal(this)" value=@vehicle.Id id="VehicleModalLink"> 
                 <div class="CarBox">
-                    <input id="VehicleId" name="VehicleId" type="hidden" value=@vehicle.Id/>
+                    <input id="VehicleId" name="VehicleId" type="hidden" value=@vehicle.Id />
                     <div>
-                        <img src="@(((vehicle.ImageUrl == null)|| (vehicle.ImageUrl == ""))  ? Url.Content("~/Images/placeholder.png") : Url.Content(vehicle.ImageUrl))" alt="carname"/>
+                        <img src="@(((vehicle.ImageUrl == null)|| (vehicle.ImageUrl == ""))  ? Url.Content("~/Images/placeholder.png") : Url.Content(vehicle.ImageUrl))" alt="carname" />
                     </div>
                     <div class="car-title">
                         <p>@vehicle.Name</p>
@@ -117,6 +117,15 @@
                             @vehicle.Year
                         </div>
                     </div>
+
+                    
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="delete-btn">
+                            <a onclick="DeleteVehicle(this)" value=@vehicle.Id class="btn btn-danger"><i class="fa fa-trash fa-lg delete-icon"></i></a>
+                        </div>
+                    }
                 </div>
             </a>
         </div>

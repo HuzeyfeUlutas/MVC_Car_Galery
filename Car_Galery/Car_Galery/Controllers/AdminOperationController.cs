@@ -464,7 +464,6 @@ namespace Car_Galery.Controllers
                 BrandId = entity.Id
             }).ToList();
 
-
             unitOfWork.GetRepository<Brand>().Add(entity);
 
             unitOfWork.SaveChanges();

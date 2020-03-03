@@ -120,6 +120,7 @@ namespace Car_Galery.Controllers
             return PartialView("_VehicleDetailPartialView", vm);
         }
 
+        [Authorize(Roles = "Admin")]
         public PartialViewResult VehicleEditModal(int? id)
         {
             unitOfWork = new EFUnitOfWork(db);
@@ -159,6 +160,7 @@ namespace Car_Galery.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
         public PartialViewResult VehicleAddModal()
         {
             unitOfWork = new EFUnitOfWork(db);
@@ -198,6 +200,7 @@ namespace Car_Galery.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult AddVehicleConfirm(VehicleOperationView vov, HttpPostedFileBase file1)
         {
             unitOfWork = new EFUnitOfWork(db);
@@ -221,7 +224,32 @@ namespace Car_Galery.Controllers
 
             return RedirectToAction("Index");
         }
-        
+
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public PartialViewResult DeleteVehicle(int id)
+        {
+            unitOfWork = new EFUnitOfWork(db);
+
+            unitOfWork.GetRepository<Vehicle>().Delete(id);
+
+            unitOfWork.SaveChanges();
+
+            InventoryViewModel ıvm = new InventoryViewModel();
+
+            ıvm.FilterModel = new FilterModel();
+
+            List<VehicleModel> vhList = new List<VehicleModel>();
+
+            vhList = unitOfWork.GetRepository<Vehicle>().GetAll(v=>v.Rentable == false).ProjectTo<VehicleModel>().ToList();
+
+            ıvm.FilterModel.ResultCount = vhList.Count();
+
+            ıvm.PagedVehicleModels = vhList.ToPagedList( 1, 6);
+            unitOfWork.Dispose();
+            return PartialView("_VehicleListPartial", ıvm);
+        }
 
         public ActionResult FillBrands(int? TypeId)
         {
