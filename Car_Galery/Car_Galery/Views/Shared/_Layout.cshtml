@@ -21,15 +21,11 @@
                     <li class="nav-item ">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Inventory", "Index", "Inventory", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Rent A Car", "Index", "RentCar", null, new { @class = "nav-link" })</li>
-                    @if (User.IsInRole("User"))
-                    {
-                        <li class="nav-item">@Html.ActionLink("Requests", "About", "Home", null, new { @class = "nav-link" })</li>
-                    }
                     @Html.Partial("_LoginPartial")
                 </ul>
 
             </div>
-
+            
         </div>
     </nav>
     <div class="container body-container">
@@ -44,5 +40,6 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/site")
     @RenderSection("scripts", required: false)
+    
 </body>
 </html>

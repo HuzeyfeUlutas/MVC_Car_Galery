@@ -1,0 +1,59 @@
+﻿@model List<Car_Galery.Models.VehicleModel>
+
+@using Car_Galery.Models.ViewModels
+@using PagedList.Mvc
+
+
+@if (User.IsInRole("User"))
+{
+
+    <div class="user-list">
+        <div class="brand-title row">
+            <div class="col-md-6">
+                <h5><i class="fa fa-align-justify"></i> Your Request</h5>
+            </div>
+        </div>
+
+        <div class="carboxrow">
+
+            <div class="cls">
+                <div class="table cls">
+                    <div class="row row-header">
+                        <div class="col-4">
+                            <b>Vehicle Name</b>
+                        </div>
+                        <div class="col-6">
+                            <b>Status</b>
+                        </div>
+                        <div class="col-2">
+                            Info
+                        </div>
+                    </div>
+
+                    @foreach (var vehicle in Model)
+                    {
+                        <div class="row row-element">
+                            <div class="col-4">
+                                <p>@vehicle.Name</p>
+                            </div>
+                            <div class="col-6">
+                                <p>Active</p>
+                            </div>
+                            <div class="col-2">
+                                <a data-toggle="modal" data-target="#RequestUserVehicleModal" onclick="GetModalRequest(this)" value=@vehicle.Id><i class="fa fa-info-circle fa-lg"></i></a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal fade" id="RequestUserVehicleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        @{
+            Html.RenderPartial("_VehicleModalPartial", new VehicleModalViewModel());
+        }
+
+    </div>
+}
+

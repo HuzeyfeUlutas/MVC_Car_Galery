@@ -1,5 +1,6 @@
 ﻿
 @using Car_Galery.Models.ViewModels
+@using Microsoft.AspNet.Identity
 @using PagedList.Mvc
 @model Car_Galery.Models.ViewModels.InventoryViewModel
 
@@ -123,6 +124,13 @@
                             <a onclick="DeleteVehicle(this)" value=@vehicle.Id class="btn btn-danger"><i class="fa fa-trash fa-lg delete-icon"></i></a>
                         </div>
                     }
+                    @if (User.IsInRole("User"))
+                    {
+                        <div class="delete-btn">
+                            <a onclick="GetLocation(this)" value=@vehicle.Id  class="btn btn-success">Request</a>
+                        </div>
+                    }
+
                 </div>
             </a>
         </div>

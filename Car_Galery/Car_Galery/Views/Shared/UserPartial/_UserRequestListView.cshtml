@@ -2,6 +2,8 @@
 
 @using Car_Galery.Models.ViewModels
 @using PagedList.Mvc
+
+
 @if (User.IsInRole("Admin"))
 {
 
@@ -72,7 +74,7 @@
                                 <a data-toggle="modal" data-target="#RequestVehicleModal" onclick="InfoRequest(this)" value=@user.VehicleId value1="@user.RequestDateTime"><i class="fa fa-info-circle fa-lg"></i></a>
                             </div>
                             <div class="col-2 cls-location">
-                                <a data-toggle="modal" data-target="#RequestLocationModal" onclick="Location(this)" value=@user.Location><i class="fa fa-map-marker fa-lg"></i></a>
+                                <a href="http://maps.google.com?q=@user.Location"><i class="fa fa-map-marker fa-lg"></i></a>
                             </div>
                             <div class="col-1 cls-delete">
                                 <a onclick="DeleteUserRequest(this)" value=@user.Id value1=@user.VehicleId><i class="fa fa-trash fa-lg"></i></a>
@@ -89,13 +91,6 @@
         @{
             Html.RenderPartial("_RequestVehicleModalPartial", new RequestVehicleModalViewModel());
         }
-    </div>
-
-    <div class="modal fade" id="RequestLocationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        @{
-            Html.RenderPartial("_RequestLocationVehicleModalPartial", null);
-        }
-
     </div>
 
 }

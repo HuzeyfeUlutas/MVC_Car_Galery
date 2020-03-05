@@ -25,7 +25,6 @@
     var accordion = new Accordion($('#accordion'), false);
 });
 
-
 function FillBrands(lnk) {
     //Form post
     var TypeId = $('#TypeId'+lnk).val();
@@ -58,7 +57,6 @@ function FillBrands(lnk) {
         }
     });
 }
-
 
 function FillModels(lnk) {
     //Form post
@@ -98,6 +96,21 @@ function GetModal(lnk) {
         data: {id: VehicleId},
         success: function(data) {
             $('#VehicleModal').html(data);
+        }
+
+    });
+}
+
+function GetModalRequest(lnk) {
+    var VehicleId = lnk.getAttribute("value");
+
+    $.ajax({
+        url:'/Inventory/GetVehicleModal',
+        type:'POST',
+        datatype:"JSON",
+        data: {id: VehicleId},
+        success: function(data) {
+            $('#RequestUserVehicleModal').html(data);
         }
 
     });
@@ -152,6 +165,18 @@ function EditVehicle(lnk) {
             $("#DetailVehicle").removeClass('active');
             $("#EditVehicle").addClass('active');
         }
+    });
+}
+
+function RedirectVehicleIndex(lnk) {
+    var Id = lnk.getAttribute("value");
+
+    $.request({
+        url: '/Inventory/Index',
+        type: 'GET',
+        datatype: "JSON",
+        data: { brandId: Id}
+        
     });
 }
 
@@ -252,15 +277,19 @@ function DeleteUserRequest(lnk) {
     }
 }
 
-
-
-
 function OnSuccess(data) {
     $.notify(data + " is success","success");
 }
 
 function OnFail(data) {
     $.notify(data + " is fail", "error");
+}
+
+function OnFailMessage(data) {
+
+    $.notify(data, "error");
+    setTimeout(() => {  document.location.reload(); }, 3000);
+    
 }
 
 function AddSuccess(data) {
@@ -297,8 +326,6 @@ function List(lnk) {
 function Add(lnk) {
     var urlParam = lnk.getAttribute("id");
     var res = urlParam.replace("Add", "");
-
-
     $.ajax({
         url: '/AdminOperation/Get' + urlParam,
         type: 'GET',
@@ -331,28 +358,22 @@ $("#imgInp").change(function() {
     readURL(this);
 });
 
-
 $('#TypeModal').on('hidden.bs.modal',
     function() {
         document.location.reload();
     });
-
 $('#VehicleModal').on('hidden.bs.modal',
     function() {
         document.location.reload();
     });
-
-
 $('#BrandModal').on('hidden.bs.modal',
     function() {
         document.location.reload();
     });
-
 $('#ModelModal').on('hidden.bs.modal',
     function() {
         document.location.reload();
     });
-
 
 function GetAddVehicle() {
     $.ajax({
@@ -364,6 +385,51 @@ function GetAddVehicle() {
             
         }
     });
+}
+
+function GetLocation(lnk) {
+
+
+    var VehicleId = lnk.getAttribute("value")
+
+    var Location;
+
+    if (navigator.geolocation) {
+
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var a = position.coords.latitude;
+            var b = position.coords.longitude;
+            Location = a + "," + b;
+            console.log(Location);
+
+            if (confirm("You will pay 200 coins, Are you sure?")) {
+                $.ajax({
+                    url:'/User/AddRequest',
+                    type:'POST',
+                    data: {VehicleId: VehicleId, location:Location,"__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val()},
+                    success: function(data) {
+                        if (data.success) {
+                            OnSuccess("Request");
+                            setTimeout(() => {  document.location.reload(); }, 3000);
+                        }else {
+                            OnFailMessage(data.responseText);
+                        }
+                    
+                    },
+                    fail: function(data) {
+                        OnFail("Request");
+                    } 
+
+                });
+            }
+            
+
+        });
+        
+    }
+
+    
+
 }
 
 

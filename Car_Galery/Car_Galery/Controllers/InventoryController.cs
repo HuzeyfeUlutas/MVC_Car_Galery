@@ -30,7 +30,7 @@ namespace Car_Galery.Controllers
         private IUnitOfWork unitOfWork;
 
         // GET: Inventory
-        public ActionResult Index(int? PageNumber)
+        public ActionResult Index(int? PageNumber, int? brandId)
         { 
             unitOfWork = new EFUnitOfWork(db);
 
@@ -42,6 +42,11 @@ namespace Car_Galery.Controllers
             List<VehicleModel> vhList = new List<VehicleModel>();
 
             vhList = unitOfWork.GetRepository<Vehicle>().GetAll(v=>v.Rentable == false).ProjectTo<VehicleModel>().ToList();
+
+            if (brandId != null)
+            {
+                vhList = vhList.Where(vh => vh.BrandId == brandId).ToList();
+            }
 
             ıvm.FilterModel.ResultCount = vhList.Count();
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
@@ -12,11 +13,12 @@ using Car_Galery.Managers;
 using Car_Galery.Managers.Abstract;
 using Car_Galery.Models;
 using Car_Galery.Models.ViewModels;
+using Microsoft.AspNet.Identity;
 using PagedList;
 
 namespace Car_Galery.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    
     public class UserController : Controller
     {
         // GET: User
@@ -25,8 +27,7 @@ namespace Car_Galery.Controllers
         private ApplicationDbContext UsersContext = new ApplicationDbContext();
 
 
-
-
+        [Authorize(Roles = "Admin")]
         public ActionResult Index(int? PageNumber)
         {
             UserViewModel uvm = new UserViewModel();
@@ -47,6 +48,7 @@ namespace Car_Galery.Controllers
             return View(uvm);
         }
 
+        [Authorize(Roles = "Admin")]
         public PartialViewResult GetRentRequestList(int? PageNumber)
         {
             unitOfWork = new EFUnitOfWork(db);
@@ -64,6 +66,7 @@ namespace Car_Galery.Controllers
             return PartialView("_UserRequestListView",urvm) ;
         }
 
+        [Authorize(Roles = "Admin")]
         public PartialViewResult GetUserList(int? PageNumber)
         {
             UserViewModel uvm = new UserViewModel();
@@ -87,6 +90,7 @@ namespace Car_Galery.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteUser(string id)
         {
             var entity = UsersContext.Users.Find(id);
@@ -100,6 +104,7 @@ namespace Car_Galery.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteUserRequest(int id, int vehicleId)
         {
             unitOfWork = new EFUnitOfWork(db);
@@ -117,8 +122,8 @@ namespace Car_Galery.Controllers
             return RedirectToAction("GetRentRequestList");
         }
 
-
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public PartialViewResult GetVehicleModal(int id, DateTime dt)
         {
             unitOfWork = new EFUnitOfWork(db);
@@ -134,6 +139,101 @@ namespace Car_Galery.Controllers
             unitOfWork.Dispose();
 
             return PartialView("_RequestVehicleModalPartial", rvmvm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User")]
+        public ActionResult AddRequest(int VehicleId , string location)
+        {
+            var userId = User.Identity.GetUserId();
+
+            var userentity = UsersContext.Users.Find(userId);
+
+            unitOfWork = new EFUnitOfWork(db);
+
+            UserRequest ur= new UserRequest();
+
+            ur.Location = location;
+
+            ur.RequestDateTime = DateTime.Now;
+
+            ur.UserPhoneNumber = userentity.PhoneNumber;
+
+            ur.UserName = userentity.UserName;
+
+            ur.VehicleId = VehicleId;
+
+            var vehicle = unitOfWork.GetRepository<Vehicle>().GetById(VehicleId);
+
+
+            if (vehicle.Rented == true)
+            {
+                return Json(new {success = false, responseText = "Araç daha önce kiralanmış, Tekrar deneyin."},
+                    JsonRequestBehavior.AllowGet);
+            }else if (userentity.Balance < 200)
+            {
+                return Json(new {success = false, responseText = "Bakiyenizin 200 den fazla olması gerekiyor."},
+                    JsonRequestBehavior.AllowGet);
+            }else
+            {
+                userentity.Balance -= 200;
+                vehicle.Rented = true;
+                unitOfWork.GetRepository<Vehicle>().Update(vehicle);
+                unitOfWork.GetRepository<UserRequest>().Add(ur);
+                unitOfWork.SaveChanges();
+
+                UsersContext.Entry(userentity).State = EntityState.Modified;
+                UsersContext.SaveChangesAsync();
+                
+                unitOfWork.Dispose();
+                return Json(new {success = true, responseText = "Request Success."},JsonRequestBehavior.AllowGet);
+            }
+            
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User")]
+        public ActionResult AddBalance(int Balance)
+        {
+            var entity = UsersContext.Users.Find(User.Identity.GetUserId());
+
+            entity.Balance += Balance;
+
+
+            UsersContext.Entry(entity).State = EntityState.Modified;
+
+            UsersContext.SaveChangesAsync();
+
+
+            return RedirectToAction("Index", "Manage");
+        }
+
+        [Authorize(Roles = "User,Admin")]
+        public ActionResult GetRequestPartial()
+        {
+            unitOfWork = new EFUnitOfWork(db);
+
+            List<Vehicle>  v = new List<Vehicle>();
+
+            var userName = User.Identity.GetUserName();
+
+            var requestedVehicle = unitOfWork.GetRepository<UserRequest>().GetAll().Where(ur => ur.UserName == userName)
+                .ToList();
+
+            foreach (var request in requestedVehicle)
+            {
+                v.Add(unitOfWork.GetRepository<Vehicle>().GetById(request.VehicleId));
+            }
+
+            List<VehicleModel> vm = new List<VehicleModel>();
+
+            vm = Mapper.Map<List<Vehicle>, List<VehicleModel>>(v);
+
+            unitOfWork.Dispose();
+
+            return PartialView("_UserRequestVehiclePartial",vm);
         }
     }
 }

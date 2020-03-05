@@ -27,7 +27,7 @@
             </dd>
 
 
-            @if(User.IsInRole("User"))
+            @if (User.IsInRole("User"))
             {
                 <dt>Phone Number:</dt>
                 <dd>
@@ -43,15 +43,25 @@
                     }
                     else
                     {
+                        <dt>Add phone number for balance transactions!</dt>
                         <text>[&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")&nbsp;]</text>
                     }
-                </dd>
-                if(Model.PhoneNumber != null)
-                {
-                    <dt>Balance:</dt>
-                    <dd><text>@Model.Balance</text></dd>
-                }
-            }
+                    </dd>
+                    if (Model.PhoneNumber != null)
+                    {
+                        using (Html.BeginForm("AddBalance", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <dt>Balance:</dt>
+                            <dd><text>@Model.Balance</text></dd>
+                            <dt>Add Balance:</dt>
+                            Model.Balance = 0;
+                            <dd>@Html.TextBoxFor(t => t.Balance, new { @class = "form-control", placeholder = "Enter Balance" })</dd>
+                            <dd><button class="btn btn-success" type="submit">Add Balance</button></dd>
+
+                        }
+                    }
+             }
 
 
 
@@ -61,5 +71,9 @@
         </dl>
     </div>
     
-    <div class="col-md-6 col-12"></div>
+    <div class="col-md-6 col-12">
+        @{
+            Html.RenderAction("GetRequestPartial","User");
+        }
+    </div>
 </div>
