@@ -209,24 +209,28 @@ namespace Car_Galery.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddVehicleConfirm(VehicleOperationView vov, HttpPostedFileBase file1)
         {
-            unitOfWork = new EFUnitOfWork(db);
-
-            var entity = Mapper.Map<VehicleModalViewModel, Vehicle>(vov.VehicleModalViewModel);
-
-            if (file1 != null)
+            if (ModelState.IsValid)
             {
-                entity.ImageUrl = "~/Images/VehicleImages/" + entity.Name + entity.Year + ".png";;
-                string path = Path.Combine(Server.MapPath(entity.ImageUrl));
-                file1.SaveAs(path);
+                unitOfWork = new EFUnitOfWork(db);
+
+                var entity = Mapper.Map<VehicleModalViewModel, Vehicle>(vov.VehicleModalViewModel);
+
+                if (file1 != null)
+                {
+                    entity.ImageUrl = "~/Images/VehicleImages/" + entity.Name + entity.Year + ".png";;
+                    string path = Path.Combine(Server.MapPath(entity.ImageUrl));
+                    file1.SaveAs(path);
+                }
+
+                entity.Rented = false;
+
+                unitOfWork.GetRepository<Vehicle>().Add(entity);
+
+                unitOfWork.SaveChanges();
+
+                unitOfWork.Dispose();
             }
-
-            entity.Rented = false;
-
-            unitOfWork.GetRepository<Vehicle>().Add(entity);
-
-            unitOfWork.SaveChanges();
-
-            unitOfWork.Dispose();
+            
 
             return RedirectToAction("Index");
         }
@@ -263,34 +267,38 @@ namespace Car_Galery.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditVehicleConfirm(VehicleOperationView vov, HttpPostedFileBase file1)
         {
-            unitOfWork = new EFUnitOfWork(db);
-
-            var entity = unitOfWork.GetRepository<Vehicle>().GetById(vov.VehicleModalViewModel.Id);
-
-            string imageUrl = entity.ImageUrl;
-
-            Mapper.Map(vov.VehicleModalViewModel, entity);
-
-            entity.ImageUrl = imageUrl;
-            if (file1 != null)
-            {
-                string fullPath = Request.MapPath(entity.ImageUrl);
-                if (System.IO.File.Exists(fullPath))
-                {
-                    System.IO.File.Delete(fullPath);
-                }
-                entity.ImageUrl = "~/Images/VehicleImages/" + entity.Name + ".png";;
-                string path = Path.Combine(Server.MapPath(entity.ImageUrl));
-                file1.SaveAs(path);
-            }
             
-            unitOfWork.GetRepository<Vehicle>().Update(entity);
+            if (ModelState.IsValid)
+            {
+                unitOfWork = new EFUnitOfWork(db);
 
-            unitOfWork.SaveChanges();
-                
-            unitOfWork.Dispose();
+                var entity = unitOfWork.GetRepository<Vehicle>().GetById(vov.VehicleModalViewModel.Id);
 
-            return RedirectToAction("GetVehicleModal", new {id = vov.VehicleModalViewModel.Id});
+                string imageUrl = entity.ImageUrl;
+
+                Mapper.Map(vov.VehicleModalViewModel, entity);
+
+                entity.ImageUrl = imageUrl;
+                if (file1 != null)
+                {
+                    string fullPath = Request.MapPath(entity.ImageUrl);
+                    if (System.IO.File.Exists(fullPath))
+                    {
+                        System.IO.File.Delete(fullPath);
+                    }
+                    entity.ImageUrl = "~/Images/VehicleImages/" + entity.Name + ".png";;
+                    string path = Path.Combine(Server.MapPath(entity.ImageUrl));
+                    file1.SaveAs(path);
+                }
+            
+                unitOfWork.GetRepository<Vehicle>().Update(entity);
+
+                unitOfWork.SaveChanges();
+
+                unitOfWork.Dispose();
+            }
+
+            return RedirectToAction("VehicleEditModal", new {id = vov.VehicleModalViewModel.Id});
 
         }
 

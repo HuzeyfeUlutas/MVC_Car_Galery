@@ -5,7 +5,7 @@
             <div>
                 @using (Ajax.BeginForm("EditVehicleConfirm", "Inventory", null, new AjaxOptions()
                 {
-                    UpdateTargetId = "VehicleModal",
+                    UpdateTargetId = "card-type-body-Vehicle",
                     InsertionMode = InsertionMode.Replace,
                     HttpMethod = "Post",
                     Confirm = "Are you sure",
@@ -15,6 +15,7 @@
                 }, new { enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="row form-brand">
                         <div class="col-lg-6 col-12">
                             <div class="btn-edit">
@@ -28,21 +29,25 @@
                                 @Html.HiddenFor(model => model.VehicleModalViewModel.Id)
                                 @Html.Label("TypeId1", "Types:")
                                 @Html.DropDownListFor(model => model.VehicleModalViewModel.TypeId, Model.Types, "--Select Type--", new { @class = "form-control form-dropdown", onchange = "FillBrands(1)", id = "TypeId1" })
+                                @Html.ValidationMessageFor(x => x.VehicleModalViewModel.TypeId, "", new { @style = "color:red" })
                             </div>
 
                             <div class="form-group">
                                 @Html.Label("BrandId1", "Brands:")
                                 @Html.DropDownListFor(model => model.VehicleModalViewModel.BrandId, Model.Brands, "--Select Brand--", new { @class = "form-control form-dropdown", onchange = "FillModels(1)", id = "BrandId1" })
+                                @Html.ValidationMessageFor(x => x.VehicleModalViewModel.BrandId, "", new { @style = "color:red" })
                             </div>
 
                             <div class="form-group">
                                 @Html.Label("ModelId1", "Models:")
                                 @Html.DropDownListFor(model => model.VehicleModalViewModel.ModelId, Model.Models, "--Select Model--", new { @class = "form-control form-dropdown", id = "ModelId1" })
+                                @Html.ValidationMessageFor(x => x.VehicleModalViewModel.ModelId, "", new { @style = "color:red" })
                             </div>
 
                             <div class="form-group">
                                 @Html.Label("ddlYear", "Year:")
-                                @Html.DropDownListFor(model => model.VehicleModalViewModel.Year, Enumerable.Range(1950, DateTime.Now.Year - 1950).Select(x => new SelectListItem { Text = x.ToString() }), "--Select Model--", new { @class = "form-control form-dropdown", id = "ddlYear" })
+                                @Html.DropDownListFor(model => model.VehicleModalViewModel.Year, Enumerable.Range(1950, DateTime.Now.Year - 1950).Select(x => new SelectListItem { Text = x.ToString() }), "--Select Year--", new { @class = "form-control form-dropdown", id = "ddlYear" })
+                                @Html.ValidationMessageFor(x => x.VehicleModalViewModel.Year, "", new { @style = "color:red" })
                             </div>
 
                             <div class="form-group">
@@ -51,7 +56,8 @@
                                 {
                                     new SelectListItem {Text = "Gasoline", Value = "Gasoline"},
                                     new SelectListItem {Text = "Diesel", Value = "Diesel"}
-                                }, "--Select Model--", new { @class = "form-control form-dropdown", id = "ddlFuel" })
+                                }, "--Select Fuel Type--", new { @class = "form-control form-dropdown", id = "ddlFuel" })
+                                @Html.ValidationMessageFor(x => x.VehicleModalViewModel.Fuel, "", new { @style = "color:red" })
                             </div>
 
                             <div class="form-group">
@@ -61,7 +67,8 @@
                                     new SelectListItem {Text = "Automatic", Value = "Automatic"},
                                     new SelectListItem {Text = "Manuel", Value = "Manuel"}
 
-                                }, "--Select Model--", new { @class = "form-control form-dropdown", id = "ddlTransmission" })
+                                }, "--Select Transmission Type--", new { @class = "form-control form-dropdown", id = "ddlTransmission" })
+                                @Html.ValidationMessageFor(x => x.VehicleModalViewModel.Transmission, "", new { @style = "color:red" })
                             </div>
 
                             <div class="form-group">
@@ -70,27 +77,32 @@
                                 {
                                     new SelectListItem {Text = "True", Value = "True"},
                                     new SelectListItem {Text = "False", Value = "False"}
-                                }, "--Select Model--", new { @class = "form-control form-dropdown", id = "ddlRentable" })
+                                }, "--Select Rentable Value--", new { @class = "form-control form-dropdown", id = "ddlRentable" })
+                                @Html.ValidationMessageFor(x => x.VehicleModalViewModel.Rentable, "", new { @style = "color:red" })
                             </div>
 
                             <div class="form-group">
                                 @Html.LabelFor(model => model.VehicleModalViewModel.Name, new { @class = "control-label" })
                                 @Html.TextBoxFor(model => model.VehicleModalViewModel.Name, new { @class = "form-control", placeholder = "Enter Vehicle Name" })
+                                @Html.ValidationMessageFor(x => x.VehicleModalViewModel.Name, "", new { @style = "color:red" })
                             </div>
 
                             <div class="form-group">
                                 @Html.LabelFor(model => model.VehicleModalViewModel.Price, new { @class = "control-label" })
                                 @Html.TextBoxFor(model => model.VehicleModalViewModel.Price, new { @class = "form-control", placeholder = "Enter Vehicle Price" })
+                                @Html.ValidationMessageFor(x => x.VehicleModalViewModel.Price, "", new { @style = "color:red" })
                             </div>
 
                             <div class="form-group">
                                 @Html.LabelFor(model => model.VehicleModalViewModel.Km, new { @class = "control-label" })
                                 @Html.TextBoxFor(model => model.VehicleModalViewModel.Km, new { @class = "form-control", placeholder = "Enter Vehicle Km" })
+                                @Html.ValidationMessageFor(x => x.VehicleModalViewModel.Km, "", new { @style = "color:red" })
                             </div>
 
                             <div class="form-group">
                                 @Html.LabelFor(model => model.VehicleModalViewModel.Color, new { @class = "control-label" })
                                 @Html.TextBoxFor(model => model.VehicleModalViewModel.Color, new { @class = "form-control", placeholder = "Enter Vehicle Color" })
+                                @Html.ValidationMessageFor(x => x.VehicleModalViewModel.Color, "", new { @style = "color:red" })
                             </div>
 
                             <div class="btn-edit">
