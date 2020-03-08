@@ -183,7 +183,6 @@
     <Compile Include="App_Start\PartialViewRouteConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Context\VehiclesContext.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminOperationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -202,31 +201,11 @@
     </Compile>
     <Compile Include="Helpers\IdentityExtensions.cs" />
     <Compile Include="Helpers\VehicleListHelper.cs" />
-    <Compile Include="MigrationsIdentity\202002261250534_InitialCreate.cs" />
-    <Compile Include="MigrationsIdentity\202002261250534_InitialCreate.Designer.cs">
-      <DependentUpon>202002261250534_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202003081858252_v1.cs" />
+    <Compile Include="Migrations\202003081858252_v1.Designer.cs">
+      <DependentUpon>202003081858252_v1.cs</DependentUpon>
     </Compile>
-    <Compile Include="MigrationsIdentity\202003032159486_v1.cs" />
-    <Compile Include="MigrationsIdentity\202003032159486_v1.Designer.cs">
-      <DependentUpon>202003032159486_v1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MigrationsIdentity\Configuration.cs" />
-    <Compile Include="Migrations\202002151059337_V3.cs" />
-    <Compile Include="Migrations\202002151059337_V3.Designer.cs">
-      <DependentUpon>202002151059337_V3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003031259047_v4.cs" />
-    <Compile Include="Migrations\202003031259047_v4.Designer.cs">
-      <DependentUpon>202003031259047_v4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003031303509_v5.cs" />
-    <Compile Include="Migrations\202003031303509_v5.Designer.cs">
-      <DependentUpon>202003031303509_v5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003032139491_v51.cs" />
-    <Compile Include="Migrations\202003032139491_v51.Designer.cs">
-      <DependentUpon>202003032139491_v51.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BrandModel.cs" />
     <Compile Include="Models\FilterModel.cs" />
     <Compile Include="Models\ModelModel.cs" />
@@ -245,15 +224,6 @@
     <Compile Include="Models\ViewModels\VehicleOperationView.cs" />
     <Compile Include="UnitOfWork\Abstract\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\EFUnitOfWork.cs" />
-    <Compile Include="Migrations\202002081121058_V1.cs" />
-    <Compile Include="Migrations\202002081121058_V1.Designer.cs">
-      <DependentUpon>202002081121058_V1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002081123432_v2.cs" />
-    <Compile Include="Migrations\202002081123432_v2.Designer.cs">
-      <DependentUpon>202002081123432_v2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
@@ -372,36 +342,15 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MigrationsIdentity\202002261250534_InitialCreate.resx">
-      <DependentUpon>202002261250534_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MigrationsIdentity\202003032159486_v1.resx">
-      <DependentUpon>202003032159486_v1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002081121058_V1.resx">
-      <DependentUpon>202002081121058_V1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002081123432_v2.resx">
-      <DependentUpon>202002081123432_v2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002151059337_V3.resx">
-      <DependentUpon>202002151059337_V3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003031259047_v4.resx">
-      <DependentUpon>202003031259047_v4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003031303509_v5.resx">
-      <DependentUpon>202003031303509_v5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003032139491_v51.resx">
-      <DependentUpon>202003032139491_v51.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202003081858252_v1.resx">
+      <DependentUpon>202003081858252_v1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

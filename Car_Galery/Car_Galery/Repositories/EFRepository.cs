@@ -5,7 +5,6 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
-using Car_Galery.Context;
 using Car_Galery.Repositories.Abstract;
 
 namespace Car_Galery.Repositories

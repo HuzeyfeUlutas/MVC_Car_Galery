@@ -10,7 +10,6 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Car_Galery.Context;
 using Car_Galery.Entities;
 using Car_Galery.Helpers;
 using Car_Galery.Managers;
@@ -25,7 +24,7 @@ namespace Car_Galery.Controllers
 {
     public class InventoryController : Controller
     {
-        private  DbContext db = new VehiclesContext();
+        private  DbContext db = new ApplicationDbContext();
 
         private IUnitOfWork unitOfWork;
 

@@ -7,7 +7,6 @@ using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Car_Galery.Context;
 using Car_Galery.Entities;
 using Car_Galery.Managers;
 using Car_Galery.Managers.Abstract;
@@ -23,7 +22,7 @@ namespace Car_Galery.Controllers
     {
         // GET: User
         private IUnitOfWork unitOfWork;
-        private DbContext db = new VehiclesContext();
+        private DbContext db = new ApplicationDbContext();
         private ApplicationDbContext UsersContext = new ApplicationDbContext();
 
 

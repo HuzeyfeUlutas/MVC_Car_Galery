@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper.QueryableExtensions;
-using Car_Galery.Context;
 using Car_Galery.Entities;
 using Car_Galery.Helpers;
 using Car_Galery.Managers;
@@ -18,7 +17,7 @@ namespace Car_Galery.Controllers
 {
     public class RentCarController : Controller
     {
-        private  DbContext db = new VehiclesContext();
+        private  DbContext db = new ApplicationDbContext();
 
         private IUnitOfWork unitOfWork;
         // GET: RentCar

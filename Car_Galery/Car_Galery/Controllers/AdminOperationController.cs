@@ -9,7 +9,6 @@ using System.Web.Mvc;
 using System.Web.UI.WebControls.WebParts;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Car_Galery.Context;
 using Car_Galery.Entities;
 using Car_Galery.Managers;
 using Car_Galery.Managers.Abstract;
@@ -24,7 +23,7 @@ namespace Car_Galery.Controllers
     {
 
         private IUnitOfWork unitOfWork;
-        private DbContext db = new VehiclesContext();
+        private DbContext db = new ApplicationDbContext();
         // GET: AdminOperation
 
         #region GetModal

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using Car_Galery.Context;
 using Car_Galery.Managers.Abstract;
+using Car_Galery.Models;
 using Car_Galery.Repositories;
 using Car_Galery.Repositories.Abstract;
 
@@ -16,7 +16,7 @@ namespace Car_Galery.Managers
 
         public EFUnitOfWork(DbContext dbContext)
         {
-            Database.SetInitializer<VehiclesContext>(null);
+            Database.SetInitializer<ApplicationDbContext>(null);
 
             if(dbContext == null)
                 throw new ArgumentNullException("dbContext can not be null.");

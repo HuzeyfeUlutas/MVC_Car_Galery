@@ -8,21 +8,20 @@ namespace Car_Galery.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Car_Galery.Context.VehiclesContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Car_Galery.Models.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Car_Galery.Context.VehiclesContext context)
+        protected override void Seed(Car_Galery.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
-
-            List<Vehicle> vehicleList = new List<Vehicle>
+             List<Vehicle> vehicleList = new List<Vehicle>
             {
                 new Vehicle(){Id = 1,Name = "BMW X6", ImageUrl = "~/Images/VehicleImages/carimage1.png",Year = "2018",Km = 15000,Color = "Red",Price = 1500000,Fuel = "Dizel",Transmission = "Automatic",Rentable = false,Rented = false, BrandId = 1, ModelId = 1, TypeId = 1},
                 new Vehicle(){Id = 2,Name = "BMW 3.20", ImageUrl = "~/Images/VehicleImages/carimage1.png",Year = "2019",Km = 20000,Color = "Black",Price = 250000,Fuel = "Benzin",Transmission = "Manuel",Rentable = false,Rented = false, BrandId = 1, ModelId = 2, TypeId = 2},
@@ -38,10 +37,10 @@ namespace Car_Galery.Migrations
 
             List<Brand> brandList = new List<Brand>
             {
-                new Brand(){Id = 1,Name = "BMW",BrandImgUrl = ""},
-                new Brand(){Id = 2,Name = "Volkswagen",BrandImgUrl = ""},
-                new Brand(){Id = 3,Name = "Mercedes",BrandImgUrl = ""},
-                new Brand(){Id = 4,Name = "Audi",BrandImgUrl = ""}
+                new Brand(){Id = 1,Name = "BMW",BrandImgUrl = "~/Images/BrandImages/BMW.png"},
+                new Brand(){Id = 2,Name = "Volkswagen",BrandImgUrl = "~/Images/BrandImages/Mercedes.png"},
+                new Brand(){Id = 3,Name = "Mercedes",BrandImgUrl = "~/Images/BrandImages/Volkswagen.png"},
+                new Brand(){Id = 4,Name = "Audi",BrandImgUrl = "~/Images/BrandImages/Audi1.png"}
             };
 
             List<Model> modelList = new List<Model>

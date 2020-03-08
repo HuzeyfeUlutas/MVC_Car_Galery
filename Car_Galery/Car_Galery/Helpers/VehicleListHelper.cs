@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Car_Galery.Models;
-using Car_Galery.Context;
 using Car_Galery.Entities;
 using Car_Galery.Managers.Abstract;
 
