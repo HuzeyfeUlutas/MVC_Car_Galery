@@ -120,12 +120,6 @@
                                                 @Html.TextBoxFor(model => model.VehicleModalViewModel.Color, new { @class = "form-control", placeholder = "Enter Vehicle Color" })
                                                 @Html.ValidationMessageFor(x => x.VehicleModalViewModel.Color, "", new { @style = "color:red" })
                                             </div>
-                                            
-                                            <script type="text/javascript">
-                                                $(document).ready(function () {
-                                                    $.validator.unobtrusive.parse("#lastDiv > form");
-                                                });
-                                            </script>
 
                                             <div class="btn-edit">
                                                 <input type="submit" value="Add" class="btn btn-success" />
