@@ -44,6 +44,7 @@ namespace Car_Galery.Models
 
         public DbSet<UserRequest> UserRequests { get; set; }
 
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
